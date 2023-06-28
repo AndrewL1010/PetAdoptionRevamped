@@ -1,15 +1,14 @@
 "use client";
 import { FaPaw } from 'react-icons/fa';
-import { IconContext } from "react-icons";
 import { Navbar, Nav, Container, NavDropdown, Modal, Button } from "react-bootstrap";
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import React from 'react'
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import styles from './NavBar.module.css';
 import NavBarProps from '@/types/NavBarProps';
 function NavBar(props: NavBarProps) {
-    let { status, user} = props
+    let { status, user } = props
     const [show, setShow] = useState<boolean>(false);
     const [username, setUsername] = useState<String>();
     const [password, setPassword] = useState<String>("");
@@ -69,13 +68,19 @@ function NavBar(props: NavBarProps) {
                         Pet Sanctuary
                     </Navbar.Brand>
                     <Navbar.Toggle aria-controls="main-navbar" />
-                    <Navbar.Collapse id="main-navbar">
-                    </Navbar.Collapse>
+                    <Nav>
+                        <Navbar.Collapse id="main-navbar">
+                            <Nav.Link as={Link} href="/dogs" active={pathname === "/dogs"}>Dogs</Nav.Link>
+                            <Nav.Link as={Link} href="/cats" active={pathname === "/cats"}>Cats</Nav.Link>
+                            <Nav.Link as={Link} href="/rabbits" active={pathname === "/rabbits"}>Rabbits</Nav.Link>
+                            <Nav.Link href="/birds" active={pathname === "/birds"}>Birds</Nav.Link>
+                        </Navbar.Collapse>
+                    </Nav>
+
                     <Nav>
                         {isLoggedIn ? (
 
                             <NavDropdown title={currentUser}>
-                                {/* <NavDropdown.Item><Nav.Link onClick={logout}>Logout</Nav.Link></NavDropdown.Item> */}
                                 <NavDropdown.Item onClick={logout}>Logout</NavDropdown.Item>
                                 <NavDropdown.Item as={Link} href='/profile'>Profile</NavDropdown.Item>
                             </NavDropdown>
