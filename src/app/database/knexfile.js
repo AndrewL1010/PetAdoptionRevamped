@@ -6,9 +6,9 @@
 module.exports = {
   client: 'pg',
   connection: {
-    database: "Animal", 
+    database: "Animal",
     user: "postgres",
-    password:'4739',
+    password: '4739',
   },
   debug: true,
   migrations: {
@@ -16,6 +16,10 @@ module.exports = {
   },
   seeds: {
     directory: "./seeds"
+  },
+  pool: {
+    min: 2,  // Minimum number of connections
+    max: 10, // Maximum number of connections
   }
 
 
