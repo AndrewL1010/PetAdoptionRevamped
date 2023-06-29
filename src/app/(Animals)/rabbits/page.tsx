@@ -1,7 +1,7 @@
 import Image from "next/image"
-import Rabbit from "../../types/Animal"
+import Rabbit from "../../../types/Animal"
 import styles from './page.module.css';
-const knexDB = require("../database/knexConfig");
+const knexDB = require("../../database/knexConfig");
 async function Page() {
     const data = await knexDB('rabbits');
     return (

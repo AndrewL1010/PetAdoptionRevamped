@@ -3,6 +3,11 @@ import Image from "next/image"
 import styles from './page.module.css';
 import petOwner from './petowner.jpg';
 import CEO from './ceo.jpg';
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: 'About us - Pet Sanctuary',
+}
 function page() {
     return (
         <Container>

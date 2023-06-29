@@ -1,0 +1,6 @@
+.images{
+    object-fit: cover;
+    margin: 0.25rem;
+    border-radius: 4pc;
+    cursor: pointer;
+}

@@ -1,5 +1,5 @@
 "use client"
-import { Button } from '../../components/bootstrap';
+import { Button } from '../../../components/bootstrap';
 function Page() {
     const data = [
         {
