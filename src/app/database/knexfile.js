@@ -17,10 +17,5 @@ module.exports = {
   seeds: {
     directory: "./seeds"
   },
-  pool: {
-    min: 2,  // Minimum number of connections
-    max: 10, // Maximum number of connections
-  }
-
-
+  
 };
