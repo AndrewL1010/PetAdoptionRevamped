@@ -4,17 +4,18 @@ import styles from './page.module.css';
 import Link from "next/link";
 const knexDB = require("../../database/knexConfig");
 async function Page() {
-    const data = await knexDB('dogs');
+    const data = await knexDB('animals').where({ type: "dog" });
     console.log(data);
     return (
-        <div>
-
+        <div className={styles.container}>
             {data.map((dog: Dog) => {
                 return (
                     <Link key={dog.id} href={`/animals/${dog.id}`}>
-                        <Image src={dog.image} alt={dog.alt} height={300} width={420} key={dog.id} className={styles.images}></Image>
+                        <div className={styles.innercontainer}>
+                            <h4>{dog.name}</h4>
+                            <Image src={dog.image} alt={dog.alt} height={300} width={420} key={dog.id} className={styles.images}></Image>
+                        </div>
                     </Link>
-
                 )
 
             })}

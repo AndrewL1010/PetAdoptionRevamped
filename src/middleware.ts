@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { NextRequest } from 'next/server';
 import { string, object } from 'yup';
+import * as knexDb from "./app/database/knexConfig";
 const jose = require('jose');
 const registrySchema = object({
     username: string().required(),
@@ -47,5 +48,6 @@ export async function middleware(request: NextRequest) {
             return NextResponse.redirect('http://localhost:3000/');
         }
     }
+
 
 };

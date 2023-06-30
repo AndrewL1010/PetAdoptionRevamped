@@ -29,7 +29,7 @@ function Footer() {
                     <h4 className={`${styles.innerChild} ${styles.header}`}>FAQ</h4>
                     <Link href={"/about"} className={styles.footerlinks}>About us</Link>
                     <Link href={"/contact"} className={styles.footerlinks}>Contact us</Link>
-                    <Link href={"/contact"} className={styles.footerlinks}>FAQ</Link>
+                    <Link href={"/FAQ"} className={styles.footerlinks}>FAQ</Link>
 
                 </div>
             </Container>

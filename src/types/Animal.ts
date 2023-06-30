@@ -8,4 +8,5 @@ export default interface Animal {
     breed: string,
     alt: string,
     image: string,
+    description: Text,
 }

@@ -2,18 +2,17 @@
     object-fit: cover;
     margin: 0.25rem;
     border-radius: 4pc;
-    cursor: pointer;
 }
 .container{
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
     align-items: center;
-}
-.innercontainer{
-    display: flex;
+    justify-content: center;
     flex-direction: column;
+    max-width: 50%;
+}
+.info{
+    display: flex;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
 }
