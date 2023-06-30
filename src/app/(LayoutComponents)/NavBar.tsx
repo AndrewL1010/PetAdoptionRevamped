@@ -62,7 +62,7 @@ function NavBar(props: NavBarProps) {
     return (
         <div>
             <Navbar bg="primary" variant="dark" sticky="top" expand="sm" collapseOnSelect>
-                <Container>
+                <Container className={styles.container}>
                     <Navbar.Brand as={Link} href="/">
                         <FaPaw size={40} className={styles.logo} />
                         Pet Sanctuary
@@ -70,9 +70,9 @@ function NavBar(props: NavBarProps) {
                     <Navbar.Toggle aria-controls="main-navbar" />
                     <Nav>
                         <Navbar.Collapse id="main-navbar">
-                            <Nav.Link as={Link} href="/dogs" active={pathname === "/dogs"}>Dogs</Nav.Link>
-                            <Nav.Link as={Link} href="/cats" active={pathname === "/cats"}>Cats</Nav.Link>
-                            <Nav.Link as={Link} href="/rabbits" active={pathname === "/rabbits"}>Rabbits</Nav.Link>
+                            <Nav.Link href="/dogs" active={pathname === "/dogs"}>Dogs</Nav.Link>
+                            <Nav.Link href="/cats" active={pathname === "/cats"}>Cats</Nav.Link>
+                            <Nav.Link href="/rabbits" active={pathname === "/rabbits"}>Rabbits</Nav.Link>
                             <Nav.Link href="/birds" active={pathname === "/birds"}>Birds</Nav.Link>
                         </Navbar.Collapse>
                     </Nav>

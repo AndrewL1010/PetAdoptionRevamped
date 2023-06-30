@@ -18,12 +18,12 @@ export async function POST(request: Request) {
             replyTo: email,
         }
         const info = await transporter.sendMail(mailOptions);
-        return NextResponse.json({status: "success", description: info});
+        return NextResponse.json({ status: "success", description: info });
 
 
     }
-    catch(error){
-        return NextResponse.json({status: "error", description: error})
+    catch (error) {
+        return NextResponse.json({ status: "error", description: error })
     }
 
 

@@ -4,20 +4,25 @@ import Image from 'next/image';
 import CarouselProps from '../types/CarouselProps';
 import styles from './CarouselComponent.module.css';
 function CarouselComponent(props: CarouselProps) {
-    const paths = props.paths;
+    const images = props.images;
+
     return (
         <Carousel>
-            {paths.map((path) => {
+            {images.map((image) => {
                 return (
-                    <Carousel.Item key={path}>
+                    <Carousel.Item key={image.path}>
                         <Image
                             className={styles.images}
-                            src={path}
+                            src={image.path}
                             alt="home slide image"
                             width={1300}
                             height={583}
-                            
+
                         />
+                        <Carousel.Caption>
+                            <h3 className={styles.text}>{image.header}</h3>
+                            <p className={styles.text}>{image.message}.</p>
+                        </Carousel.Caption>
                     </Carousel.Item>
                 )
             })}

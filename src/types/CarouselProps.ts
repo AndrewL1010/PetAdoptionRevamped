@@ -1,3 +1,5 @@
-export default interface ModalProps {
-    paths: string[],
+import Image from './Image'
+export default interface CarouselProps {
+    images: Image[];
+
 }

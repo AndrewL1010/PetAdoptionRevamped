@@ -1,8 +1,6 @@
 import PageProps from "@/types/PageProps";
 import Image from "next/image";
 import styles from './page.module.css';
-import handleQuery from "@/utility/dbHandler";
-const knexDB = require("../../database/knexConfig");
 import getConnection from "@/utility/dbHandler";
 import { Container } from "../../../components/bootstrap";
 async function Page({ params: { id } }: PageProps) {

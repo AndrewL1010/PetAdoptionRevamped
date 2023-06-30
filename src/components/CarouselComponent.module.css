@@ -1,3 +1,6 @@
 .images{
     object-fit: cover;
 }
+.text{
+    font-weight: bolder;
+}
