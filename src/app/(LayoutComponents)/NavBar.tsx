@@ -7,16 +7,19 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import styles from './NavBar.module.css';
 import NavBarProps from '@/types/NavBarProps';
+import ModalComponent from '@/components/ModalComponent';
 function NavBar(props: NavBarProps) {
     let { status, user } = props
+    const [showLogin, setShowLogin] = useState<boolean>(false);
     const [show, setShow] = useState<boolean>(false);
-    const [username, setUsername] = useState<String>();
+    const [username, setUsername] = useState<String>("");
     const [password, setPassword] = useState<String>("");
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(status);
     const [currentUser, setCurrentUser] = useState<String>(user);
     const router = useRouter();
-    const handleShow = () => setShow(true);
-    const handleClose = () => setShow(false);
+    const handleShow = () => setShowLogin(true);
+    const handleClose = () => setShowLogin(false);
+   
     const login = async () => {
         const data = {
             username: username,
@@ -31,7 +34,10 @@ function NavBar(props: NavBarProps) {
         )
         let result = await response.json();
         if (result.status === "fail") {
-            console.log("inccorrect username or password");
+            setUsername("");
+            setPassword("");
+            handleClose();
+            setShow(true);
 
         }
         else {
@@ -50,6 +56,8 @@ function NavBar(props: NavBarProps) {
         );
         const result = await response.json();
         if (result === "loggedout") {
+            setPassword("");
+            setUsername("");
             setIsLoggedIn(false);
             router.push("/");
         }
@@ -60,7 +68,7 @@ function NavBar(props: NavBarProps) {
     const pathname = usePathname();
 
     return (
-        <div>
+        <div className={styles.parentContainer}>
             <Navbar bg="primary" variant="dark" sticky="top" expand="sm" collapseOnSelect>
                 <Container className={styles.container}>
                     <Navbar.Brand as={Link} href="/">
@@ -94,8 +102,9 @@ function NavBar(props: NavBarProps) {
                     </Nav>
                 </Container>
             </Navbar>
+            <ModalComponent setShow={setShow} setShowLogin={setShowLogin} show={show} body=" Incorrect Username or Password" title="Login failed"></ModalComponent>
 
-            <Modal show={show} onHide={handleClose}>
+            <Modal show={showLogin} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>Login</Modal.Title>
                 </Modal.Header>

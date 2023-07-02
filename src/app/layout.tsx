@@ -25,7 +25,7 @@ export default function RootLayout({
         <SSRProvider>
           <main>
             <NavBarParent />
-            <Container className='py-4'>
+            <Container className="py-4 layoutContainer">
               {children}
             </Container>
           </main>

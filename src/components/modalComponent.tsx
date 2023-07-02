@@ -3,11 +3,21 @@ import { Modal, Button } from "react-bootstrap"
 import { useState } from "react";
 import ModalProps from '../types/ModalProps';
 function modalComponent(props: ModalProps) {
-    const {show, setShow, body, title} = props;
-    const handleClose = () => setShow(false);
+    const { show, setShow, setShowLogin, body, title, } = props;
+
+
     return (
         <div>
-            <Modal show={show} onHide={handleClose}>
+            <Modal show={show} onHide={() => {
+                if (setShowLogin) {
+                    setShowLogin(true);
+                    setShow(false);
+
+                }
+                else {
+                    setShow(false);
+                }
+            }}>
                 <Modal.Header closeButton>
                     <Modal.Title>{title}</Modal.Title>
                 </Modal.Header>
@@ -16,7 +26,15 @@ function modalComponent(props: ModalProps) {
                     {body}
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="primary" onClick={handleClose}>
+                    <Button variant="primary" onClick={() => {
+                        if (setShowLogin) {
+                            setShow(false);
+                            setShowLogin(true);
+                        }
+                        else {
+                            setShow(false);
+                        }
+                    }}>
                         Close
                     </Button>
                 </Modal.Footer>

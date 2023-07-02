@@ -28,13 +28,14 @@ async function Page({ params: { id } }: PageProps) {
                 <Container className={styles.container}>
                     <h2>{animal.name}</h2>
                     <div className={styles.info}>
+
+                        <Image src={animal.image} alt={animal.alt} height={300} width={420} key={animal.id} className={styles.images}></Image>
                         <div>
                             <p><strong>age: </strong> {`${animal.age}`}</p>
                             <p><strong>breed: </strong> {`${animal.breed}`}</p>
                             <p><strong>gender: </strong> {`${animal.gender}`}</p>
                             <p><strong>weight: </strong> {`${animal.weight}`}</p>
                         </div>
-                        <Image src={animal.image} alt={animal.alt} height={300} width={420} key={animal.id} className={styles.images}></Image>
                     </div>
                     <div>
                         <p>{animal.description}</p>

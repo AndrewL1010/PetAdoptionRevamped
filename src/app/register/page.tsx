@@ -1,7 +1,7 @@
 "use client"
 import { FormEvent, useState } from "react"
 import { Button } from "react-bootstrap";
-import ModalComponent from "@/components/modalComponent";
+import ModalComponent from "@/components/ModalComponent";
 function Page() {
     const [username, setUsername] = useState<String>("");
     const [password, setPassword] = useState<String>("");
@@ -30,12 +30,12 @@ function Page() {
             setModalMessage("Username taken, please try again");
 
         }
-        if(result === "input-error"){
+        if (result === "input-error") {
             setShow(true);
             setModalTitle("Error");
             setModalMessage("invalid input, please try again");
         }
-        if(result === "success"){
+        if (result === "success") {
             setShow(true);
             setModalTitle("Success");
             setModalMessage("Account created, you may login now");
@@ -46,18 +46,19 @@ function Page() {
             <h1>Sign Up</h1>
             <div className="form-group">
                 <label htmlFor="username">Username</label>
-                <input onChange={(event) => { setUsername(event.target.value) }} type="username" className="form-control" id="username" aria-describedby="emailHelp" placeholder="Choose a username" required maxLength={30}/>
+                <input onChange={(event) => { setUsername(event.target.value) }} type="username" className="form-control" id="username" aria-describedby="emailHelp" placeholder="Choose a username" required maxLength={30} />
             </div>
             <div className="form-group">
                 <label htmlFor="password">Password</label>
-                <input onChange={(event) => { setPassword(event.target.value) }} type="password" className="form-control" id="password" placeholder="Choose a password" required minLength={6} maxLength={20}/>
+                <input onChange={(event) => { setPassword(event.target.value) }} type="password" className="form-control" id="password" placeholder="Choose a password" required minLength={6} maxLength={20} />
             </div>
             <Button type="submit">Register</Button>
-            <ModalComponent body={modalMessage} title={modalTitle} show={show} setShow={setShow}/>
 
+            <ModalComponent setShow={setShow} show={show} body={modalMessage} title={modalTitle}></ModalComponent>
 
         </form>
     )
+
 }
 
 export default Page
