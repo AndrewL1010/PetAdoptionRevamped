@@ -19,7 +19,7 @@ function NavBar(props: NavBarProps) {
     const router = useRouter();
     const handleShow = () => setShowLogin(true);
     const handleClose = () => setShowLogin(false);
-   
+
     const login = async () => {
         const data = {
             username: username,
@@ -77,12 +77,16 @@ function NavBar(props: NavBarProps) {
                     </Navbar.Brand>
                     <Navbar.Toggle aria-controls="main-navbar" />
                     <Nav>
-                        <Navbar.Collapse id="main-navbar">
-                            <Nav.Link href="/dogs" active={pathname === "/dogs"}>Dogs</Nav.Link>
-                            <Nav.Link href="/cats" active={pathname === "/cats"}>Cats</Nav.Link>
-                            <Nav.Link href="/rabbits" active={pathname === "/rabbits"}>Rabbits</Nav.Link>
-                            <Nav.Link href="/birds" active={pathname === "/birds"}>Birds</Nav.Link>
-                        </Navbar.Collapse>
+                        <NavDropdown id="main-navbar" title="Adopt">
+                            <NavDropdown.Item href='/how' active={pathname === "/how"}>How To adopt</NavDropdown.Item>
+                            <NavDropdown.Item href='/pets' active={pathname === "/pets"}>Available pets</NavDropdown.Item>
+                            {/* <NavDropdown.Item href="/dogs" active={pathname === "/dogs"}>Dogs</NavDropdown.Item>
+                            <NavDropdown.Item href="/cats" active={pathname === "/cats"}>Cats</NavDropdown.Item>
+                            <NavDropdown.Item  href="/rabbits" active={pathname === "/rabbits"}>Rabbits</NavDropdown.Item>
+                            <NavDropdown.Item  href="/birds" active={pathname === "/birds"}>Birds</NavDropdown.Item> */}
+                        </NavDropdown>
+                        <Nav.Link as={Link} href="/about" active={pathname === "/about"}>About Us</Nav.Link>
+                        <Nav.Link as={Link} href="/contact" active={pathname === "/contact"}>Contact Us</Nav.Link>
                     </Nav>
 
                     <Nav>

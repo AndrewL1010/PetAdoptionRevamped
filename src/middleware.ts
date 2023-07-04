@@ -32,7 +32,7 @@ export async function middleware(request: NextRequest) {
             return NextResponse.json("input-error");
         }
     }
-    if (request.nextUrl.pathname.startsWith('/welcome')) {
+    if (request.nextUrl.pathname.startsWith('/profile')) {
         const token = request.cookies.get("token");
         if (!token) {
             return NextResponse.redirect('http://localhost:3000/');

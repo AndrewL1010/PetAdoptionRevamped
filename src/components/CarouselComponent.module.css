@@ -4,3 +4,9 @@
 .text{
     font-weight: bolder;
 }
+.button{
+    margin-bottom: 10px;
+    background-color: #3B71CA;
+    padding: 8px;
+    color: white;
+}

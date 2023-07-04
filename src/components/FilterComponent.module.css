@@ -1,19 +1,31 @@
-.images{
+.images {
     object-fit: cover;
     margin: 0.25rem;
     border-radius: 4pc;
     cursor: pointer;
 }
-.container{
+
+.container {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
 }
-.innercontainer{
+
+.innercontainer {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+.list{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    list-style-type: none;
+    cursor: pointer;
 }
