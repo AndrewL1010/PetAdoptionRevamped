@@ -1,6 +1,5 @@
 "use client"
 import { Modal, Button } from "react-bootstrap"
-import { useState } from "react";
 import ModalProps from '../types/ModalProps';
 function modalComponent(props: ModalProps) {
     const { show, setShow, setShowLogin, body, title, } = props;

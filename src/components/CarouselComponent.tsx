@@ -21,7 +21,6 @@ function CarouselComponent(props: CarouselProps) {
 
                         />
                         <Carousel.Caption>
-                            <Button className={styles.button} href={image.animalurl}>Adopt {image.type}</Button>
                             <h3 className={styles.text}>{image.header}</h3>
                             <p className={styles.text}>{image.message}</p>
 

@@ -13,8 +13,11 @@ function Page() {
     const register = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data = {
-            username: username,
-            password: password,
+            schema: {
+                username: username,
+                password: password,
+            },
+            schemaType: "register"
         }
         const response = await fetch("../api/register",
             {
@@ -23,7 +26,6 @@ function Page() {
             }
         );
         const result = await response.json();
-        console.log(result);
         if (result === "fail") {
             setShow(true);
             setModalTitle("Error");

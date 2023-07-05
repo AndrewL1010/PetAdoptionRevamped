@@ -22,8 +22,11 @@ function NavBar(props: NavBarProps) {
 
     const login = async () => {
         const data = {
-            username: username,
-            password: password,
+            schema: {
+                username: username,
+                password: password,
+            },
+            schemaType: "login"
         }
         const response = await fetch("/api/login",
             {

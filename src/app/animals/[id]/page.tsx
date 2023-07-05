@@ -2,7 +2,8 @@ import PageProps from "@/types/PageProps";
 import Image from "next/image";
 import styles from './page.module.css';
 import getConnection from "@/utility/dbHandler";
-import { Container } from "../../../components/bootstrap";
+import { Container, Button } from "../../../components/bootstrap";
+import Link from "next/link";
 async function Page({ params: { id } }: PageProps) {
 
     if (typeof id === "string" && Number.isNaN(Number(id))) {
@@ -40,6 +41,7 @@ async function Page({ params: { id } }: PageProps) {
                     <div>
                         <p>{animal.description}</p>
                     </div>
+                    <Button href={`/adopt/${id}`}>Adopt {animal.name} now</Button>
 
                 </Container>
             )

@@ -2,19 +2,17 @@
 import FilterProps from "@/types/FilterProps"
 import Animal from "@/types/Animal";
 import { useState } from "react";
-import { Container } from "react-bootstrap";
 import Link from "next/link";
 import Image from "next/image";
 import styles from './FilterComponent.module.css'
 import { Button } from "../components/bootstrap";
 function FilterComponent(PageProps: FilterProps) {
-    const list = PageProps.animals;
+    const animals = PageProps.animals;
     const initialFilter = PageProps.filter
-    const [animals, setAnimals] = useState<Animal[]>(list);
     const [filter, setFilter] = useState<string>(initialFilter);
 
     return (
-        <Container>
+        <div>
             <ul className={styles.list}>
                 <Button onClick={() => {
                     setFilter('all');
@@ -73,7 +71,7 @@ function FilterComponent(PageProps: FilterProps) {
                         ))}
 
             </div>
-        </Container>
+        </div>
 
     )
 }

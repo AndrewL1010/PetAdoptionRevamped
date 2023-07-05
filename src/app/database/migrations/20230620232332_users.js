@@ -21,6 +21,25 @@ exports.up = async (knex) => {
         table.string('image');
         table.text('description');
     });
+    await knex.schema.createTable('applications', (table) => {
+        table.increments('id').primary();
+        table.integer('user_id')
+            .unsigned()
+            .references('id')
+            .inTable('users')
+            .onDelete('CASCADE');
+        table.integer('animal_id')
+            .unsigned()
+            .references('id')
+            .inTable('animals')
+            .onDelete('CASCADE');
+        table.string('firstname');
+        table.string('lastname');
+        table.string('occupation');
+        table.string('address');
+        table.string('experience');
+        table.string('email');
+    });
 
 
 };
@@ -32,5 +51,5 @@ exports.up = async (knex) => {
 exports.down = async (knex) => {
     await knex.schema.dropTableIfExists('users');
     await knex.schema.dropTableIfExists('animals');
-    
+
 }

@@ -3,5 +3,4 @@ export default interface Image {
     header: string,
     message: string,
     type: string,
-    animalurl: string
 }

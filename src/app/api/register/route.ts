@@ -5,7 +5,8 @@ import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
     const database = getConnection();
-    const data = await request.json();
+    const info = await request.json();
+    const data = info.schema;
     if (database) {
         const existingUser = await database("users").where({ username: data.username }).first();
         if (existingUser) {

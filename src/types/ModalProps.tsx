@@ -3,5 +3,5 @@ export default interface ModalProps {
     title: String,
     show: boolean,
     setShow(b: boolean): void,
-    setLoginShow?(b: boolean): void
+    setShowLogin?(b: boolean): void
 }

@@ -6,7 +6,9 @@ import { cookies } from 'next/headers'
 export async function POST(request: Request) {
     const database = getConnection();
     if (database) {
-        let data = await request.json();
+        console.log("helooooooooooooooo");
+        let info = await request.json();
+        let data = info.schema;
         const { username, password } = data;
         const user = await database("users").where({ username: username }).first();
         if (!user) {

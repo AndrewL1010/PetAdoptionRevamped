@@ -10,9 +10,12 @@ function Page() {
   const [subject, setSubject] = useState<String>("");
   async function sendMail() {
     const data = {
-      email: email,
-      text: text,
-      subject: subject,
+      schema: {
+        email: email,
+        text: text,
+        subject: subject,
+      },
+      schemaType: "contact"
     }
     const response = await fetch("/api/email",
       {
@@ -20,7 +23,6 @@ function Page() {
         body: JSON.stringify(data)
       }
     )
-    console.log("hi");
     const result = response.json();
     console.log(result);
   }
