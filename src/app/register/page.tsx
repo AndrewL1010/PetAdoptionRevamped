@@ -5,6 +5,7 @@ import ModalComponent from "@/components/ModalComponent";
 function Page() {
     const [username, setUsername] = useState<String>("");
     const [password, setPassword] = useState<String>("");
+    const [email, setEmail] = useState<String>("");
     const [modalMessage, setModalMessage] = useState<String>("");
     const [modalTitle, setModalTitle] = useState<String>("");
     const [show, setShow] = useState<boolean>(false);
@@ -16,6 +17,7 @@ function Page() {
             schema: {
                 username: username,
                 password: password,
+                email: email,
             },
             schemaType: "register"
         }
@@ -40,7 +42,7 @@ function Page() {
         if (result === "success") {
             setShow(true);
             setModalTitle("Success");
-            setModalMessage("Account created, you may login now");
+            setModalMessage("Please check your email to verify your account before logging in");
         }
     }
     return (
@@ -53,6 +55,10 @@ function Page() {
             <div className="form-group">
                 <label htmlFor="password">Password</label>
                 <input onChange={(event) => { setPassword(event.target.value) }} type="password" className="form-control" id="password" placeholder="Choose a password" required minLength={6} maxLength={20} />
+            </div>
+            <div className="form-group">
+                <label htmlFor="email">Email</label>
+                <input onChange={(event) => { setEmail(event.target.value) }} type="email" className="form-control" id="email" placeholder="Provide an email" required minLength={6} maxLength={40} />
             </div>
             <Button type="submit">Register</Button>
 

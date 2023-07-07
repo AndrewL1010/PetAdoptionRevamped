@@ -5,8 +5,11 @@
 exports.up = async (knex) => {
     await knex.schema.createTable('users', (table) => {
         table.increments('id').primary();
+        table.boolean('confirmation').defaultTo(false);
         table.string('username');
         table.string('password');
+        table.string('email');
+        table.timestamp("created_at").defaultTo(knex.fn.now());
 
     });
     await knex.schema.createTable('animals', (table) => {

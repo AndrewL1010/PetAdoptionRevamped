@@ -3,21 +3,27 @@ import * as bcrypt from 'bcrypt';
 import * as jose from 'jose';
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers'
+import {env} from '../../../utility/EnvironmentValidatior';
 export async function POST(request: Request) {
+    console.log("bypassed");
     const database = getConnection();
     if (database) {
-        console.log("helooooooooooooooo");
         let info = await request.json();
         let data = info.schema;
         const { username, password } = data;
         const user = await database("users").where({ username: username }).first();
+        console.log(user);
+        await database.destroy();
         if (!user) {
-            return NextResponse.json({ status: "fail" });
+            return NextResponse.json({ status: "fail", message: "Incorrect username or password" });
+        }
+        if (user.confirmation === false) {
+            return NextResponse.json({ status: "fail", message: "Please check your email. You must verify your account before logging in" });
         }
         if (await bcrypt.compare(password, user.password)) {
 
             const secret = new TextEncoder().encode(
-                process.env.SECRET_KEY
+                env.SECRET_KEY
             );
             const token = await new jose.SignJWT({ username: username, password: password })
                 .setProtectedHeader({ alg: "HS256" })
@@ -31,6 +37,6 @@ export async function POST(request: Request) {
             return NextResponse.json({ status: "success", username: username });
         }
     }
-    return NextResponse.json({ status: "fail" });
+    return NextResponse.json({ status: "fail", message: "Incorrect username or password" });
 
 }

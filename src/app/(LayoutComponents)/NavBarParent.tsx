@@ -3,7 +3,7 @@ import React from 'react'
 import NavBar from './NavBar'
 import * as jose from 'jose';
 import { cookies } from 'next/headers';
-
+import {env} from '../../utility/EnvironmentValidatior';
 async function getStatus(): Promise<{status: boolean, username: string}>{
 
     const token = cookies().get("token");
@@ -14,7 +14,7 @@ async function getStatus(): Promise<{status: boolean, username: string}>{
         try {
             const tokenString = token.value.toString();
             const secret = new TextEncoder().encode(
-                process.env.SECRET_KEY
+                env.SECRET_KEY
             );
             const user = await jose.jwtVerify(tokenString, secret);
             return { status: true, username: user.payload.username as string};
@@ -29,7 +29,7 @@ async function NavBarParent() {
 
 
     return (
-        <NavBar status={result.status} user={result.username} ></NavBar>
+        <NavBar status={result.status} user={result.username}></NavBar>
     )
 }
 

@@ -1,5 +1,3 @@
-
-import Animal from '../../types/Animal';
 import FilterComponent from '@/components/FilterComponent';
 import getConnection from '@/utility/dbHandler';
 import { cookies } from 'next/headers';
@@ -22,6 +20,7 @@ async function Page() {
     }
     if (database) {
         const animals = await database('animals');
+        await database.destroy();
         const filter = getFilter();
         if (animals) {
             return (

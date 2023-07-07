@@ -3,7 +3,6 @@ import Carousel from 'react-bootstrap/Carousel';
 import Image from 'next/image';
 import CarouselProps from '../types/CarouselProps';
 import styles from './CarouselComponent.module.css';
-import { Button } from "../components/bootstrap";
 function CarouselComponent(props: CarouselProps) {
     const images = props.images;
 

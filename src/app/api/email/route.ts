@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import * as nodemailer from 'nodemailer';
+import {env} from '../../../utility/EnvironmentValidatior';
 export async function POST(request: Request) {
     try {
         const body = await request.json();
@@ -7,13 +8,13 @@ export async function POST(request: Request) {
         const transporter = nodemailer.createTransport({
             service: "gmail",
             auth: {
-                user: process.env.HOST_EMAIL,
+                user: env.HOST_EMAIL,
                 pass: process.env.HOST_PASSWORD,
             }
         });
         const mailOptions = {
             from: email,
-            to: process.env.HOST_EMAIL,
+            to: env.HOST_EMAIL,
             subject: `${subject} - sent by ${email}`,
             text: text,
             replyTo: email,
@@ -24,7 +25,7 @@ export async function POST(request: Request) {
 
     }
     catch (error) {
-        return NextResponse.json({ status: "error", description: error })
+        return NextResponse.json({ status: "error", description: error });
     }
 
 

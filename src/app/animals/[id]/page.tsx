@@ -3,7 +3,6 @@ import Image from "next/image";
 import styles from './page.module.css';
 import getConnection from "@/utility/dbHandler";
 import { Container, Button } from "../../../components/bootstrap";
-import Link from "next/link";
 async function Page({ params: { id } }: PageProps) {
 
     if (typeof id === "string" && Number.isNaN(Number(id))) {

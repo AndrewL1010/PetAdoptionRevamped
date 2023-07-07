@@ -1,9 +1,8 @@
-import styles from './page.module.css'
 import CarouselComponent from '@/components/CarouselComponent'
 export default function Home() {
   const images = [
     {
-      path: "/owner1.jpg",
+      path: "/owner1.webp",
       header: "Sophie White",
       message: '"Learning how to take care of her helped me learn how to take care of myself"',
       type: "Dogs",

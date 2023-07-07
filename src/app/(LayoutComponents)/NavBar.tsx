@@ -12,13 +12,49 @@ function NavBar(props: NavBarProps) {
     let { status, user } = props
     const [showLogin, setShowLogin] = useState<boolean>(false);
     const [show, setShow] = useState<boolean>(false);
+    const [showRecoveryMessage, setShowRecoveryMessage] = useState<boolean>(false);
+    const [showRecovery, setShowRecovery] = useState<boolean>(false);
     const [username, setUsername] = useState<String>("");
+    const [recoveryUsername, setRecoveryUsername] = useState<string>("");
     const [password, setPassword] = useState<String>("");
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(status);
+    const [body, setBody] = useState<String>("");
+    const [title, setTitle] = useState<String>("");
     const [currentUser, setCurrentUser] = useState<String>(user);
     const router = useRouter();
     const handleShow = () => setShowLogin(true);
     const handleClose = () => setShowLogin(false);
+    const showPasswordRecoveryModal = () => {
+        setShowLogin(false);
+        setShowRecovery(true);
+    }
+    const handleRecovery = async () => {
+        const data = {
+            schema: {
+                username: recoveryUsername,
+            },
+            schemaType: "recovery"
+        }
+        const response = await fetch("/api/recovery",
+            {
+                method: "POST",
+                body: JSON.stringify(data)
+            }
+
+        )
+        const result = await response.json();
+
+        if (result === "fail") {
+            setBody(`No account named: ${recoveryUsername}`);
+            setTitle("Error");
+            setShowRecoveryMessage(true);
+        }
+        else {
+            setBody(`Recovery instruction sent to email registered to: ${recoveryUsername}`);
+            setTitle("Success");
+            setShowRecoveryMessage(true);
+        }
+    }
 
     const login = async () => {
         const data = {
@@ -40,6 +76,8 @@ function NavBar(props: NavBarProps) {
             setUsername("");
             setPassword("");
             handleClose();
+            setBody(result.message);
+            setTitle("Error");
             setShow(true);
 
         }
@@ -83,10 +121,6 @@ function NavBar(props: NavBarProps) {
                         <NavDropdown id="main-navbar" title="Adopt">
                             <NavDropdown.Item href='/how' active={pathname === "/how"}>How To adopt</NavDropdown.Item>
                             <NavDropdown.Item href='/pets' active={pathname === "/pets"}>Available pets</NavDropdown.Item>
-                            {/* <NavDropdown.Item href="/dogs" active={pathname === "/dogs"}>Dogs</NavDropdown.Item>
-                            <NavDropdown.Item href="/cats" active={pathname === "/cats"}>Cats</NavDropdown.Item>
-                            <NavDropdown.Item  href="/rabbits" active={pathname === "/rabbits"}>Rabbits</NavDropdown.Item>
-                            <NavDropdown.Item  href="/birds" active={pathname === "/birds"}>Birds</NavDropdown.Item> */}
                         </NavDropdown>
                         <Nav.Link as={Link} href="/about" active={pathname === "/about"}>About Us</Nav.Link>
                         <Nav.Link as={Link} href="/contact" active={pathname === "/contact"}>Contact Us</Nav.Link>
@@ -97,7 +131,6 @@ function NavBar(props: NavBarProps) {
 
                             <NavDropdown title={currentUser}>
                                 <NavDropdown.Item onClick={logout}>Logout</NavDropdown.Item>
-                                <NavDropdown.Item as={Link} href='/profile'>Profile</NavDropdown.Item>
                             </NavDropdown>
                         ) : (
                             <>
@@ -105,11 +138,32 @@ function NavBar(props: NavBarProps) {
                                 <Nav.Link onClick={handleShow}>Login</Nav.Link>
                             </>
                         )}
-
                     </Nav>
                 </Container>
             </Navbar>
-            <ModalComponent setShow={setShow} setShowLogin={setShowLogin} show={show} body=" Incorrect Username or Password" title="Login failed"></ModalComponent>
+            <ModalComponent setShow={setShow} setShowLogin={setShowLogin} show={show} body={body} title={title}></ModalComponent>
+            <ModalComponent setShow={setShowRecoveryMessage} show={showRecoveryMessage} body={body} title={title}></ModalComponent>
+            <Modal show={showRecovery} onHide={() => { setShowRecovery(false) }}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Login</Modal.Title>
+                </Modal.Header>
+                <form>
+                    <Modal.Body>
+                        <div className="form-group">
+                            <label htmlFor="username">Username</label>
+                            <input onChange={(event: React.ChangeEvent<HTMLInputElement>) => { setRecoveryUsername(event.target.value) }} type="username" className="form-control" id="username" aria-describedby="emailHelp" placeholder="Enter username" />
+                        </div>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={() => { setShowRecovery(false) }}>
+                            Close
+                        </Button>
+                        <Button variant="primary" onClick={handleRecovery}>
+                            Send Email
+                        </Button>
+                    </Modal.Footer>
+                </form>
+            </Modal>
 
             <Modal show={showLogin} onHide={handleClose}>
                 <Modal.Header closeButton>
@@ -124,6 +178,9 @@ function NavBar(props: NavBarProps) {
                         <div className="form-group">
                             <label htmlFor="password">Password</label>
                             <input onChange={(event: React.ChangeEvent<HTMLInputElement>) => { setPassword(event.target.value) }} type="password" className="form-control" id="password" placeholder="Password" />
+                        </div>
+                        <div className={styles.forgotpassword}>
+                            <p onClick={showPasswordRecoveryModal}> Forgot Password</p>
                         </div>
                     </Modal.Body>
                     <Modal.Footer>

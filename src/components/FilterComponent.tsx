@@ -1,6 +1,5 @@
 "use client"
 import FilterProps from "@/types/FilterProps"
-import Animal from "@/types/Animal";
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";

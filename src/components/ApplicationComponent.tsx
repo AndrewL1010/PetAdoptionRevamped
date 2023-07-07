@@ -1,13 +1,12 @@
 "use client"
 import { useState, FormEvent } from 'react';
 import { Container, Button } from '../components/bootstrap';
-import { string, object } from 'yup';
 import ApplicationProps from "@/types/ApplicationProps";
 import styles from './ApplicationComponent.module.css';
 import ModalComponent from './ModalComponent';
 
 function ApplicationComponent(props: ApplicationProps) {
-    const { name, breed, animal_id, user_id } = props;
+    const { name, breed, animal_id} = props;
     const [firstName, setFirstName] = useState<string>("");
     const [lastName, setLastName] = useState<string>("");
     const [occupation, setOccupation] = useState<string>("employed");
@@ -21,7 +20,6 @@ function ApplicationComponent(props: ApplicationProps) {
         event.preventDefault();
         const data = {
             schema: {
-                user_id,
                 animal_id,
                 firstName,
                 lastName,
