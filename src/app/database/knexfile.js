@@ -1,5 +1,4 @@
-// Update with your config settings.
-import { env } from '../../utility/EnvironmentValidatior';
+
 
 /**
  * @type { Object.<string, import("knex").Knex.Config> }

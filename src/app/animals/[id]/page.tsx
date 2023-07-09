@@ -4,6 +4,7 @@ import styles from './page.module.css';
 import getConnection from "@/utility/dbHandler";
 import { Container, Button } from "../../../components/bootstrap";
 import { Animal } from "@/types/TableModels";
+import Link from "next/link";
 async function Page({ params: { id } }: PageProps) {
 
     if (typeof id === "string" && Number.isNaN(Number(id))) {
@@ -41,7 +42,7 @@ async function Page({ params: { id } }: PageProps) {
                     <div>
                         <p>{animal.description}</p>
                     </div>
-                    <Button href={`/adopt/${id}`}>Adopt {animal.name} now</Button>
+                    <Link href={`/adopt/${id}`}>Adopt {animal.name} now</Link>
 
                 </Container>
             )
