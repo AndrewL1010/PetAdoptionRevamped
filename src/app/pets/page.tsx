@@ -1,7 +1,7 @@
 import FilterComponent from '@/components/FilterComponent';
 import getConnection from '@/utility/dbHandler';
 import { cookies } from 'next/headers';
-import Animal from '@/types/TableModels';
+import { Animal } from '@/types/TableModels';
 async function Page() {
     const database = getConnection();
     function getFilter(): string {

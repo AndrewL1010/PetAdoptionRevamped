@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import * as nodemailer from 'nodemailer';
-import {env} from '../../../utility/EnvironmentValidatior';
+import { env } from '../../../utility/EnvironmentValidatior';
 export async function POST(request: Request) {
     try {
         const body = await request.json();
@@ -9,7 +9,7 @@ export async function POST(request: Request) {
             service: "gmail",
             auth: {
                 user: env.HOST_EMAIL,
-                pass: process.env.HOST_PASSWORD,
+                pass: env.HOST_PASSWORD,
             }
         });
         const mailOptions = {
@@ -20,12 +20,12 @@ export async function POST(request: Request) {
             replyTo: email,
         }
         const info = await transporter.sendMail(mailOptions);
-        return NextResponse.json({ status: "success", description: info });
+        return NextResponse.json({ status: "success", message: info });
 
 
     }
     catch (error) {
-        return NextResponse.json({ status: "error", description: error });
+        return NextResponse.json({ status: "fail", message: error });
     }
 
 

@@ -4,7 +4,6 @@ import { env } from '../../../../utility/EnvironmentValidatior';
 import * as jose from 'jose';
 import * as bcrypt from 'bcrypt';
 import { User } from '@/types/TableModels';
-import VerifiedUserToken from '@/types/VerifiedToken';
 export async function PUT(request: Request) {
     try {
         const data = await request.json()
@@ -16,8 +15,8 @@ export async function PUT(request: Request) {
         const database = getConnection();
         const salt = await bcrypt.genSalt();
         const hashedPassword = await bcrypt.hash(data.schema.password, salt);
-        if (database && typeof user.payload.id === "string") {
-            await database<User>('users').where({ id: parseInt(user.payload.id) }).update({
+        if (database && typeof user.payload.id === "number") {
+            await database<User>('users').where({ id: user.payload.id }).update({
                 password: hashedPassword
             })
             await database.destroy();

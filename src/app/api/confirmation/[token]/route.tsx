@@ -4,6 +4,7 @@ import { env } from '../../../../utility/EnvironmentValidatior';
 import * as jose from 'jose';
 import { User } from '@/types/TableModels';
 export async function GET(request: Request, { params }: { params: { token: string } }) {
+    console.log("middleware passed");
     try {
         const emailToken = params.token;
         const secret = new TextEncoder().encode(
@@ -11,8 +12,8 @@ export async function GET(request: Request, { params }: { params: { token: strin
         );
         const user = await jose.jwtVerify(emailToken, secret);
         const database = getConnection();
-        if (database && typeof user.payload.id === "string") {
-            await database<User>('users').where({ id: parseInt(user.payload.id) }).update({
+        if (database && typeof user.payload.id === "number") {
+            await database<User>('users').where({ id: user.payload.id }).update({
                 confirmation: true
             })
             await database.destroy();

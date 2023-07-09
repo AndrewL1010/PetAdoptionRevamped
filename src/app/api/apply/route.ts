@@ -3,8 +3,7 @@ import getConnection from '@/utility/dbHandler';
 import * as jose from 'jose';
 import { cookies } from 'next/headers';
 import { env } from '../../../utility/EnvironmentValidatior';
-import { User } from '@/types/TableModels';
-import VerifiedUserToken from '@/types/VerifiedToken';
+import { Application, User } from '@/types/TableModels';
 export async function POST(request: Request) {
     const info = await request.json();
     const data = info.schema;
@@ -25,7 +24,7 @@ export async function POST(request: Request) {
         if (database && typeof username === "string") {
             const userData = await database<User>('users').where({ username: username }).first();
             if (userData) {
-                await database('applications').insert({
+                await database<Application>('applications').insert({
                     user_id: userData.id,
                     animal_id: data.animal_id,
                     firstname: data.firstName,
@@ -43,11 +42,11 @@ export async function POST(request: Request) {
             return { status: false };
 
         }
-        NextResponse.json({ status: "fail", description: "Unable to establish database connection" });
+        NextResponse.json({ status: "fail", message: "Something went wrong on server side" });
     }
     catch (error) {
         console.log(error);
-        return NextResponse.json({ status: "fail" })
+        return NextResponse.json({ status: "fail", message: error })
     }
 }
 

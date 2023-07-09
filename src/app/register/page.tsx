@@ -28,18 +28,12 @@ function Page() {
             }
         );
         const result = await response.json();
-        if (result === "fail") {
+        if (result.status === "fail") {
             setShow(true);
             setModalTitle("Error");
-            setModalMessage("Username taken, please try again");
-
+            setModalMessage(result.message);
         }
-        if (result === "input-error") {
-            setShow(true);
-            setModalTitle("Error");
-            setModalMessage("invalid input, please try again");
-        }
-        if (result === "success") {
+        if (result.status === "success") {
             setShow(true);
             setModalTitle("Success");
             setModalMessage("Please check your email to verify your account before logging in");

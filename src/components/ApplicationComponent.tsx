@@ -6,7 +6,7 @@ import styles from './ApplicationComponent.module.css';
 import ModalComponent from './ModalComponent';
 
 function ApplicationComponent(props: ApplicationProps) {
-    const { name, breed, animal_id} = props;
+    const { name, breed, animal_id } = props;
     const [firstName, setFirstName] = useState<string>("");
     const [lastName, setLastName] = useState<string>("");
     const [occupation, setOccupation] = useState<string>("employed");
@@ -46,7 +46,7 @@ function ApplicationComponent(props: ApplicationProps) {
 
         }
         else {
-            setBody("Something went wrong with the application form, please try again.");
+            setBody(result.message);
             setTitle("Error");
             setShow(true);
         }
@@ -66,7 +66,7 @@ function ApplicationComponent(props: ApplicationProps) {
                 </div>
                 <div className={`form-group ${styles.radiocontainer}`}>
                     <div>
-                        <input type="radio" id="employed" name="occupation" value="Employed" defaultChecked onClick={() => { setOccupation("employed")}}/>
+                        <input type="radio" id="employed" name="occupation" value="Employed" defaultChecked onClick={() => { setOccupation("employed") }} />
                         <label htmlFor="employed">Employed</label>
                     </div>
                     <div>

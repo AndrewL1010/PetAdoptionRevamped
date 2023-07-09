@@ -29,6 +29,7 @@ function NavBar(props: NavBarProps) {
         setShowRecovery(true);
     }
     const handleRecovery = async () => {
+        setShowRecovery(false);
         const data = {
             schema: {
                 username: recoveryUsername,
@@ -119,7 +120,7 @@ function NavBar(props: NavBarProps) {
                     <Navbar.Toggle aria-controls="main-navbar" />
                     <Nav>
                         <NavDropdown id="main-navbar" title="Adopt">
-                            <NavDropdown.Item href='/how' active={pathname === "/how"}>How To adopt</NavDropdown.Item>
+                            <NavDropdown.Item href='/how' active={pathname === "/how"}>How to adopt</NavDropdown.Item>
                             <NavDropdown.Item href='/pets' active={pathname === "/pets"}>Available pets</NavDropdown.Item>
                         </NavDropdown>
                         <Nav.Link as={Link} href="/about" active={pathname === "/about"}>About Us</Nav.Link>
@@ -142,7 +143,7 @@ function NavBar(props: NavBarProps) {
                 </Container>
             </Navbar>
             <ModalComponent setShow={setShow} setShowLogin={setShowLogin} show={show} body={body} title={title}></ModalComponent>
-            <ModalComponent setShow={setShowRecoveryMessage} show={showRecoveryMessage} body={body} title={title}></ModalComponent>
+            <ModalComponent setShow={setShowRecoveryMessage} show={showRecoveryMessage} body={body} title={title} setShowLogin={setShowRecovery}></ModalComponent>
             <Modal show={showRecovery} onHide={() => { setShowRecovery(false) }}>
                 <Modal.Header closeButton>
                     <Modal.Title>Login</Modal.Title>

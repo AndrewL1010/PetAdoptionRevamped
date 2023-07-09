@@ -12,7 +12,7 @@ export async function POST(request: Request) {
     if (database) {
         const existingUser = await database<User>("users").where({ username: data.username }).first();
         if (existingUser) {
-            return NextResponse.json("fail");
+            return NextResponse.json({ status: "fail", message: "Username Taken, please try again." });
         }
         const { username, password, email } = data;
         const salt = await bcrypt.genSalt();
@@ -53,9 +53,9 @@ export async function POST(request: Request) {
         await transporter.sendMail(mailOptions);
         await database.destroy();
 
-        return NextResponse.json("success");
+        return NextResponse.json({ status: "success" });
     }
     else {
-        return NextResponse.json("fail");
+        return NextResponse.json({ status: "fail", message: "Something went wrong on the server side" });
     }
 }
