@@ -9,9 +9,9 @@ module.exports = {
   connection: {
     port: env.DATABASE_PORT,
     host: env.DATABASE_HOST,
-    database: DATABASE_NAME,
-    user: DATABASE_USER,
-    password: DATABASE_ACCESS_KEY,
+    database: env.DATABASE_NAME,
+    user: env.DATABASE_USER,
+    password: env.DATABASE_ACCESS_KEY,
   },
   debug: true,
   migrations: {
