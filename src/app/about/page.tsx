@@ -1,7 +1,7 @@
 import { Container } from "../../components/bootstrap"
 import Image from "next/image"
 import styles from './page.module.css';
-import petOwner from './petowner.jpg';
+import petOwner from './petowner.webp';
 import CEO from './ceo.jpg';
 import { Metadata } from "next";
 
