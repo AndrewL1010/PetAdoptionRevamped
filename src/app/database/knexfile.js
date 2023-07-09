@@ -6,13 +6,7 @@ import { env } from '../../utility/EnvironmentValidatior';
  */
 module.exports = {
   client: 'pg',
-  connection: {
-    port: env.DATABASE_PORT,
-    host: env.DATABASE_HOST,
-    database: env.DATABASE_NAME,
-    user: env.DATABASE_USER,
-    password: env.DATABASE_ACCESS_KEY,
-  },
+  connection: "postgres://andrew_lu:qL7k8oUBBYYjqZQhVTRCy30ezUaLSvdm@dpg-cili7nlgkuvinfl3edc0-a.oregon-postgres.render.com/pet_sanctuary",
   debug: true,
   migrations: {
     directory: "./migrations"
