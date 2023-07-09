@@ -1,5 +1,4 @@
-import Animal from "./TableModels"
-import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies"
+import { Animal } from "./TableModels"
 export default interface FilterProps {
     animals: Animal[],
     filter: string,
