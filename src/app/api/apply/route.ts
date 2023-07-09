@@ -2,7 +2,9 @@ import { NextResponse } from 'next/server';
 import getConnection from '@/utility/dbHandler';
 import * as jose from 'jose';
 import { cookies } from 'next/headers';
-import {env} from '../../../utility/EnvironmentValidatior';
+import { env } from '../../../utility/EnvironmentValidatior';
+import { User } from '@/types/TableModels';
+import VerifiedUserToken from '@/types/VerifiedToken';
 export async function POST(request: Request) {
     const info = await request.json();
     const data = info.schema;
@@ -17,10 +19,11 @@ export async function POST(request: Request) {
             env.SECRET_KEY
         );
         const user = await jose.jwtVerify(tokenString, secret);
+        console.log(user);
         const username = user.payload.username
         const database = getConnection();
-        if (database) {
-            const userData = await database('users').where({ username: username }).first();
+        if (database && typeof username === "string") {
+            const userData = await database<User>('users').where({ username: username }).first();
             if (userData) {
                 await database('applications').insert({
                     user_id: userData.id,

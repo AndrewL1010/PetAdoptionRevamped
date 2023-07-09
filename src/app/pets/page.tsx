@@ -1,6 +1,7 @@
 import FilterComponent from '@/components/FilterComponent';
 import getConnection from '@/utility/dbHandler';
 import { cookies } from 'next/headers';
+import Animal from '@/types/TableModels';
 async function Page() {
     const database = getConnection();
     function getFilter(): string {
@@ -19,7 +20,7 @@ async function Page() {
         }
     }
     if (database) {
-        const animals = await database('animals');
+        const animals = await database<Animal>('animals');
         await database.destroy();
         const filter = getFilter();
         if (animals) {

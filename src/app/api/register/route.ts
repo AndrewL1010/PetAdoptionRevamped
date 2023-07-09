@@ -3,12 +3,14 @@ import getConnection from '@/utility/dbHandler';
 import { NextResponse } from 'next/server';
 import * as nodemailer from 'nodemailer';
 import * as jose from 'jose';
+import { env } from '../../../utility/EnvironmentValidatior';
+import { User } from '../../../types/TableModels';
 export async function POST(request: Request) {
     const database = getConnection();
     const info = await request.json();
     const data = info.schema;
     if (database) {
-        const existingUser = await database("users").where({ username: data.username }).first();
+        const existingUser = await database<User>("users").where({ username: data.username }).first();
         if (existingUser) {
             return NextResponse.json("fail");
         }
@@ -17,16 +19,15 @@ export async function POST(request: Request) {
         const hashedPassword = await bcrypt.hash(password, salt);
 
 
-        await database("users").insert({
+        const dbresult = await database<User>("users").insert({
             username: username,
             password: hashedPassword,
             email: email,
-        });
-
-        const user = await database("users").where({ username: username }).first();
+        }).returning(['id']);
+        const user = dbresult[0];
         const user_id = user.id;
         const secret = new TextEncoder().encode(
-            process.env.EMAIL_SECRET_KEY
+            env.EMAIL_SECRET_KEY
         );
         const emailToken = await new jose.SignJWT({ id: user_id, email: email })
             .setProtectedHeader({ alg: "HS256" })
@@ -36,15 +37,15 @@ export async function POST(request: Request) {
         const transporter = nodemailer.createTransport({
             service: "gmail",
             auth: {
-                user: process.env.HOST_EMAIL,
-                pass: process.env.HOST_PASSWORD,
+                user: env.HOST_EMAIL,
+                pass: env.HOST_PASSWORD,
             }
         });
-        const URL = `${process.env.BASE_URL}/api/confirmation/${emailToken}`;
-        console.log(user.email);
+        const URL = `${env.BASE_URL}/api/confirmation/${emailToken}`;
+        console.log(email);
         const mailOptions = {
-            from: process.env.HOST_EMAIL,
-            to: user.email,
+            from: env.HOST_EMAIL,
+            to: email,
             subject: "Pet Sanctuary Account Registration Confirmation",
             html: `Please click the link to verify your account: <a href=${URL}>${URL}</a>`
         }

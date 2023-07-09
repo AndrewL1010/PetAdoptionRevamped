@@ -1,4 +1,4 @@
-const bcrypt = require("bcrypt");
+import { User } from '@/types/TableModels';
 import getConnection from '@/utility/dbHandler';
 import { NextResponse } from 'next/server';
 import * as nodemailer from 'nodemailer';
@@ -9,7 +9,7 @@ export async function POST(request: Request) {
     const info = await request.json();
     const data = info.schema;
     if (database) {
-        const existingUser = await database("users").where({ username: data.username }).first();
+        const existingUser = await database<User>("users").where({ username: data.username }).first();
         if (!existingUser) {
             return NextResponse.json("fail");
         }

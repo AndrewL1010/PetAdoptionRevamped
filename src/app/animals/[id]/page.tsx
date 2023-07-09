@@ -3,6 +3,7 @@ import Image from "next/image";
 import styles from './page.module.css';
 import getConnection from "@/utility/dbHandler";
 import { Container, Button } from "../../../components/bootstrap";
+import { Animal } from "@/types/TableModels";
 async function Page({ params: { id } }: PageProps) {
 
     if (typeof id === "string" && Number.isNaN(Number(id))) {
@@ -14,7 +15,7 @@ async function Page({ params: { id } }: PageProps) {
     }
     const database = getConnection();
     if (database) {
-        const animal = await database("animals").where({ id: id }).first();
+        const animal = await database<Animal>("animals").where({ id: parseInt(id) }).first();
         await database.destroy();
         if (!animal) {
             return (
