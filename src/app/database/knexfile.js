@@ -1,14 +1,14 @@
 // Update with your config settings.
-
+import { env } from '../../utility/EnvironmentValidatior';
 /**
  * @type { Object.<string, import("knex").Knex.Config> }
  */
 module.exports = {
   client: 'pg',
   connection: {
-    database: "Animal",
-    user: "postgres",
-    password: '4739',
+    database: env.POSTGRES_DATABASE,
+    user: env.POSTGRES_USER,
+    password: env.POSTGRES_PASSWORD,
   },
   debug: true,
   migrations: {
@@ -17,5 +17,6 @@ module.exports = {
   seeds: {
     directory: "./seeds"
   },
-  
+
 };
+
