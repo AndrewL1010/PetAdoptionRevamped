@@ -6,5 +6,10 @@ const envSchema = zod.object({
     NODE_ENV: zod.string().nonempty(),
     EMAIL_SECRET_KEY: zod.string().nonempty(),
     BASE_URL: zod.string().nonempty(),
+    port: zod.string().nonempty(),
+    host: zod.string().nonempty(),
+    database: zod.string().nonempty(),
+    user: zod.string().nonempty(),
+    password: zod.string().nonempty(),
 });
 export const env = envSchema.parse(process.env);
