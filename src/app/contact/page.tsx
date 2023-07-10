@@ -1,14 +1,19 @@
 "use client"
 import React from 'react'
 import { Container, Button } from '../../components/bootstrap';
-import { useState } from 'react';
+import { useState, FormEvent } from 'react';
 import style from './page.module.css';
+import ModalComponent from '@/components/ModalComponent';
 
 function Page() {
   const [email, setEmail] = useState<String>("");
+  const [show, setShow] = useState<boolean>(false);
+  const [body, setBody] = useState<String>("");
+  const [title, setTitle] = useState<String>("");
   const [text, setText] = useState<String>("");
   const [subject, setSubject] = useState<String>("");
-  async function sendMail() {
+  async function sendMail(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
     const data = {
       schema: {
         email: email,
@@ -23,8 +28,17 @@ function Page() {
         body: JSON.stringify(data)
       }
     )
-    const result = response.json();
-    console.log(result);
+    const result = await response.json();
+    if (result.status === "success") {
+      setBody("We have recieved your email, please give us some time to respond");
+      setTitle("Success");
+      setShow(true);
+    }
+    else {
+      setBody("Unable to send email, please try again");
+      setTitle("Error");
+      setShow(true);
+    }
   }
 
   return (
@@ -44,9 +58,8 @@ function Page() {
           <textarea onChange={(event) => { setText(event.target.value) }} className={`form-control ${style.textarea}`} id="text" placeholder="What would you like help with?" />
         </div>
         <Button type="submit">Send</Button>
-
-
       </form>
+      <ModalComponent show={show} setShow={setShow} body={body} title={title} ></ModalComponent>
 
     </Container>
   )
