@@ -42,7 +42,6 @@ export async function POST(request: Request) {
             }
         });
         const URL = `${env.BASE_URL}/api/confirmation/${emailToken}`;
-        console.log(email);
         const mailOptions = {
             from: env.HOST_EMAIL,
             to: email,
