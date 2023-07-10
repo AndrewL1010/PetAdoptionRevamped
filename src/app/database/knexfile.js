@@ -1,9 +1,9 @@
 
-import {env} from '../../utility/EnvironmentValidatior';
+import { env } from '../../utility/EnvironmentValidatior';
 /**
  * @type { Object.<string, import("knex").Knex.Config> }
  */
-module.exports = {
+export const production = {
   client: 'pg',
   connection: env.EXTERNAL_URL,
   debug: true,
@@ -15,19 +15,18 @@ module.exports = {
   },
 
 };
-// module.exports = {
-//   client: 'pg',
-//   connection: {
-//     database: "Animal",
-//     user: "postgres",
-//     password: '4739',
-//   },
-//   debug: true,
-//   migrations: {
-//     directory: "./migrations"
-//   },
-//   seeds: {
-//     directory: "./seeds"
-//   },
-
-// };
+export const development = {
+  client: 'pg',
+  connection: {
+    database: "Animal",
+    user: "postgres",
+    password: '4739',
+  },
+  debug: true,
+  migrations: {
+    directory: "./migrations"
+  },
+  seeds: {
+    directory: "./seeds"
+  },
+}
