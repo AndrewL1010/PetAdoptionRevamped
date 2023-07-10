@@ -27,23 +27,22 @@ body {
   display: flex;
   flex-direction: column;
 }
-main{
+
+main {
   flex: 1;
 }
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
+  background: linear-gradient(to bottom,
       transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+      rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
 }
 
 a {
   text-decoration: none;
 }
-.layoutContainer{
+
+.layoutContainer {
   margin-top: 100px;
 }

@@ -83,6 +83,8 @@ function NavBar(props: NavBarProps) {
 
         }
         else {
+            setUsername("");
+            setPassword("");
             handleClose();
             setIsLoggedIn(true);
             setCurrentUser(result.username);
@@ -124,6 +126,7 @@ function NavBar(props: NavBarProps) {
                             <NavDropdown.Item href='/pets' active={pathname === "/pets"}>Available pets</NavDropdown.Item>
                         </NavDropdown>
                         <Nav.Link as={Link} href="/about" active={pathname === "/about"}>About Us</Nav.Link>
+                        <Nav.Link as={Link} href="/FAQ" active={pathname === "/FAQ"}>FAQ</Nav.Link>
                         <Nav.Link as={Link} href="/contact" active={pathname === "/contact"}>Contact Us</Nav.Link>
                     </Nav>
 

@@ -1,4 +1,5 @@
 "use client"
+import styles from './page.module.css';
 import { FormEvent, useState } from "react"
 import { Button } from "react-bootstrap";
 import ModalComponent from "@/components/ModalComponent";
@@ -54,7 +55,7 @@ function Page() {
                 <label htmlFor="email">Email</label>
                 <input onChange={(event) => { setEmail(event.target.value) }} type="email" className="form-control" id="email" placeholder="Provide an email" required minLength={6} maxLength={40} />
             </div>
-            <Button type="submit">Register</Button>
+            <Button className={styles.button} type="submit">Register</Button>
 
             <ModalComponent setShow={setShow} show={show} body={modalMessage} title={modalTitle}></ModalComponent>
 

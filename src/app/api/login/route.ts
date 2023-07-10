@@ -4,6 +4,7 @@ import * as jose from 'jose';
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers'
 import {env} from '../../../utility/EnvironmentValidatior';
+import { User } from '@/types/TableModels';
 export async function POST(request: Request) {
     console.log("bypassed");
     const database = getConnection();
@@ -11,8 +12,7 @@ export async function POST(request: Request) {
         let info = await request.json();
         let data = info.schema;
         const { username, password } = data;
-        const user = await database("users").where({ username: username }).first();
-        console.log(user);
+        const user = await database<User>("users").where({ username: username }).first();
         await database.destroy();
         if (!user) {
             return NextResponse.json({ status: "fail", message: "Incorrect username or password" });

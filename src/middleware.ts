@@ -1,12 +1,13 @@
 import { NextResponse } from 'next/server';
 import { NextRequest } from 'next/server';
 import { string, object, number, ref, } from 'yup';
+import * as yup from 'yup';
 import * as jose from 'jose';
 import { env } from './utility/EnvironmentValidatior';
 const schemas = {
     login: object({
         username: string().required().min(1),
-        password: string().required().min(6),
+        password: string().required().min(1),
     }),
     recovery: object({
         username: string().required().min(1),
@@ -39,14 +40,21 @@ const schemas = {
 
 export async function middleware(request: NextRequest) {
     if (request.nextUrl.pathname.startsWith('/api/register') || request.nextUrl.pathname.startsWith('/api/login') || request.nextUrl.pathname.startsWith('/api/email') || request.nextUrl.pathname.startsWith('/api/apply')) {
+        console.log("middleware");
         const { schema, schemaType } = await request.json();
+        console.log(schema);
+        console.log(schemaType);
         try {
             await schemas[schemaType as keyof typeof schemas].validate(schema);
+            console.log("schema validated");
             return NextResponse.next();
         }
         catch (error) {
-
-            return NextResponse.json({ status: "fail", message: error });
+            if (error instanceof yup.ValidationError) {
+                const message = error.errors[0];
+                return NextResponse.json({ status: "fail", message: message });
+            }
+            return NextResponse.json({ status: "fail", message: "Something went wrong on server side" });
         }
     }
     if (request.nextUrl.pathname.startsWith('/adopt')) {
