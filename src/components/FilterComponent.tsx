@@ -1,41 +1,29 @@
 "use client"
 import FilterProps from "@/types/FilterProps"
-import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import styles from './FilterComponent.module.css'
 import { Button } from "../components/bootstrap";
+import { useRouter } from "next/navigation";
+import { useSearchParams } from 'next/navigation'
 function FilterComponent(PageProps: FilterProps) {
+    const searchParams = useSearchParams()
     const animals = PageProps.animals;
-    const initialFilter = PageProps.filter
-    const [filter, setFilter] = useState<string>(initialFilter);
-
+    const router = useRouter();
+    const handleQuery = (filter: string) => {
+        router.push(`/pets?filter=${filter}`)
+    }
     return (
         <div>
             <ul className={styles.list}>
-                <Button onClick={() => {
-                    setFilter('all');
-                    document.cookie = "filter=all";
-                }}>All</Button>
-                <Button onClick={() => {
-                    setFilter('dog');
-                    document.cookie = "filter=dog";
-                }}>Dogs</Button>
-                <Button onClick={() => {
-                    setFilter('cat');
-                    document.cookie = "filter=cat";
-                }}>Cats</Button>
-                <Button onClick={() => {
-                    setFilter('bird');
-                    document.cookie = "filter=bird";
-                }}>Birds</Button>
-                <Button onClick={() => {
-                    setFilter('rabbit');
-                    document.cookie = "filter=rabbit";
-                }}>Rabbits</Button>
+                <Button onClick={() => { handleQuery("all") }}>All</Button>
+                <Button onClick={() => { handleQuery("dog") }}>Dogs</Button>
+                <Button onClick={() => { handleQuery("cat") }}>Cats</Button>
+                <Button onClick={() => { handleQuery("rabbit") }}>Rabbits</Button>
+                <Button onClick={() => { handleQuery("bird") }}>Birds</Button>
             </ul>
             <div className={styles.container}>
-                {filter === "all"
+                {!searchParams.has('filter') || searchParams.get('filter') === 'all'
                     ? animals.map((animal) => (
                         <Link key={animal.id} href={`/animals/${animal.id}`}>
                             <div className={styles.innercontainer}>
@@ -52,7 +40,7 @@ function FilterComponent(PageProps: FilterProps) {
                         </Link>
                     ))
                     : animals
-                        .filter((animal) => animal.type === filter)
+                        .filter((animal) => animal.type === searchParams.get('filter'))
                         .map((animal) => (
                             <Link key={animal.id} href={`/animals/${animal.id}`}>
                                 <div className={styles.innercontainer}>
