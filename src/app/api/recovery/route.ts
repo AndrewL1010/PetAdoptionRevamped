@@ -4,10 +4,22 @@ import { NextResponse } from 'next/server';
 import * as nodemailer from 'nodemailer';
 import * as jose from 'jose';
 import { env } from '../../../utility/EnvironmentValidatior';
+import { object, string } from 'yup';
+import ValidationUtility from '@/utility/ValidateorUtility';
 export async function POST(request: Request) {
+    const data = await request.json();
+    const schema = object({
+        username: string().required().min(1)
+    });
+    const validationResult = await ValidationUtility(schema, data);
+    if (validationResult.status === "fail") {
+        return NextResponse.json(validationResult);
+    }
+
+
+
+
     const database = getConnection();
-    const info = await request.json();
-    const data = info.schema;
     if (database) {
         const existingUser = await database<User>("users").where({ username: data.username }).first();
         if (!existingUser) {
@@ -15,7 +27,7 @@ export async function POST(request: Request) {
         }
 
         const secret = new TextEncoder().encode(
-            env.EMAIL_SECRET_KEY
+            env.RECOVERY_SECRET_KEY
         );
         const recoveryToken = await new jose.SignJWT({ id: existingUser.id, email: existingUser.email, username: existingUser.username })
             .setProtectedHeader({ alg: "HS256" })

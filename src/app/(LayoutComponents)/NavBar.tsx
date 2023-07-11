@@ -31,10 +31,7 @@ function NavBar(props: NavBarProps) {
     const handleRecovery = async () => {
         setShowRecovery(false);
         const data = {
-            schema: {
-                username: recoveryUsername,
-            },
-            schemaType: "recovery"
+            username: recoveryUsername,
         }
         const response = await fetch("/api/recovery",
             {
@@ -59,11 +56,8 @@ function NavBar(props: NavBarProps) {
 
     const login = async () => {
         const data = {
-            schema: {
-                username: username,
-                password: password,
-            },
-            schemaType: "login"
+            username: username,
+            password: password,
         }
         const response = await fetch("/api/login",
             {

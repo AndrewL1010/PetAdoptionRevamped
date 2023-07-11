@@ -19,17 +19,13 @@ function ApplicationComponent(props: ApplicationProps) {
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data = {
-            schema: {
-                animal_id,
-                firstName,
-                lastName,
-                occupation,
-                address,
-                experience,
-                email,
-
-            },
-            schemaType: "application"
+            animal_id,
+            firstName,
+            lastName,
+            occupation,
+            address,
+            experience,
+            email,
         }
         const response = await fetch('/api/apply',
             {

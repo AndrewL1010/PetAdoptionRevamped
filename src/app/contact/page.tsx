@@ -15,14 +15,11 @@ function Page() {
   async function sendMail(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const data = {
-      schema: {
-        email: email,
-        text: text,
-        subject: subject,
-      },
-      schemaType: "contact"
+      email: email,
+      text: text,
+      subject: subject,
     }
-    const response = await fetch("/api/email",
+    const response = await fetch("/api/contact",
       {
         method: "POST",
         body: JSON.stringify(data)

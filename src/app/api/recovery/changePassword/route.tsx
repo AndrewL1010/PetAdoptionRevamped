@@ -4,9 +4,21 @@ import { env } from '../../../../utility/EnvironmentValidatior';
 import * as jose from 'jose';
 import * as bcrypt from 'bcrypt';
 import { User } from '@/types/TableModels';
+import { object, string, ref } from 'yup';
+import ValidationUtility from '@/utility/ValidateorUtility';
 export async function PUT(request: Request) {
+    const data = await request.json()
+    const schema = object({
+        password: string().required().min(1),
+        confirmpassword: string().required().min(1),
+    });
+    const validationResult = await ValidationUtility(schema, data);
+    if (validationResult.status === "fail") {
+        return NextResponse.json(validationResult);
+    }
+
+
     try {
-        const data = await request.json()
         const recoverytoken = data.recoveryToken;
         const secret = new TextEncoder().encode(
             env.EMAIL_SECRET_KEY

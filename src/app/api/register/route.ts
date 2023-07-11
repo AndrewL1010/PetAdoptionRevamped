@@ -5,10 +5,22 @@ import * as nodemailer from 'nodemailer';
 import * as jose from 'jose';
 import { env } from '../../../utility/EnvironmentValidatior';
 import { User } from '../../../types/TableModels';
+import { object, string } from 'yup';
+import ValidationUtility from '@/utility/ValidateorUtility';
 export async function POST(request: Request) {
-    const database = getConnection();
-    const info = await request.json();
-    const data = info.schema;
+    const data = await request.json();
+    const schema = object({
+        username: string().required().min(1),
+        password: string().required().min(1),
+        email: string().email().required().min(1),
+    });
+    const validationResult = await ValidationUtility(schema, data);
+    if (validationResult.status === "fail") {
+        return NextResponse.json(validationResult);
+    }
+
+    const database = getConnection()
+
     if (database) {
         const existingUser = await database<User>("users").where({ username: data.username }).first();
         if (existingUser) {
@@ -27,7 +39,7 @@ export async function POST(request: Request) {
         const user = dbresult[0];
         const user_id = user.id;
         const secret = new TextEncoder().encode(
-            env.EMAIL_SECRET_KEY
+            env.EMAIL_REGISTER_KEY
         );
         const emailToken = await new jose.SignJWT({ id: user_id, email: email })
             .setProtectedHeader({ alg: "HS256" })
@@ -48,7 +60,6 @@ export async function POST(request: Request) {
             subject: "Pet Sanctuary Account Registration Confirmation",
             html: `Please click the link to verify your account: <a href=${URL}>${URL}</a>`
         }
-        console.log("sending email");
         await transporter.sendMail(mailOptions);
         await database.destroy();
 

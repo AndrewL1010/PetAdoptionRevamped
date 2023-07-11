@@ -15,12 +15,9 @@ function Page() {
     const register = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data = {
-            schema: {
-                username: username,
-                password: password,
-                email: email,
-            },
-            schemaType: "register"
+            username: username,
+            password: password,
+            email: email,
         }
         const response = await fetch("../api/register",
             {

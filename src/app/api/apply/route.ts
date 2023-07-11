@@ -4,9 +4,26 @@ import * as jose from 'jose';
 import { cookies } from 'next/headers';
 import { env } from '../../../utility/EnvironmentValidatior';
 import { Application, User } from '@/types/TableModels';
+import { object, string, number} from 'yup';
+import ValidationUtility from '@/utility/ValidateorUtility';
 export async function POST(request: Request) {
-    const info = await request.json();
-    const data = info.schema;
+    const data = await request.json();
+    const schema = object({
+        animal_id: number().required().min(1),
+        firstName: string().required().min(1),
+        lastName: string().required().min(1),
+        occupation: string().required().min(1),
+        address: string().required().min(1),
+        experience: string().required().min(1),
+        email: string().required(),
+    });
+
+    const validationResult = await ValidationUtility(schema, data);
+    if (validationResult.status === "fail") {
+        return NextResponse.json(validationResult);
+    }
+
+
     const token = cookies().get("token");
     if (!token) {
         return NextResponse.json({ status: "fail" })
@@ -15,10 +32,9 @@ export async function POST(request: Request) {
     try {
         const tokenString = token.value.toString();
         const secret = new TextEncoder().encode(
-            env.SECRET_KEY
+            env.USER_SECRET_KEY
         );
         const user = await jose.jwtVerify(tokenString, secret);
-        console.log(user);
         const username = user.payload.username
         const database = getConnection();
         if (database && typeof username === "string") {
@@ -39,7 +55,7 @@ export async function POST(request: Request) {
 
             }
             await database.destroy();
-            return { status: false };
+            return { status: "fail" };
 
         }
         NextResponse.json({ status: "fail", message: "Something went wrong on server side" });

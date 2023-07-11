@@ -11,9 +11,6 @@ function Page() {
     const [show, setShow] = useState<boolean>(false);
     const [routerpush, setrouterpush] = useState<boolean>(false);
     const searchParams = useSearchParams()
-    const samePasswords = () => {
-        return password === confirmPassword;
-    }
     const router = useRouter();
 
     const handleClose = () => {
@@ -24,16 +21,13 @@ function Page() {
 
     const changePassword = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        if (samePasswords()) {
+
+        if (password === confirmPassword) {
             const recoveryToken = searchParams.get('recoveryToken')
             const data = {
                 recoveryToken: recoveryToken,
-
-                schema: {
-                    password: password,
-                    confirmpassword: confirmPassword,
-                },
-                schemaType: "password_change"
+                password: password,
+                confirmpassword: confirmPassword,
             }
             const response = await fetch("/api/recovery/changePassword",
                 {
@@ -42,8 +36,9 @@ function Page() {
                 }
             )
             const result = await response.json();
-            if (result === false) {
-                setBody("Something went wrong, please try again. Make sure the two password match");
+            console.log(result);
+            if (result.status === "fail") {
+                setBody(result.message);
                 setTitle("Error");
                 setShow(true);
             }
@@ -54,6 +49,12 @@ function Page() {
                 setrouterpush(true);
             }
         }
+        else {
+            setBody("Both passwords must match");
+            setTitle("Error");
+            setShow(true);
+        }
+
     }
     return (
         <div>
