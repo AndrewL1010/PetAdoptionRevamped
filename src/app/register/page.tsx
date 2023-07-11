@@ -10,6 +10,11 @@ function Page() {
     const [modalMessage, setModalMessage] = useState<String>("");
     const [modalTitle, setModalTitle] = useState<String>("");
     const [show, setShow] = useState<boolean>(false);
+    const resetValues = () => {
+        setEmail("");
+        setPassword("");
+        setUsername("");
+    }
 
 
     const register = async (event: FormEvent<HTMLFormElement>) => {
@@ -30,11 +35,13 @@ function Page() {
             setShow(true);
             setModalTitle("Error");
             setModalMessage(result.message);
+            resetValues();
         }
         if (result.status === "success") {
             setShow(true);
             setModalTitle("Success");
             setModalMessage("Please check your email to verify your account before logging in");
+            resetValues();
         }
     }
     return (

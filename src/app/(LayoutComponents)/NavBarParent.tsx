@@ -14,7 +14,7 @@ async function getStatus(): Promise<{status: boolean, username: string}>{
         try {
             const tokenString = token.value.toString();
             const secret = new TextEncoder().encode(
-                env.SECRET_KEY
+                env.USER_SECRET_KEY
             );
             const user = await jose.jwtVerify(tokenString, secret);
             return { status: true, username: user.payload.username as string};
@@ -26,8 +26,6 @@ async function getStatus(): Promise<{status: boolean, username: string}>{
 }
 async function NavBarParent() {
     const result = await getStatus();
-
-
     return (
         <NavBar status={result.status} user={result.username}></NavBar>
     )

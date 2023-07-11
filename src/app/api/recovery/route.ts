@@ -23,7 +23,7 @@ export async function POST(request: Request) {
     if (database) {
         const existingUser = await database<User>("users").where({ username: data.username }).first();
         if (!existingUser) {
-            return NextResponse.json("fail");
+            return NextResponse.json({ status: "success", message: `if ${data.username} exists, we have sent an email with recovery instructions.` });
         }
 
         const secret = new TextEncoder().encode(
@@ -55,14 +55,14 @@ export async function POST(request: Request) {
             <br>
             Please click the link to recover your account: <a href=${URL}>${URL}</a>
             <br>
-            This link will expire in 1 hour.`
+            <strong> This link will expire in 1 hour. </strong>`
         }
         await transporter.sendMail(mailOptions);
         await database.destroy();
 
-        return NextResponse.json("success");
+        return NextResponse.json({ status: "success", message: `if ${data.username} exists, we have sent an email with recovery instructions.` });
     }
     else {
-        return NextResponse.json("fail");
+        return NextResponse.json({ status: "fail", message: "Something went wrong on server side" });
     }
 }

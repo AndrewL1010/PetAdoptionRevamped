@@ -24,6 +24,11 @@ function NavBar(props: NavBarProps) {
     const router = useRouter();
     const handleShow = () => setShowLogin(true);
     const handleClose = () => setShowLogin(false);
+    const resetValues = () => {
+        setUsername("");
+        setPassword("");
+
+    }
     const showPasswordRecoveryModal = () => {
         setShowLogin(false);
         setShowRecovery(true);
@@ -42,15 +47,17 @@ function NavBar(props: NavBarProps) {
         )
         const result = await response.json();
 
-        if (result === "fail") {
-            setBody(`No account named: ${recoveryUsername}`);
+        if (result.status === "fail") {
+            setBody(result.message);
             setTitle("Error");
             setShowRecoveryMessage(true);
+            setRecoveryUsername("");
         }
         else {
-            setBody(`Recovery instruction sent to email registered to: ${recoveryUsername}`);
+            setBody(result.message);
             setTitle("Success");
             setShowRecoveryMessage(true);
+            setRecoveryUsername("");
         }
     }
 
@@ -68,20 +75,18 @@ function NavBar(props: NavBarProps) {
         )
         let result = await response.json();
         if (result.status === "fail") {
-            setUsername("");
-            setPassword("");
             handleClose();
             setBody(result.message);
             setTitle("Error");
             setShow(true);
+            resetValues();
 
         }
         else {
-            setUsername("");
-            setPassword("");
             handleClose();
             setIsLoggedIn(true);
             setCurrentUser(result.username);
+            resetValues();
 
         }
 

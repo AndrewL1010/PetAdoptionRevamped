@@ -2,10 +2,38 @@ import PageProps from "@/types/PageProps";
 import Image from "next/image";
 import styles from './page.module.css';
 import getConnection from "@/utility/dbHandler";
-import { Container, Button } from "../../../components/bootstrap";
+import { Container } from "../../../components/bootstrap";
 import { Animal } from "@/types/TableModels";
-import Link from "next/link";
+import * as jose from 'jose';
+import { cookies } from "next/headers";
+import { env } from '../../../utility/EnvironmentValidatior';
+import ApplicationNavigate from "@/components/ApplicationNavigate";
+
+
+
+const isLoggedIn = async () => {
+    const token = cookies().get("token");
+    if (!token) {
+        return false;
+    }
+    try {
+        const tokenString = token.value.toString();
+        const secret = new TextEncoder().encode(
+            env.USER_SECRET_KEY
+        );
+        const user = await jose.jwtVerify(tokenString, secret);
+        return true;
+    }
+    catch (error) {
+        console.log(error);
+        return false;
+    }
+}
+
+
+
 async function Page({ params: { id } }: PageProps) {
+    const isUserLoggedIn = await isLoggedIn();
 
     if (typeof id === "string" && Number.isNaN(Number(id))) {
         return (
@@ -42,7 +70,8 @@ async function Page({ params: { id } }: PageProps) {
                     <div>
                         <p>{animal.description}</p>
                     </div>
-                    <Link href={`/adopt/${id}`}>Adopt {animal.name} now</Link>
+                    <ApplicationNavigate isLoggedIn={isUserLoggedIn} id={animal.id} name={animal.name}></ApplicationNavigate>
+
 
                 </Container>
             )
