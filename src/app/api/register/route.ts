@@ -43,6 +43,7 @@ export async function POST(request: Request) {
         );
         const emailToken = await new jose.SignJWT({ id: user_id, email: email })
             .setProtectedHeader({ alg: "HS256" })
+            .setExpirationTime("1h")
             .sign(secret);
 
 

@@ -1,5 +1,5 @@
 import { env } from './EnvironmentValidatior';
-import * as config from '../app/database/knexfile';
+const config = require('../app/database/knexfile');
 import Knex from "knex";
 export default function getConnection() {
     try {
@@ -8,7 +8,6 @@ export default function getConnection() {
             return database;
         }
         else {
-
             const database = Knex(config.development);
             return database;
         }

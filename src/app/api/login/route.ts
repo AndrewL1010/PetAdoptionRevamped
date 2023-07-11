@@ -40,6 +40,7 @@ export async function POST(request: Request) {
             );
             const token = await new jose.SignJWT({ username: username, password: password })
                 .setProtectedHeader({ alg: "HS256" })
+                .setExpirationTime("1h")
                 .sign(secret);
             cookies().set({
                 name: "token",

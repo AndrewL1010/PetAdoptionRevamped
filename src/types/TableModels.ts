@@ -30,3 +30,8 @@ export interface Animal {
     image: string,
     description: string,
 }
+export interface Recovery_Token {
+    id: number,
+    valid: boolean,
+    token: string,
+}

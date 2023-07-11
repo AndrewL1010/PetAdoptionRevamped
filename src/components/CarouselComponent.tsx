@@ -23,7 +23,6 @@ function CarouselComponent(props: CarouselProps) {
                             <h3 className={styles.text}>{image.header}</h3>
                             <p className={styles.text}>{image.message}</p>
 
-
                         </Carousel.Caption>
                     </Carousel.Item>
                 )

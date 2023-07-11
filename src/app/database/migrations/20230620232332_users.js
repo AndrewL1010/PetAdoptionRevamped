@@ -4,44 +4,54 @@
  */
 exports.up = async (knex) => {
     await knex.schema.createTable('users', (table) => {
-        table.increments('id').primary();
-        table.boolean('confirmation').defaultTo(false);
-        table.string('username');
-        table.string('password');
-        table.string('email');
+        table.increments('id').primary().notNullable;
+        table.boolean('confirmation').defaultTo(false).notNullable;
+        table.string('username').notNullable;
+        table.string('password').notNullable;
+        table.string('email').notNullable;
         table.timestamp("created_at").defaultTo(knex.fn.now());
 
     });
     await knex.schema.createTable('animals', (table) => {
         table.increments('id').primary();
-        table.string('type');
-        table.string('name');
-        table.integer('age');
-        table.string('gender');
-        table.string('weight');
-        table.string('breed');
-        table.string('alt');
-        table.string('image');
-        table.text('description');
+        table.string('type').notNullable;
+        table.string('name').notNullable;
+        table.integer('age').notNullable;
+        table.string('gender').notNullable;
+        table.string('weight').notNullable;
+        table.string('breed').notNullable;
+        table.string('alt').notNullable;
+        table.string('image').notNullable;
+        table.text('description').notNullable;
+
     });
     await knex.schema.createTable('applications', (table) => {
-        table.increments('id').primary();
+        table.increments('id').primary().notNullable;
         table.integer('user_id')
             .unsigned()
             .references('id')
             .inTable('users')
-            .onDelete('CASCADE');
+            .onDelete('CASCADE')
+            .notNullable;
         table.integer('animal_id')
             .unsigned()
             .references('id')
             .inTable('animals')
-            .onDelete('CASCADE');
-        table.string('firstname');
-        table.string('lastname');
-        table.string('occupation');
-        table.string('address');
-        table.string('experience');
-        table.string('email');
+            .onDelete('CASCADE')
+            .notNullable;
+        table.string('firstname').notNullable;
+        table.string('lastname').notNullable;
+        table.string('occupation').notNullable;
+        table.string('address').notNullable;
+        table.string('experience').notNullable;
+        table.string('email').notNullable;
+    });
+    await knex.schema.createTable('recovery_tokens', (table) => {
+        table.increments('id').primary();
+        table.boolean('valid').defaultTo(true).notNullable;
+        table.string('token').notNullable;
+
+
     });
 
 
@@ -55,5 +65,5 @@ exports.down = async (knex) => {
     await knex.schema.dropTableIfExists('applications');
     await knex.schema.dropTableIfExists('users');
     await knex.schema.dropTableIfExists('animals');
-    
+
 }

@@ -25,21 +25,21 @@ export async function middleware(request: NextRequest) {
             return NextResponse.redirect(env.BASE_URL);
         }
     }
-    if (request.nextUrl.pathname.startsWith('/recovery')) {
-        const token = request.nextUrl.searchParams.get("recoveryToken");
-        if (!token) {
-            return NextResponse.redirect(env.BASE_URL);
-        }
-        try {
-            const secret = new TextEncoder().encode(
-                env.RECOVERY_SECRET_KEY
-            );
-            const recoveryToken = await jose.jwtVerify(token, secret);
-            return NextResponse.next();
-        }
-        catch (error) {
-            return NextResponse.redirect(env.BASE_URL);
-        }
+    // if (request.nextUrl.pathname.startsWith('/recovery')) {
+    //     const token = request.nextUrl.searchParams.get("recoveryToken");
+    //     if (!token) {
+    //         return NextResponse.redirect(env.BASE_URL);
+    //     }
+    //     try {
+    //         const secret = new TextEncoder().encode(
+    //             env.RECOVERY_SECRET_KEY
+    //         );
+    //         const recoveryToken = await jose.jwtVerify(token, secret);
+    //         return NextResponse.next();
+    //     }
+    //     catch (error) {
+    //         return NextResponse.redirect(env.BASE_URL);
+    //     }
 
-    }
+    // }
 };

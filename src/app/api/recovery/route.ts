@@ -30,8 +30,13 @@ export async function POST(request: Request) {
             env.RECOVERY_SECRET_KEY
         );
         const recoveryToken = await new jose.SignJWT({ id: existingUser.id, email: existingUser.email, username: existingUser.username })
+            .setExpirationTime("1h")
             .setProtectedHeader({ alg: "HS256" })
             .sign(secret);
+
+        await database('recovery_tokens').insert({
+            token: recoveryToken,
+        });
 
 
         const transporter = nodemailer.createTransport({
@@ -48,7 +53,9 @@ export async function POST(request: Request) {
             subject: "Pet Sanctuary Account Recovery",
             html: `<strong><h2>if you did not request this recovery please ignore this email </h2> </strong>
             <br>
-            Please click the link to recover your account: <a href=${URL}>${URL}</a>  `
+            Please click the link to recover your account: <a href=${URL}>${URL}</a>
+            <br>
+            This link will expire in 1 hour.`
         }
         await transporter.sendMail(mailOptions);
         await database.destroy();
