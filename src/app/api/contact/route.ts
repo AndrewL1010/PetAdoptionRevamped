@@ -1,13 +1,13 @@
 import { NextResponse } from 'next/server';
 import * as nodemailer from 'nodemailer';
 import { env } from '../../../utility/EnvironmentValidatior';
-import { object, string} from 'yup';
+import { object, string } from 'yup';
 import ValidationUtility from '@/utility/ValidateorUtility';
 export async function POST(request: Request) {
     const data = await request.json();
     const schema = object({
         subject: string().required().min(1),
-        email: string().required(),
+        email: string().email().required(),
         text: string().required().min(1),
     });
     const validationResult = await ValidationUtility(schema, data);

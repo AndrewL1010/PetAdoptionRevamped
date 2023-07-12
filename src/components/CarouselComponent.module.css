@@ -1,5 +1,9 @@
 .images{
     object-fit: cover;
+    transition-duration: 2s;
+}
+.opacity{
+    opacity: 0;
 }
 .text{
     font-weight: bolder;

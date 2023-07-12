@@ -4,6 +4,7 @@ import { Container, Button } from '../components/bootstrap';
 import ApplicationProps from "@/types/ApplicationProps";
 import styles from './ApplicationComponent.module.css';
 import ModalComponent from './ModalComponent';
+import cookies from 'js-cookie';
 
 function ApplicationComponent(props: ApplicationProps) {
     const { name, breed, animal_id } = props;
@@ -18,34 +19,49 @@ function ApplicationComponent(props: ApplicationProps) {
     const [title, setTitle] = useState<string>("");
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        const data = {
-            animal_id,
-            firstName,
-            lastName,
-            occupation,
-            address,
-            experience,
-            email,
-        }
-        const response = await fetch('/api/apply',
-            {
-                method: "POST",
-                body: JSON.stringify(data),
+        const headers = new Headers();
+        const csrf_token = cookies.get('csrf_token');
+        if (csrf_token) {
+            headers.append('csrf_token', csrf_token);
+            const data = {
+                animal_id,
+                firstName,
+                lastName,
+                occupation,
+                address,
+                experience,
+                email,
             }
-        )
-        const result = await response.json();
+            const response = await fetch('/api/apply',
+                {
+                    method: "POST",
+                    body: JSON.stringify(data),
+                    headers: headers
+                }
+            )
+            const result = await response.json();
 
-        if (result.status === "success") {
-            setBody("You have successfully submitted your application, please give some time for us to review your application.");
-            setTitle("Success");
-            setShow(true);
+            if (result.status === "success") {
+                setBody("You have successfully submitted your application, please give some time for us to review your application.");
+                setTitle("Success");
+                setShow(true);
+
+            }
+            else {
+                setBody(result.message);
+                setTitle("Error");
+                setShow(true);
+            }
 
         }
         else {
-            setBody(result.message);
+            setBody("Invalid request from third party");
             setTitle("Error");
             setShow(true);
         }
+
+
+
 
     }
     return (

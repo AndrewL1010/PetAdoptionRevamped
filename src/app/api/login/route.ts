@@ -7,6 +7,7 @@ import { env } from '../../../utility/EnvironmentValidatior';
 import { User } from '@/types/TableModels';
 import { object, string } from 'yup';
 import ValidationUtility from '@/utility/ValidateorUtility';
+import * as crypto from 'crypto';
 export async function POST(request: Request) {
     const data = await request.json();
     const schema = object({
@@ -35,17 +36,32 @@ export async function POST(request: Request) {
         }
         if (await bcrypt.compare(password, user.password)) {
 
-            const secret = new TextEncoder().encode(
+            const user_secret = new TextEncoder().encode(
                 env.USER_SECRET_KEY
             );
             const token = await new jose.SignJWT({ username: username, password: password })
                 .setProtectedHeader({ alg: "HS256" })
                 .setExpirationTime("1h")
-                .sign(secret);
+                .sign(user_secret);
             cookies().set({
                 name: "token",
                 value: token,
-                httpOnly: true,
+                httpOnly: false,
+            });
+
+
+            const csrf_token = crypto.randomBytes(64).toString('hex');
+            const csrf_secret = new TextEncoder().encode(
+                env.CSRF_SECRET_KEY
+            );
+            const csrf_signed_token = await new jose.SignJWT({ csrf_token: csrf_token })
+                .setProtectedHeader({ alg: "HS256" })
+                .setExpirationTime("1h")
+                .sign(csrf_secret);
+            cookies().set({
+                name: "csrf_token",
+                value: csrf_signed_token,
+                httpOnly: false,
             });
 
             return NextResponse.json({ status: "success", username: username });

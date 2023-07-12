@@ -3,6 +3,10 @@
     margin: 0.25rem;
     border-radius: 4pc;
     cursor: pointer;
+    transition-duration: 2s;
+}
+.opacity{
+    opacity: 0;
 }
 
 .container {

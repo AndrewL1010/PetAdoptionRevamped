@@ -62,8 +62,9 @@ exports.up = async (knex) => {
  * @returns { Promise<void> }
  */
 exports.down = async (knex) => {
-    await knex.schema.dropTableIfExists('applications');
-    await knex.schema.dropTableIfExists('users');
-    await knex.schema.dropTableIfExists('animals');
+    await knex.schema.dropTable('applications');
+    await knex.schema.dropTable('users');
+    await knex.schema.dropTable('animals');
+    await knex.schema.dropTable('recovery_tokens');
 
 }

@@ -1,4 +1,9 @@
-import zod from "zod";
+require('server-only');
+const zod = require('zod');
+const path = require('path');
+const currentPath = __dirname;
+const pathToDotEnv = path.resolve(currentPath, "../../.env.local");
+require('dotenv').config({ path: pathToDotEnv });
 const envSchema = zod.object({
     HOST_EMAIL: zod.string().nonempty(),
     HOST_PASSWORD: zod.string().nonempty(),
@@ -9,6 +14,9 @@ const envSchema = zod.object({
     EXTERNAL_URL: zod.string().nonempty(),
     EMAIL_REGISTER_KEY: zod.string().nonempty(),
     RECOVERY_SECRET_KEY: zod.string().nonempty(),
+    CSRF_SECRET_KEY: zod.string().nonempty(),
 
 });
-export const env = envSchema.parse(process.env);
+
+module.exports = { env: envSchema.parse(process.env) }
+

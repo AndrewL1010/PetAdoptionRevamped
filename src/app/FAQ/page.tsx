@@ -1,7 +1,10 @@
 /* eslint-disable react/no-unescaped-entities */
 import styles from './page.module.css';
 import { Container } from '../../components/bootstrap';
-import Link from 'next/link';
+import { Metadata } from 'next';
+export const metadata: Metadata = {
+    title: 'FAQ - Pet Sanctuary',
+}
 function Page() {
     return (
         <>

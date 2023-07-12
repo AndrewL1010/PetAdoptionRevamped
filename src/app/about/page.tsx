@@ -1,9 +1,7 @@
 import { Container } from "../../components/bootstrap"
-import Image from "next/image"
 import styles from './page.module.css';
-import petOwner from './petowner.webp';
-import CEO from './ceo.jpg';
 import { Metadata } from "next";
+import ImageComponent from "@/components/ImageComponent";
 
 export const metadata: Metadata = {
     title: 'About us - Pet Sanctuary',
@@ -11,17 +9,9 @@ export const metadata: Metadata = {
 function page() {
     return (
         <Container>
-            <div>
-                <div className={styles.container}>
-                    <Image
-                        src={petOwner}
-                        alt="pet-owner"
-                        className={styles.image}
-                        width={700}
-                        height={500}
-                    >
-
-                    </Image>
+            <div className={styles.container}>
+                <div>
+                    <ImageComponent path={'/petowner.webp'} alt="pet-owner" width={700} height={500} small={false}></ImageComponent>
                 </div>
                 <h2>Our Contribution</h2>
                 <p>At our pet adoption company, we are dedicated to finding loving homes for animals in need.
@@ -58,17 +48,9 @@ function page() {
                     values the well-being of all animals.
                 </p>
             </div>
-            <div>
-                <div className={styles.container}>
-                    <Image
-                        src={CEO}
-                        alt="ceo"
-                        className={styles.image}
-                        width={700}
-                        height={500}
-                    >
-
-                    </Image>
+            <div className={styles.container}>
+                <div>
+                    <ImageComponent path={'/ceo.jpg'} alt="ceo" width={700} height={500} small={false}></ImageComponent>
                 </div>
                 <h2>Introducing our esteemed CEO, John Peterson</h2>
                 <p>A visionary leader who has played a pivotal role in driving our pet adoption company

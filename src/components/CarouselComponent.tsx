@@ -12,11 +12,12 @@ function CarouselComponent(props: CarouselProps) {
                 return (
                     <Carousel.Item key={image.path}>
                         <Image
-                            className={styles.images}
                             src={image.path}
                             alt="home slide image"
                             width={1300}
                             height={583}
+                            className={`${styles.images} ${styles.opacity}`}
+                            onLoadingComplete={(image) => { image.classList.remove(styles.opacity) }}
 
                         />
                         <Carousel.Caption>

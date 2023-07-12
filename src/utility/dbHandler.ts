@@ -1,5 +1,5 @@
 import { env } from './EnvironmentValidatior';
-const config = require('../app/database/knexfile');
+import config from '../app/database/knexfile';
 import Knex from "knex";
 export default function getConnection() {
     try {

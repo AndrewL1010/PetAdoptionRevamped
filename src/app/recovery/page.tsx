@@ -3,6 +3,10 @@ import { useSearchParams } from 'next/navigation'
 import { FormEvent, useState } from 'react';
 import { Button, Modal } from '../../components/bootstrap';
 import { useRouter } from "next/navigation";
+import { Metadata } from 'next';
+export const metadata: Metadata = {
+    title: 'Recovery - Pet Sanctuary',
+}
 function Page() {
     const [password, setPassword] = useState<string>("");
     const [confirmPassword, setConfirmpassword] = useState<string>("");
@@ -36,7 +40,6 @@ function Page() {
                 }
             )
             const result = await response.json();
-            console.log(result);
             if (result.status === "fail") {
                 setBody(result.message);
                 setTitle("Error");

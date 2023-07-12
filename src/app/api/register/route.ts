@@ -1,4 +1,4 @@
-const bcrypt = require("bcrypt");
+import bcrypt from 'bcrypt';
 import getConnection from '@/utility/dbHandler';
 import { NextResponse } from 'next/server';
 import * as nodemailer from 'nodemailer';
@@ -7,8 +7,15 @@ import { env } from '../../../utility/EnvironmentValidatior';
 import { User } from '../../../types/TableModels';
 import { object, string } from 'yup';
 import ValidationUtility from '@/utility/ValidateorUtility';
+import { Metadata } from 'next';
+export const metadata: Metadata = {
+    title: 'Register - Pet Sanctuary',
+}
 export async function POST(request: Request) {
     const data = await request.json();
+    if (!data) {
+        return NextResponse.json({ status: "fail", message: "No data provided." });
+    }
     const schema = object({
         username: string().required().min(1),
         password: string().required().min(1),

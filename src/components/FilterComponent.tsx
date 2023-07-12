@@ -34,28 +34,40 @@ function FilterComponent(PageProps: FilterProps) {
                                     height={300}
                                     width={420}
                                     key={animal.id}
-                                    className={styles.images}
+                                    className={`${styles.images} ${styles.opacity}`}
+                                    onLoadingComplete={(image) => { image.classList.remove(styles.opacity) }}
                                 ></Image>
                             </div>
                         </Link>
                     ))
-                    : animals
-                        .filter((animal) => animal.type === searchParams.get('filter'))
-                        .map((animal) => (
-                            <Link key={animal.id} href={`/animals/${animal.id}`}>
-                                <div className={styles.innercontainer}>
-                                    <h4>{animal.name}</h4>
-                                    <Image
-                                        src={animal.image}
-                                        alt={animal.alt}
-                                        height={300}
-                                        width={420}
-                                        key={animal.id}
-                                        className={styles.images}
-                                    ></Image>
-                                </div>
-                            </Link>
-                        ))}
+                    : searchParams.get('filter') != 'dog' &&
+                        searchParams.get('filter') != 'cat' &&
+                        searchParams.get('filter') != 'bird' &&
+                        searchParams.get('filter') != 'rabbit'
+
+                        ? (
+                            <h3>No animals of this type</h3>
+                        ) :
+                        animals
+                            .filter((animal) => animal.type === searchParams.get('filter'))
+                            .map((animal) => (
+                                <Link key={animal.id} href={`/animals/${animal.id}`}>
+                                    <div className={styles.innercontainer}>
+                                        <h4>{animal.name}</h4>
+                                        <Image
+                                            src={animal.image}
+                                            alt={animal.alt}
+                                            height={300}
+                                            width={420}
+                                            key={animal.id}
+                                            className={`${styles.images} ${styles.opacity}`}
+                                            onLoadingComplete={(image) => { image.classList.remove(styles.opacity) }}
+                                        ></Image>
+                                    </div>
+                                </Link>
+                            ))
+
+                }
 
             </div>
         </div>

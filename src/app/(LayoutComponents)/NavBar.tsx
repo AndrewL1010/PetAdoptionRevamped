@@ -8,6 +8,7 @@ import { usePathname, useRouter } from "next/navigation";
 import styles from './NavBar.module.css';
 import NavBarProps from '@/types/NavBarProps';
 import ModalComponent from '@/components/ModalComponent';
+import cookies from 'js-cookie';
 function NavBar(props: NavBarProps) {
     let { status, user } = props
     const [showLogin, setShowLogin] = useState<boolean>(false);
@@ -41,7 +42,8 @@ function NavBar(props: NavBarProps) {
         const response = await fetch("/api/recovery",
             {
                 method: "POST",
-                body: JSON.stringify(data)
+                body: JSON.stringify(data),
+
             }
 
         )
@@ -69,7 +71,9 @@ function NavBar(props: NavBarProps) {
         const response = await fetch("/api/login",
             {
                 method: "POST",
-                body: JSON.stringify(data)
+                body: JSON.stringify(data),
+
+
             }
 
         )
@@ -92,18 +96,37 @@ function NavBar(props: NavBarProps) {
 
     }
     const logout = async () => {
-        const response = await fetch("/api/logout",
-            {
-                method: "POST"
+        const csrf_token = cookies.get("csrf_token");
+        const headers = new Headers();
+        if (csrf_token) {
+            headers.append("csrf_token", csrf_token);
+            const response = await fetch("/api/logout",
+                {
+                    method: "POST",
+                    headers: headers
+
+                }
+            );
+            const result = await response.json();
+            if (result.status === "success") {
+                setPassword("");
+                setUsername("");
+                setIsLoggedIn(false);
+                router.push("/");
             }
-        );
-        const result = await response.json();
-        if (result === "loggedout") {
-            setPassword("");
-            setUsername("");
-            setIsLoggedIn(false);
-            router.push("/");
+            else {
+                setBody(result.message);
+                setTitle("Error");
+                setShow(true);
+            }
+
         }
+        else {
+            setBody("Invalid request from third party");
+            setTitle("Error");
+            setShow(true);
+        }
+
 
 
     }
@@ -112,7 +135,7 @@ function NavBar(props: NavBarProps) {
 
     return (
         <div className={styles.parentContainer}>
-            <Navbar bg="primary" variant="dark" sticky="top" expand="sm" collapseOnSelect>
+            <Navbar bg="primary" variant="dark" sticky="top">
                 <Container className={styles.container}>
                     <Navbar.Brand as={Link} href="/">
                         <FaPaw size={40} className={styles.logo} />

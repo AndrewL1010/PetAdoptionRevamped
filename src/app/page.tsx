@@ -1,7 +1,11 @@
 import CarouselComponent from '@/components/CarouselComponent'
 import styles from './page.module.css';
 import { Container } from '../components/bootstrap';
-import Image from 'next/image';
+import ImageComponent from '@/components/ImageComponent';
+import { Metadata } from 'next';
+export const metadata: Metadata = {
+  title: 'Home - Pet Sanctuary',
+}
 export default function Home() {
   const images = [
     {
@@ -44,7 +48,7 @@ export default function Home() {
   return (
     <Container className={styles.container}>
       <div className={styles.introcontainer}>
-        <div>
+        <div className={styles.messagecontainer}>
           <h4>Welcome!</h4>
           <p>Discover your perfect pet on our adoption website.
             Browse profiles of dogs, cats, rabbits, and more.
@@ -56,8 +60,7 @@ export default function Home() {
           </p>
         </div>
         <div>
-          <Image src={"/sanctuary.jpg"} width={500} height={300} alt='sanctuary' className={styles.image}></Image>
-
+          <ImageComponent path={"/sanctuary.jpg"} width={500} height={300} alt='sanctuary' small={false}></ImageComponent>
         </div>
       </div>
       <CarouselComponent images={images} />

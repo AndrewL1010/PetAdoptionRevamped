@@ -1,6 +1,10 @@
 /* eslint-disable react/no-unescaped-entities */
+import { Metadata } from 'next';
 import { Container } from '../../components/bootstrap';
 import styles from "./page.module.css";
+export const metadata: Metadata = {
+    title: 'Adoption Guide - Pet Sanctuary',
+}
 function Page() {
     return (
         <Container className={styles.container}>

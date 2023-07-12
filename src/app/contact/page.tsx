@@ -4,6 +4,11 @@ import { Container, Button } from '../../components/bootstrap';
 import { useState, FormEvent } from 'react';
 import style from './page.module.css';
 import ModalComponent from '@/components/ModalComponent';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Contact us - Pet Sanctuary',
+}
 
 function Page() {
   const [email, setEmail] = useState<String>("");
