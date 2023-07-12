@@ -1,7 +1,7 @@
 
 import React from 'react'
 import { Metadata } from 'next';
-import ContactComponent from '@/components/ContactComponent';
+import ContactComponent from '@/components/ContactComponent/ContactComponent';
 export const metadata: Metadata = {
   title: 'Contact us - Pet Sanctuary',
 }

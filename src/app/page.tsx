@@ -1,7 +1,7 @@
-import CarouselComponent from '@/components/CarouselComponent'
+import CarouselComponent from '@/components/CarouselComponent/CarouselComponent'
 import styles from './page.module.css';
 import { Container } from '../components/bootstrap';
-import ImageComponent from '@/components/ImageComponent';
+import ImageComponent from '@/components/ImageComponent/ImageComponent';
 import { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Home - Pet Sanctuary',

@@ -1,7 +1,7 @@
 import { Container } from "../../components/bootstrap"
 import styles from './page.module.css';
 import { Metadata } from "next";
-import ImageComponent from "@/components/ImageComponent";
+import ImageComponent from "@/components/ImageComponent/ImageComponent";
 
 export const metadata: Metadata = {
     title: 'About us - Pet Sanctuary',

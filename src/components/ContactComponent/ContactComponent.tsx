@@ -1,9 +1,9 @@
 "use client"
 import React from 'react'
-import { Container, Button } from './bootstrap'
+import { Container, Button } from '../bootstrap'
 import { useState, FormEvent } from 'react';
 import style from './ContactComponent.module.css';
-import ModalComponent from './ModalComponent';
+import ModalComponent from '../ModalComponent';
 
 function ContactComponent() {
     const [email, setEmail] = useState<String>("");

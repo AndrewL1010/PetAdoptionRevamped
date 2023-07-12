@@ -1,9 +1,9 @@
 "use client"
 import { useState, FormEvent } from 'react';
-import { Container, Button } from '../components/bootstrap';
+import { Container, Button } from '../bootstrap';
 import ApplicationProps from "@/types/ApplicationProps";
 import styles from './ApplicationComponent.module.css';
-import ModalComponent from './ModalComponent';
+import ModalComponent from '../ModalComponent';
 import cookies from 'js-cookie';
 
 function ApplicationComponent(props: ApplicationProps) {

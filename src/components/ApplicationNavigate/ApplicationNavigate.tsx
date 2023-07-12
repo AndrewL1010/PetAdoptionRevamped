@@ -1,9 +1,9 @@
 "use client"
 import ApplicationNavigateProp from '@/types/ApplicationNavigateProp';
-import { Button } from '../components/bootstrap';
+import { Button } from '../bootstrap';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import ModalComponent from './ModalComponent';
+import ModalComponent from '../ModalComponent';
 function ApplicationNavigate(props: ApplicationNavigateProp) {
     const { id, name } = props;
     const [title, setTitle] = useState<string>("");

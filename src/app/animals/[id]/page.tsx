@@ -1,10 +1,10 @@
 import PageProps from "@/types/PageProps";
-import ImageComponent from "@/components/ImageComponent";
+import ImageComponent from "@/components/ImageComponent/ImageComponent";
 import styles from './page.module.css';
 import getConnection from "@/utility/dbHandler";
 import { Container } from "../../../components/bootstrap";
 import { Animal } from "@/types/TableModels";
-import ApplicationNavigate from "@/components/ApplicationNavigate";
+import ApplicationNavigate from "@/components/ApplicationNavigate/ApplicationNavigate";
 import { Metadata } from "next";
 
 export async function generateMetadata({ params: { id } }: PageProps): Promise<Metadata> {

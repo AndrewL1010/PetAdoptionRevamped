@@ -1,6 +1,6 @@
 import PageProps from "@/types/PageProps"
 import getConnection from "@/utility/dbHandler";
-import ApplicationComponent from "@/components/ApplicationComponent";
+import ApplicationComponent from "@/components/ApplicationComponent/ApplicationComponent";
 import { Animal } from "@/types/TableModels";
 import { Metadata } from "next";
 export async function generateMetadata({ params: { id } }: PageProps): Promise<Metadata> {

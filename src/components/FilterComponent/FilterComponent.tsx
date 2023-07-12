@@ -3,7 +3,7 @@ import FilterProps from "@/types/FilterProps"
 import Link from "next/link";
 import Image from "next/image";
 import styles from './FilterComponent.module.css'
-import { Button } from "../components/bootstrap";
+import { Button } from "../bootstrap";
 import { useRouter } from "next/navigation";
 import { useSearchParams } from 'next/navigation'
 function FilterComponent(PageProps: FilterProps) {
