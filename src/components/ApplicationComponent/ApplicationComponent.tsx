@@ -70,11 +70,11 @@ function ApplicationComponent(props: ApplicationProps) {
                 <h1>Application For {breed}: {name}</h1>
                 <div className="form-group">
                     <label htmlFor="firstname">First Name</label>
-                    <input onChange={(event) => { setFirstName(event.target.value) }} className="form-control" id="firstname" placeholder="First Name..." required maxLength={30} />
+                    <input onChange={(event) => { setFirstName(event.target.value) }} autoComplete="off" className="form-control" id="firstname" placeholder="First Name..." required maxLength={30} name='firstname'/>
                 </div>
                 <div className="form-group">
                     <label htmlFor="lastname">Last Name</label>
-                    <input onChange={(event) => { setLastName(event.target.value) }} className="form-control" id="lastname" placeholder="Last Name..." required maxLength={30} />
+                    <input onChange={(event) => { setLastName(event.target.value) }} autoComplete="off" className="form-control" id="lastname" placeholder="Last Name..." required maxLength={30} name='lastname' />
                 </div>
                 <div className={`form-group ${styles.radiocontainer}`}>
                     <div>
@@ -82,21 +82,21 @@ function ApplicationComponent(props: ApplicationProps) {
                         <label htmlFor="employed">Employed</label>
                     </div>
                     <div>
-                        <input type="radio" id="unemployed" name="occupation" value="Unemployed" onClick={() => { setOccupation("Unemployed") }} />
+                        <input type="radio" id="unemployed" name="occupation" value="Unemployed" onClick={() => { setOccupation("Unemployed") }}/>
                         <label htmlFor="unemployed">Unemployed</label>
                     </div>
                 </div>
                 <div className="form-group">
                     <label htmlFor="address">Address</label>
-                    <input onChange={(event) => { setAddress(event.target.value) }} className="form-control" id="address" placeholder="Address..." required maxLength={30} />
+                    <input onChange={(event) => { setAddress(event.target.value) }} autoComplete="off" className="form-control" id="address" placeholder="Address..." required maxLength={30} name='address'/>
                 </div>
                 <div className="form-group">
                     <label htmlFor="experience">Experience</label>
-                    <textarea onChange={(event) => { setExperience(event.target.value) }} className="form-control" id="experience" placeholder="Your Experience With Animals..." required rows={10} />
+                    <textarea onChange={(event) => { setExperience(event.target.value) }} autoComplete="off" className="form-control" id="experience" placeholder="Your Experience With Animals..." required rows={10} name='experience'/>
                 </div>
                 <div className="form-group">
                     <label htmlFor="email">Email</label>
-                    <input onChange={(event) => { setEmail(event.target.value) }} type="email" className="form-control" id="email" placeholder="Email..." required maxLength={30} />
+                    <input onChange={(event) => { setEmail(event.target.value) }} autoComplete="off" type="email" className="form-control" id="email" placeholder="Email..." name='email'required maxLength={30} />
                 </div>
 
                 <Button type='submit'>Submit</Button>

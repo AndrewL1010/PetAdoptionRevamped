@@ -41,15 +41,15 @@ function Page() {
             <h1>Sign Up</h1>
             <div className="form-group">
                 <label htmlFor="username">Username</label>
-                <input onChange={(event) => { setUsername(event.target.value) }} type="username" className="form-control" id="username" aria-describedby="emailHelp" placeholder="Choose a username" required maxLength={30} name='register_username'/>
+                <input onChange={(event) => { setUsername(event.target.value) }} autoComplete="off" type="text" className="form-control" id="username" placeholder="Choose a username" required maxLength={30} name='username'/>
             </div>
             <div className="form-group">
                 <label htmlFor="password">Password</label>
-                <input onChange={(event) => { setPassword(event.target.value) }} type="password" className="form-control" id="password" placeholder="Choose a password" required minLength={6} maxLength={20} name='password' />
+                <input onChange={(event) => { setPassword(event.target.value) }} autoComplete="off" type="password" className="form-control" id="password" placeholder="Choose a password" required minLength={6} maxLength={20} name='password' />
             </div>
             <div className="form-group">
                 <label htmlFor="email">Email</label>
-                <input onChange={(event) => { setEmail(event.target.value) }} type="email" className="form-control" id="email" placeholder="Provide an email" required minLength={6} maxLength={40} name='register_email' />
+                <input onChange={(event) => { setEmail(event.target.value) }} autoComplete="off" type="email" className="form-control" id="email" placeholder="Provide an email" required minLength={6} maxLength={40} name='email' />
             </div>
             <Button className={styles.button} type="submit">Register</Button>
 

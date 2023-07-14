@@ -171,7 +171,7 @@ function NavBar(props: NavBarProps) {
                     <Modal.Body>
                         <div className="form-group">
                             <label htmlFor="username">Username</label>
-                            <input onChange={(event: React.ChangeEvent<HTMLInputElement>) => { setRecoveryUsername(event.target.value) }} type="username" className="form-control" id="username" aria-describedby="emailHelp" placeholder="Enter username" name='recovery_username'/>
+                            <input autoComplete="off" onChange={(event: React.ChangeEvent<HTMLInputElement>) => { setRecoveryUsername(event.target.value) }} type="text" className="form-control" id="username" placeholder="Enter username" name='username'/>
                         </div>
                     </Modal.Body>
                     <Modal.Footer>
@@ -193,11 +193,11 @@ function NavBar(props: NavBarProps) {
                     <Modal.Body>
                         <div className="form-group">
                             <label htmlFor="username">Username</label>
-                            <input onChange={(event: React.ChangeEvent<HTMLInputElement>) => { setUsername(event.target.value) }} type="username" className="form-control" id="username" aria-describedby="emailHelp" placeholder="Enter username" name='login_username'/>
+                            <input autoComplete="off" onChange={(event: React.ChangeEvent<HTMLInputElement>) => { setUsername(event.target.value) }} type="text" className="form-control" id="username" aria-describedby="emailHelp" placeholder="Enter username" name='username'/>
                         </div>
                         <div className="form-group">
                             <label htmlFor="password">Password</label>
-                            <input onChange={(event: React.ChangeEvent<HTMLInputElement>) => { setPassword(event.target.value) }} type="password" className="form-control" id="password" placeholder="Password" name='login_password'/>
+                            <input autoComplete="off" onChange={(event: React.ChangeEvent<HTMLInputElement>) => { setPassword(event.target.value) }} type="password" className="form-control" id="password" placeholder="Password" name='password'/>
                         </div>
                         <div className={styles.forgotpassword}>
                             <p onClick={showPasswordRecoveryModal}> Forgot Password</p>

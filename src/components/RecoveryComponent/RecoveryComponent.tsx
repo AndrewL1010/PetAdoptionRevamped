@@ -62,11 +62,11 @@ function RecoveryComponent() {
                 <h1>Password Change</h1>
                 <div className="form-group">
                     <label htmlFor="password">New Password</label>
-                    <input onChange={(event) => { setPassword(event.target.value) }} type="password" className="form-control" id="password" aria-describedby="emailHelp" placeholder="Choose a password" required maxLength={30} />
+                    <input onChange={(event) => { setPassword(event.target.value) }} autoComplete="off" type="password" className="form-control" id="password" placeholder="Choose a password" required maxLength={30} />
                 </div>
                 <div className="form-group">
                     <label htmlFor="confirm_password">Confirm New Password</label>
-                    <input onChange={(event) => { setConfirmpassword(event.target.value) }} type="password" className="form-control" id="confirm_password" placeholder="Confirm your new password" required minLength={6} maxLength={20} />
+                    <input onChange={(event) => { setConfirmpassword(event.target.value) }} autoComplete="off" type="password" className="form-control" id="confirm_password" placeholder="Confirm your new password" required minLength={6} maxLength={20} />
                 </div>
 
                 <Button type="submit">Change Password</Button>

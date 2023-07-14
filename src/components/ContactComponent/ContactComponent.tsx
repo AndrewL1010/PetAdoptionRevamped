@@ -44,15 +44,15 @@ function ContactComponent() {
                 <h1>Contact Us</h1>
                 <div className="form-group">
                     <label htmlFor="subject">subject</label>
-                    <input onChange={(event) => { setSubject(event.target.value) }} className="form-control" id="subject" placeholder="Subject..." required maxLength={30} />
+                    <input onChange={(event) => { setSubject(event.target.value) }} autoComplete="off" className="form-control" id="subject" placeholder="Subject..." required maxLength={30} name='subject'/>
                 </div>
                 <div className="form-group">
                     <label htmlFor="email">Email</label>
-                    <input onChange={(event) => { setEmail(event.target.value) }} type="email" className="form-control" id="username" placeholder="Email..." required maxLength={30} />
+                    <input onChange={(event) => { setEmail(event.target.value) }} autoComplete="off" type="email" className="form-control" id="username" placeholder="Email..." required maxLength={30} name='email'/>
                 </div>
                 <div className="form-group">
                     <label htmlFor="text">Your inquiry</label>
-                    <textarea onChange={(event) => { setText(event.target.value) }} className={`form-control ${style.textarea}`} id="text" placeholder="What would you like help with?" />
+                    <textarea onChange={(event) => { setText(event.target.value) }} autoComplete="off" className={`form-control ${style.textarea}`} id="text" name='textbox' placeholder="What would you like help with?" />
                 </div>
                 <Button type="submit">Send</Button>
             </form>
