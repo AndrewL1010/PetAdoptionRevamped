@@ -10,9 +10,10 @@
 }
 
 .small {
+    object-fit: cover;
     margin: 0.25rem;
     border-radius: 4pc;
-    width: 500px;
+    transition-duration: 2s;
     margin-right: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
 }

@@ -5,11 +5,10 @@ import ImageProps from "@/types/ImageProps";
 
 function ImageComponent(props: ImageProps) {
     const { path, width, height, alt, small } = props;
+    const imageStyle = small === false ? styles.images : styles.small
     return (
-        <Image src={path} width={width} height={height} alt={alt} className={`${styles.images} ${styles.opacity}`} onLoadingComplete={(image) => {
-            if (small) {
-                image.classList.add(styles.small)
-            }
+        <Image src={path} width={width} height={height} alt={alt} className={`${imageStyle} ${styles.opacity}`} onLoadingComplete={(image) => {
+
             image.classList.remove(styles.opacity);
 
         }}></Image>
