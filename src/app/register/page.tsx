@@ -10,12 +10,6 @@ function Page() {
     const [modalMessage, setModalMessage] = useState<String>("");
     const [modalTitle, setModalTitle] = useState<String>("");
     const [show, setShow] = useState<boolean>(false);
-    const resetValues = () => {
-        setEmail("");
-        setPassword("");
-        setUsername("");
-    }
-
 
     const register = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -35,13 +29,11 @@ function Page() {
             setShow(true);
             setModalTitle("Error");
             setModalMessage(result.message);
-            resetValues();
         }
         if (result.status === "success") {
             setShow(true);
             setModalTitle("Success");
             setModalMessage("Please check your email to verify your account before logging in");
-            resetValues();
         }
     }
     return (
@@ -49,15 +41,15 @@ function Page() {
             <h1>Sign Up</h1>
             <div className="form-group">
                 <label htmlFor="username">Username</label>
-                <input onChange={(event) => { setUsername(event.target.value) }} type="username" className="form-control" id="username" aria-describedby="emailHelp" placeholder="Choose a username" required maxLength={30} />
+                <input onChange={(event) => { setUsername(event.target.value) }} type="username" className="form-control" id="username" aria-describedby="emailHelp" placeholder="Choose a username" required maxLength={30} name='register_username'/>
             </div>
             <div className="form-group">
                 <label htmlFor="password">Password</label>
-                <input onChange={(event) => { setPassword(event.target.value) }} type="password" className="form-control" id="password" placeholder="Choose a password" required minLength={6} maxLength={20} />
+                <input onChange={(event) => { setPassword(event.target.value) }} type="password" className="form-control" id="password" placeholder="Choose a password" required minLength={6} maxLength={20} name='password' />
             </div>
             <div className="form-group">
                 <label htmlFor="email">Email</label>
-                <input onChange={(event) => { setEmail(event.target.value) }} type="email" className="form-control" id="email" placeholder="Provide an email" required minLength={6} maxLength={40} />
+                <input onChange={(event) => { setEmail(event.target.value) }} type="email" className="form-control" id="email" placeholder="Provide an email" required minLength={6} maxLength={40} name='register_email' />
             </div>
             <Button className={styles.button} type="submit">Register</Button>
 
