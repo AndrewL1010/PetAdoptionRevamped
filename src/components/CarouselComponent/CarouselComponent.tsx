@@ -7,7 +7,7 @@ function CarouselComponent(props: CarouselProps) {
     const images = props.images;
 
     return (
-        <Carousel>
+        <Carousel className={styles.container}>
             {images.map((image) => {
                 return (
                     <Carousel.Item key={image.path}>

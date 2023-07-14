@@ -1,6 +1,7 @@
 .images{
-    object-fit: cover;
     transition-duration: 2s;
+    object-fit: cover;
+    background-position: right;
 }
 .opacity{
     opacity: 0;
