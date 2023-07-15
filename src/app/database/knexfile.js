@@ -13,7 +13,6 @@ module.exports = {
       user: "postgres",
       password: '4739',
     },
-    debug: true,
     migrations: {
       directory: "./migrations"
     },
@@ -24,7 +23,6 @@ module.exports = {
   production: {
     client: 'pg',
     connection: env.EXTERNAL_URL,
-    debug: true,
     migrations: {
       directory: "./migrations"
     },

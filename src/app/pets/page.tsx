@@ -10,9 +10,22 @@ import styles from './page.module.css';
 function Page() {
     const searchParams = useSearchParams();
     const router = useRouter();
-    const handleQuery = (filter: string) => {
-        router.push(`/pets?filter=${filter}`)
+
+
+    const handleQuery = (searchQuery: string, newQueryValue: string) => {
+        if (searchQuery === "filter") {
+            const url = new URLSearchParams({ filter: newQueryValue });
+            router.push("/pets?" + url);
+        }
+        if (searchQuery === "page") {
+            const filter = searchParams.get('filter') || 'all';
+            const url = new URLSearchParams({ filter: filter, page: newQueryValue });
+            router.push("/pets?" + url);
+        }
+
     }
+
+
     const fetcher = async () => {
         const filter = searchParams.get('filter') || 'all';
         const page = searchParams.get('page') || 0;
@@ -27,15 +40,24 @@ function Page() {
             }
         )
         const resultdata = await response.json();
-        return resultdata.animals as Animal[];
+        return resultdata as { status: string, animals: Animal[], count: { total: string } };
 
     }
-    const { data, error, isLoading } = useSWR('/api/getAnimals', fetcher);
-    console.log(data);
+    const filter = searchParams.get('filter') || 'all';
+    const page = searchParams.get('page') || 0;
+    const { data, error, isLoading } = useSWR(`/api/getAnimals?filter=${filter}&page=${page}`, fetcher, {
+    });
+
     if (!data) {
         return (
             <div>Animals of this type does not exist</div>
         )
+    }
+    const num_of_pages = Math.ceil(parseInt(data.count.total) / 21);
+
+    let array = [];
+    for (let i = 1; i < num_of_pages + 1; i++) {
+        array.push(i);
     }
 
     if (isLoading) {
@@ -43,7 +65,7 @@ function Page() {
             <div>Loading...</div>
         )
     }
-    if (error || data.length === 0) {
+    if (error || data.animals.length === 0) {
         return (
             <div>Animals of this type does not exist</div>
         )
@@ -54,18 +76,18 @@ function Page() {
 
     return (
         <div>
-            <ul>
-                <Button onClick={() => { handleQuery("all") }}>All</Button>
-                <Button onClick={() => { handleQuery("dog") }}>Dogs</Button>
-                <Button onClick={() => { handleQuery("cat") }}>Cats</Button>
-                <Button onClick={() => { handleQuery("rabbit") }}>Rabbits</Button>
-                <Button onClick={() => { handleQuery("bird") }}>Birds</Button>
+            <ul className={styles.filterContainer}>
+                <Button onClick={() => { handleQuery("filter", "all") }}>All</Button>
+                <Button onClick={() => { handleQuery("filter", "dog") }}>Dogs</Button>
+                <Button onClick={() => { handleQuery("filter", "cat") }}>Cats</Button>
+                <Button onClick={() => { handleQuery("filter", "rabbit") }}>Rabbits</Button>
+                <Button onClick={() => { handleQuery("filter", "bird") }}>Birds</Button>
             </ul>
-            <div>
+            <div className={styles.parentcontainer}>
                 {
-                    data.map((animal) => (
+                    data.animals.map((animal) => (
                         <Link key={animal.id} href={`/animals/${animal.id}`}>
-                            <div >
+                            <div className={styles.container}>
                                 <h4>{animal.name}</h4>
                                 <Image
                                     src={animal.image}
@@ -80,9 +102,13 @@ function Page() {
                         </Link>
                     ))
                 }
+            </div>
+            <div className={styles.page_number_container}>
+                {array.map((page_number) => (
+                    <Button key={page_number} onClick={() => { handleQuery("page", page_number.toString()) }}>{page_number}</Button>
+                ))
 
-
-
+                }
             </div>
         </div>
 

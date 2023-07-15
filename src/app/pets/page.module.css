@@ -10,17 +10,34 @@
 }
 
 
-.container {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-}
-
 .innercontainer {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+.parentcontainer{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.filterContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+}
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.page_number_container{
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
 }

@@ -8,24 +8,22 @@ interface AnimalCount {
 export async function POST(request: Request) {
     const data = await request.json()
     const filter = data.filter;
-    // console.log("#################################################");
-    // console.log(filter);
-    // console.log(data)
-
-    const page = parseInt(data.page);
+    const page = data.page === 0 ? parseInt(data.page) : parseInt(data.page) - 1;
     const database = getConnection();
     if (database) {
         if (filter === "all") {
             const animals = await database<Animal>('animals').limit(21).offset(page * 21);
+            const count = await database('animals').count<AnimalCount>('* as total').first();
 
             await database.destroy();
-            return NextResponse.json({ status: "success", animals: animals });
+            return NextResponse.json({ status: "success", animals: animals, count: count });
 
         }
         else {
-            const animals = await database<Animal>('animals').where({ type: filter }).limit(21).offset(page * 21);;
+            const animals = await database<Animal>('animals').where({ type: filter }).limit(21).offset(page * 21);
+            const count = await database('animals').where({ type: filter }).count<AnimalCount>('* as total').first();
             await database.destroy();
-            return NextResponse.json({ status: "success", animals: animals });
+            return NextResponse.json({ status: "success", animals: animals, count: count });
 
         }
 
