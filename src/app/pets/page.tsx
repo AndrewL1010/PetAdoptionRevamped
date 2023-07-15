@@ -7,10 +7,14 @@ import { useSearchParams } from 'next/navigation'
 import { Animal } from "@/types/TableModels";
 import useSWR from 'swr'
 import styles from './page.module.css';
+import { useState } from "react";
 function Page() {
-    const searchParams = useSearchParams();
-    const router = useRouter();
 
+    const searchParams = useSearchParams();
+    const filter = searchParams.get('filter') || 'all';
+    const page = searchParams.get('page') || '0';
+
+    const router = useRouter();
 
     const handleQuery = (searchQuery: string, newQueryValue: string) => {
         if (searchQuery === "filter") {
@@ -28,7 +32,7 @@ function Page() {
 
     const fetcher = async () => {
         const filter = searchParams.get('filter') || 'all';
-        const page = searchParams.get('page') || 0;
+        const page = searchParams.get('page') || '0';
         const data = {
             page: page,
             filter: filter
@@ -43,10 +47,8 @@ function Page() {
         return resultdata as { status: string, animals: Animal[], count: { total: string } };
 
     }
-    const filter = searchParams.get('filter') || 'all';
-    const page = searchParams.get('page') || 0;
-    const { data, error, isLoading } = useSWR(`/api/getAnimals?filter=${filter}&page=${page}`, fetcher, {
-    });
+
+    const { data, error, isLoading } = useSWR(`/api/getAnimals?filter=${filter}&page=${page}`, fetcher);
 
     if (!data) {
         return (
@@ -77,11 +79,11 @@ function Page() {
     return (
         <div>
             <ul className={styles.filterContainer}>
-                <Button onClick={() => { handleQuery("filter", "all") }}>All</Button>
-                <Button onClick={() => { handleQuery("filter", "dog") }}>Dogs</Button>
-                <Button onClick={() => { handleQuery("filter", "cat") }}>Cats</Button>
-                <Button onClick={() => { handleQuery("filter", "rabbit") }}>Rabbits</Button>
-                <Button onClick={() => { handleQuery("filter", "bird") }}>Birds</Button>
+                <Button onClick={() => { handleQuery("filter", "all") }} style={{ opacity: filter === 'all' ? 0.5 : 1 }}>All</Button>
+                <Button onClick={() => { handleQuery("filter", "dog") }} style={{ opacity: filter === 'dog' ? 0.5 : 1 }}>Dogs</Button>
+                <Button onClick={() => { handleQuery("filter", "cat") }} style={{ opacity: filter === 'cat' ? 0.5 : 1 }}>Cats</Button>
+                <Button onClick={() => { handleQuery("filter", "rabbit") }} style={{ opacity: filter === 'rabbit' ? 0.5 : 1 }}>Rabbits</Button>
+                <Button onClick={() => { handleQuery("filter", "bird") }} style={{ opacity: filter === 'bird' ? 0.5 : 1 }}>Birds</Button>
             </ul>
             <div className={styles.parentcontainer}>
                 {
@@ -105,7 +107,7 @@ function Page() {
             </div>
             <div className={styles.page_number_container}>
                 {array.map((page_number) => (
-                    <Button key={page_number} onClick={() => { handleQuery("page", page_number.toString()) }}>{page_number}</Button>
+                    <Button key={page_number} onClick={() => { handleQuery("page", page_number.toString()) }} style={{ opacity: page === page_number.toString() ? 0.5 : page === "0" && page_number === 1 ? 0.5 : 1 }}>{page_number}</Button>
                 ))
 
                 }

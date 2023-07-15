@@ -8,7 +8,7 @@ interface AnimalCount {
 export async function POST(request: Request) {
     const data = await request.json()
     const filter = data.filter;
-    const page = data.page === 0 ? parseInt(data.page) : parseInt(data.page) - 1;
+    const page = data.page === '0' ? parseInt(data.page) : parseInt(data.page) - 1;
     const database = getConnection();
     if (database) {
         if (filter === "all") {
