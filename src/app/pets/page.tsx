@@ -7,7 +7,7 @@ import { useSearchParams } from 'next/navigation'
 import { Animal } from "@/types/TableModels";
 import useSWR from 'swr'
 import styles from './page.module.css';
-import { useState } from "react";
+import Spinner from 'react-bootstrap/Spinner';
 function Page() {
 
     const searchParams = useSearchParams();
@@ -50,6 +50,22 @@ function Page() {
 
     const { data, error, isLoading } = useSWR(`/api/getAnimals?filter=${filter}&page=${page}`, fetcher);
 
+
+
+
+
+    if (error) {
+        return (
+            <div>Animals of this type does not exist</div>
+        )
+    }
+    if (isLoading) {
+        return (
+            <div className={styles.spinner} >
+                <Spinner animation="border" variant="primary" />
+            </div>
+        )
+    }
     if (!data) {
         return (
             <div>Animals of this type does not exist</div>
@@ -60,17 +76,6 @@ function Page() {
     let array = [];
     for (let i = 1; i < num_of_pages + 1; i++) {
         array.push(i);
-    }
-
-    if (isLoading) {
-        return (
-            <div>Loading...</div>
-        )
-    }
-    if (error || data.animals.length === 0) {
-        return (
-            <div>Animals of this type does not exist</div>
-        )
     }
 
 
