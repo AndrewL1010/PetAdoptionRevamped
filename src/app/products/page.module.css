@@ -1,0 +1,22 @@
+.ParentContainer{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+.ProductContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 4px solid #3B71CA;
+    cursor: pointer;
+}
+.images{
+    object-fit: cover;
+}
+.prices{
+    font-weight: bolder;
+}

@@ -141,9 +141,11 @@ function NavBar(props: NavBarProps) {
                             <NavDropdown.Item href='/how' active={pathname === "/how"}>How to adopt</NavDropdown.Item>
                             <NavDropdown.Item href='/pets' active={pathname === "/pets"}>Available pets</NavDropdown.Item>
                         </NavDropdown>
+                        <Nav.Link as={Link} href="/products" active={pathname === "/products"}>Products</Nav.Link>
                         <Nav.Link as={Link} href="/about" active={pathname === "/about"}>About Us</Nav.Link>
                         <Nav.Link as={Link} href="/FAQ" active={pathname === "/FAQ"}>FAQ</Nav.Link>
                         <Nav.Link as={Link} href="/contact" active={pathname === "/contact"}>Contact Us</Nav.Link>
+            
                     </Nav>
 
                     <Nav>

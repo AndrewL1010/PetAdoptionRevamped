@@ -10,12 +10,13 @@ function CarouselComponent(props: CarouselProps) {
         <Carousel className={styles.container}>
             {images.map((image) => {
                 return (
-                    <Carousel.Item key={image.path}>
+                    <Carousel.Item key={image.path} className={styles.imageparentcontainer}>
                         <Image
                             src={image.path}
                             alt="home slide image"
-                            width={1300}
-                            height={583}
+                            width={0}
+                            height={0}
+                            sizes='100vw'
                             className={`${styles.images} ${styles.opacity}`}
                             onLoadingComplete={(image) => { image.classList.remove(styles.opacity) }}
 

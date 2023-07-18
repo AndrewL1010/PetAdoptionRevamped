@@ -9,13 +9,6 @@ export const metadata: Metadata = {
 export default function Home() {
   const images = [
     {
-      path: "/owner1.webp",
-      header: "Sophie White",
-      message: '"Learning how to take care of her helped me learn how to take care of myself"',
-      type: "Dogs",
-      animalurl: "/dogs"
-    },
-    {
       path: "/homecat.jpg",
       header: "Milo",
       message: '"Please adopt me!"',

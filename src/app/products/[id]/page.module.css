@@ -1,0 +1,14 @@
+.ProductContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 4px solid #3B71CA;
+    cursor: pointer;
+}
+.images{
+    object-fit: cover;
+}
+.prices{
+    font-weight: bolder;
+}

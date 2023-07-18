@@ -1,4 +1,3 @@
-require('server-only');
 const zod = require('zod');
 const path = require('path');
 const currentPath = __dirname;

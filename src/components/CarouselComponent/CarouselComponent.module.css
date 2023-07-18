@@ -1,17 +1,34 @@
-.images{
+.images {
     transition-duration: 2s;
+    width: 100%;
     object-fit: cover;
-    background-position: right;
+    height: 400px;
 }
-.opacity{
+
+.opacity {
     opacity: 0;
 }
-.text{
+
+.text {
     font-weight: bolder;
 }
-.button{
+
+.button {
     margin-bottom: 10px;
     background-color: #3B71CA;
     padding: 8px;
     color: white;
+}
+
+.container {
+    width: 100%;
+}
+
+
+
+
+@media only screen and (min-width: 900px) {
+    .images {
+        height: 550px;
+    }
 }
