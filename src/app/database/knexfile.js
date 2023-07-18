@@ -19,6 +19,10 @@ module.exports = {
     seeds: {
       directory: "./seeds"
     },
+    pool: {
+      min: 0,
+      max: 2,
+    }
   },
   production: {
     client: 'pg',
@@ -29,5 +33,9 @@ module.exports = {
     seeds: {
       directory: "./seeds"
     },
+    pool: {
+      min: 0,
+      max: 2,
+    }
   }
 }

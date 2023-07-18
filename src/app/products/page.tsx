@@ -6,6 +6,7 @@ async function Page() {
     const database = getConnection();
     if (database) {
         const products = await database('products');
+        await database.destroy();
         if (products) {
             return (
                 <div className={styles.ParentContainer}>

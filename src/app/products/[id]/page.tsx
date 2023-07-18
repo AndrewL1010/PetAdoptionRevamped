@@ -7,6 +7,7 @@ async function Page({ params: { id } }: PageProps) {
     const database = getConnection();
     if (database) {
         const product = await database('products').where({ id: id }).first();
+        await database.destroy();
         if (product) {
             return (
                 <div key={product.id} className={styles.ProductContainer}>
