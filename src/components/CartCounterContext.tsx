@@ -1,5 +1,5 @@
 "use client"
-import { createContext, useContext, Dispatch, SetStateAction, useState } from 'react';
+import { createContext, useContext, Dispatch, SetStateAction, useState, ReactNode } from 'react';
 import { Product } from '@/types/TableModels';
 
 interface ContextProps {
@@ -13,7 +13,7 @@ const CartCounterContext = createContext<ContextProps>({
   setCartCount: () => { },
 });
 
-export const GlobalCartCounterContextProvider = ({ children }) => {
+export const GlobalCartCounterContextProvider = ({ children }: { children: ReactNode }) => {
   const data = localStorage.getItem('cart');
   let initialCount = 0;
   if (data !== null) {
