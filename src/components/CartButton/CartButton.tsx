@@ -23,7 +23,11 @@ function CartButton(props: CartButtonProp) {
                 if (item.id === product.id) {
                     added = true;
                     if (item.quantity) {
-                        return { ...item, quantity: parseInt(item.quantity) + 1 }
+                        console.log("adding same item....");
+                        console.log(`current quantity is: ${item.quantity}`);
+                        const newQuantity = parseInt(item.quantity) + 1;
+                        console.log(`new quantity is ${newQuantity}`);
+                        return { ...item, quantity: newQuantity }
                     }
                     else {
                         return { ...item, quantity: 1 }
@@ -32,11 +36,13 @@ function CartButton(props: CartButtonProp) {
                 return { ...item }
             });
             if (!added) {
-                localStorage.setItem('cart', JSON.stringify([...updatedCart, { ...product, quanity: 1 }]))
+                localStorage.setItem('cart', JSON.stringify([...updatedCart, { ...product, quantity: 1 }]));
             }
             else {
-                localStorage.setItem('cart', JSON.stringify(updatedCart));
+                localStorage.setItem('cart', JSON.stringify(updatedCart))
             }
+
+
 
 
 
