@@ -10,7 +10,7 @@ function page() {
     return (
         <Container>
             <div className={styles.container}>
-                <div>
+                <div className={styles.imagecontainer}>
                     <ImageComponent path={'/petowner.webp'} alt="pet-owner" width={700} height={500} small={false}></ImageComponent>
                 </div>
                 <h2>Our Contribution</h2>
@@ -49,7 +49,7 @@ function page() {
                 </p>
             </div>
             <div className={styles.container}>
-                <div>
+                <div className={styles.imagecontainer}>
                     <ImageComponent path={'/ceo.jpg'} alt="ceo" width={700} height={500} small={false}></ImageComponent>
                 </div>
                 <h2>Introducing our esteemed CEO, John Peterson</h2>

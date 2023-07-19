@@ -35,3 +35,14 @@ export interface Recovery_Token {
     valid: boolean,
     token: string,
 }
+export interface Product {
+    id: number,
+    name: string,
+    description: string,
+    price: number,
+    category: string,
+    image_path: string,
+    weight: string,
+    dimensions: string,
+    stock_quantity: number,
+}

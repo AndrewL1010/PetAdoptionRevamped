@@ -1,14 +1,22 @@
 .ProductContainer{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
     border: 4px solid #3B71CA;
-    cursor: pointer;
+    color: #3B71CA;
+    gap: 60px;
+
 }
 .images{
     object-fit: cover;
 }
-.prices{
+.price{
     font-weight: bolder;
+    font-size: 1.6rem;
+    text-align: center;
+}
+.right{
+    display: flex;
+    flex-direction: column;
 }

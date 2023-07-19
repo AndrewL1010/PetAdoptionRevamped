@@ -1,15 +1,24 @@
-
-.container{
+.container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
-.images{
+
+.images {
     border-radius: 5px;
     object-fit: cover;
     transition-duration: 2s;
 }
-.opacity{
+
+.opacity {
     opacity: 0;
+}
+
+.imagecontainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }

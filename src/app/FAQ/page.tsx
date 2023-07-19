@@ -7,7 +7,8 @@ export const metadata: Metadata = {
 }
 function Page() {
     return (
-        <>
+        <>  
+    
             <div className={styles.linkcontainer}>
                 <a href='#1'> 1. How does the pet adoption process work?</a>
                 <a href='#2'> 2. What types of pets do you have available for adoption?</a>
