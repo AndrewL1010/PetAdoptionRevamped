@@ -15,7 +15,6 @@ export async function POST(request: Request) {
         let productQuery = database('products');
         let count = await database('products').count<ProductCount>('* as total').first();
         if (category !== "all") {
-            console.log(category);
             productQuery = productQuery.where({ category: category });
             count = await database('products').where({ category: category }).count<ProductCount>('* as total').first();
         }

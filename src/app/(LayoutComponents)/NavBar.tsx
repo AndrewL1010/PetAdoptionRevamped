@@ -1,5 +1,5 @@
 "use client";
-import { FaPaw } from 'react-icons/fa';
+import { FaPaw, FaShoppingCart } from 'react-icons/fa';
 import { Navbar, Nav, Container, NavDropdown, Modal, Button } from "react-bootstrap";
 import { useState } from 'react';
 import React from 'react'
@@ -9,8 +9,10 @@ import styles from './NavBar.module.css';
 import NavBarProps from '@/types/NavBarProps';
 import ModalComponent from '@/components/ModalComponent';
 import cookies from 'js-cookie';
+
+
 function NavBar(props: NavBarProps) {
-    let { status, user } = props
+    let { status, user } = props;
     const [showLogin, setShowLogin] = useState<boolean>(false);
     const [show, setShow] = useState<boolean>(false);
     const [showRecoveryMessage, setShowRecoveryMessage] = useState<boolean>(false);
@@ -25,7 +27,7 @@ function NavBar(props: NavBarProps) {
     const router = useRouter();
     const handleShow = () => setShowLogin(true);
     const handleClose = () => setShowLogin(false);
- 
+
     const showPasswordRecoveryModal = () => {
         setShowLogin(false);
         setShowRecovery(true);
@@ -145,10 +147,10 @@ function NavBar(props: NavBarProps) {
                         <Nav.Link as={Link} href="/about" active={pathname === "/about"}>About Us</Nav.Link>
                         <Nav.Link as={Link} href="/FAQ" active={pathname === "/FAQ"}>FAQ</Nav.Link>
                         <Nav.Link as={Link} href="/contact" active={pathname === "/contact"}>Contact Us</Nav.Link>
-            
+
                     </Nav>
 
-                    <Nav>
+                    <Nav className={styles.right}>
                         {isLoggedIn ? (
 
                             <NavDropdown title={currentUser}>
@@ -160,6 +162,7 @@ function NavBar(props: NavBarProps) {
                                 <Nav.Link onClick={handleShow}>Login</Nav.Link>
                             </>
                         )}
+                        <Nav.Link as={Link} href="/cart" active={pathname === "/cart"}><FaShoppingCart size={30} className={styles.logo} /></Nav.Link>
                     </Nav>
                 </Container>
             </Navbar>
@@ -173,7 +176,7 @@ function NavBar(props: NavBarProps) {
                     <Modal.Body>
                         <div className="form-group">
                             <label htmlFor="username">Username</label>
-                            <input autoComplete="off" onChange={(event: React.ChangeEvent<HTMLInputElement>) => { setRecoveryUsername(event.target.value) }} type="text" className="form-control" id="username" placeholder="Enter username" name='username'/>
+                            <input autoComplete="off" onChange={(event: React.ChangeEvent<HTMLInputElement>) => { setRecoveryUsername(event.target.value) }} type="text" className="form-control" id="username" placeholder="Enter username" name='username' />
                         </div>
                     </Modal.Body>
                     <Modal.Footer>
@@ -195,11 +198,11 @@ function NavBar(props: NavBarProps) {
                     <Modal.Body>
                         <div className="form-group">
                             <label htmlFor="username">Username</label>
-                            <input autoComplete="off" onChange={(event: React.ChangeEvent<HTMLInputElement>) => { setUsername(event.target.value) }} type="text" className="form-control" id="username" aria-describedby="emailHelp" placeholder="Enter username" name='username'/>
+                            <input autoComplete="off" onChange={(event: React.ChangeEvent<HTMLInputElement>) => { setUsername(event.target.value) }} type="text" className="form-control" id="username" aria-describedby="emailHelp" placeholder="Enter username" name='username' />
                         </div>
                         <div className="form-group">
                             <label htmlFor="password">Password</label>
-                            <input autoComplete="off" onChange={(event: React.ChangeEvent<HTMLInputElement>) => { setPassword(event.target.value) }} type="password" className="form-control" id="password" placeholder="Password" name='password'/>
+                            <input autoComplete="off" onChange={(event: React.ChangeEvent<HTMLInputElement>) => { setPassword(event.target.value) }} type="password" className="form-control" id="password" placeholder="Password" name='password' />
                         </div>
                         <div className={styles.forgotpassword}>
                             <p onClick={showPasswordRecoveryModal}> Forgot Password</p>

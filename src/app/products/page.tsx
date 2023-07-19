@@ -8,6 +8,7 @@ import { Product } from '@/types/TableModels'
 import useSWR from 'swr'
 import Link from 'next/link'
 import ImageComponent from '@/components/ImageComponent/ImageComponent'
+import CartButton from '@/components/CartButton/CartButton'
 
 
 function Page() {
@@ -32,9 +33,7 @@ function Page() {
         const url = new URLSearchParams({ pricing: pricing, category: category });
         router.push("/products?" + url);
     }
-    const handleFilterReset = () => {
-        router.push("/products")
-    }
+
     const fetcher = async () => {
         const pricing = searchParams.get('pricing') || 'all';
         const category = searchParams.get('category') || 'all';
@@ -91,7 +90,7 @@ function Page() {
                     <RadioGroup
                         name="pricing-group"
                         onChange={(e) => { setPricing(e.target.value) }}
-                        defaultValue={paramsPricing}
+    
 
                     >
                         <FormControlLabel defaultChecked value="ascending" control={<Radio />} label="low to high" />
@@ -101,41 +100,43 @@ function Page() {
 
                 <TextField
                     className={styles.select}
-                    defaultValue={paramsCategory}
                     select
                     label="Category"
                     size='medium'
+                    defaultValue = "" 
                     onChange={(e) => { setCategory(e.target.value) }}
                 >
-                    <MenuItem key={1} value="Dog">
+                    <MenuItem key={1} value="all">
+                        All
+                    </MenuItem>
+                    <MenuItem key={2} value="Dog">
                         Dog
                     </MenuItem>
-                    <MenuItem key={2} value="Cat">
+                    <MenuItem key={3} value="Cat">
                         Cat
                     </MenuItem>
-                    <MenuItem key={3} value="Toys">
+                    <MenuItem key={4} value="Toys">
                         Toys
                     </MenuItem>
-                    <MenuItem key={4} value="Reptiles">
+                    <MenuItem key={5} value="Reptiles">
                         Reptiles
                     </MenuItem>
-                    <MenuItem key={5} value="Bird">
+                    <MenuItem key={6} value="Bird">
                         Bird
                     </MenuItem>
-                    <MenuItem key={6} value="Small Pets">
+                    <MenuItem key={7} value="Small Pets">
                         Small Animal
                     </MenuItem>
-                    <MenuItem key={6} value="Fish">
+                    <MenuItem key={8} value="Fish">
                         Fish
                     </MenuItem>
-                    <MenuItem key={6} value="Food">
+                    <MenuItem key={9} value="Food">
                         Food
                     </MenuItem>
                 </TextField>
             </div>
             <div className={styles.buttoncontainer}>
                 <Button className={styles.button} onClick={handleFilter}>Save Filter</Button>
-                <Button className={styles.button} onClick={handleFilterReset}>Reset Filter</Button>
             </div>
 
             <div className={styles.productscontainer}>
@@ -144,6 +145,7 @@ function Page() {
                         <h3>{product.name}</h3>
                         <ImageComponent path={product.image_path} height={400} width={400} alt={product.description} small={false}></ImageComponent>
                         <p className={styles.prices}>${product.price}</p>
+                        <CartButton product={product}></CartButton>
                     </Link>
                 ))}
 
