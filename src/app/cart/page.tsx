@@ -3,9 +3,11 @@ import ImageComponent from "@/components/ImageComponent/ImageComponent";
 import { Product } from "@/types/TableModels";
 import styles from './page.module.css'
 import React, { useState, useEffect } from 'react';
+import { Button } from "react-bootstrap";
+import ModalComponent from "@/components/ModalComponent";
 function Page() {
     const [cart, setCart] = useState<Product[]>([]);
-
+    const [show, setShow] = useState<boolean>(false);
     const deleteItem = (id: number) => {
         const updatedCart = cart.filter((product) => product.id !== id);
         if (updatedCart.length === 0) {
@@ -58,7 +60,9 @@ function Page() {
             <div className={styles.right}>
                 <h4 className={styles.text}>({numofitems} items)</h4>
                 <h4 className={styles.text}>SubTotal: ${subtotal}</h4>
+                <Button onClick={() => { setShow(true) }}>Checkout</Button>
             </div>
+            <ModalComponent show={show} setShow={setShow} body={"Need to find out if it's legal for me to implement payment gateway with fake website"} title={"Not Implemented"} ></ModalComponent>
         </div >
     )
 
