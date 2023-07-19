@@ -15,25 +15,20 @@ const CartCounterContext = createContext<ContextProps>({
 
 export const GlobalCartCounterContextProvider = ({ children }) => {
   const data = localStorage.getItem('cart');
+  let initialCount = 0;
   if (data !== null) {
     const cart: Product[] = JSON.parse(data);
     const numofitems = cart.reduce((total, product) => product.quantity ? total + parseInt(product.quantity) : total + 0, 0);
-    const [cartCount, setCartCount] = useState<number>(numofitems);
-    return (
-      <CartCounterContext.Provider value={{ cartCount, setCartCount }}>
-        {children}
-      </CartCounterContext.Provider>
-    )
-  }
-  else {
-    const [cartCount, setCartCount] = useState<number>(0);
-    return (
-      <CartCounterContext.Provider value={{ cartCount, setCartCount }}>
-        {children}
-      </CartCounterContext.Provider>
-    )
+    initialCount = numofitems;
   }
 
+  const [cartCount, setCartCount] = useState<number>(initialCount);
+
+  return (
+    <CartCounterContext.Provider value={{ cartCount, setCartCount }}>
+      {children}
+    </CartCounterContext.Provider>
+  )
 }
 
 
