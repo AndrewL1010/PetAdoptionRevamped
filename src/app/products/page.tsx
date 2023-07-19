@@ -125,6 +125,12 @@ function Page() {
                     <MenuItem key={6} value="Small Pets">
                         Small Animal
                     </MenuItem>
+                    <MenuItem key={6} value="Fish">
+                        Fish
+                    </MenuItem>
+                    <MenuItem key={6} value="Food">
+                        Food
+                    </MenuItem>
                 </TextField>
             </div>
             <div className={styles.buttoncontainer}>
