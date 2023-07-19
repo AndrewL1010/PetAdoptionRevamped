@@ -5,11 +5,14 @@ import styles from './page.module.css'
 import React, { useState, useEffect } from 'react';
 import { Button } from "react-bootstrap";
 import ModalComponent from "@/components/ModalComponent";
+import { useGlobalContext } from "@/components/CartCounterContext";
 function Page() {
     const [cart, setCart] = useState<Product[]>([]);
     const [show, setShow] = useState<boolean>(false);
+    const { setCartCount } = useGlobalContext();
     const deleteItem = (id: number) => {
         const updatedCart = cart.filter((product) => product.id !== id);
+        const numofitems = updatedCart.reduce((total, product) => product.quantity ? total + parseInt(product.quantity) : total + 0, 0);
         if (updatedCart.length === 0) {
             localStorage.removeItem('cart');
         }
@@ -17,6 +20,7 @@ function Page() {
             localStorage.setItem('cart', JSON.stringify(updatedCart));
         }
         setCart(updatedCart);
+        setCartCount(numofitems);
     }
 
     useEffect(() => {
