@@ -14,12 +14,14 @@ const CartCounterContext = createContext<ContextProps>({
 });
 
 export const GlobalCartCounterContextProvider = ({ children }: { children: ReactNode }) => {
-  const data = localStorage.getItem('cart');
   let initialCount = 0;
-  if (data !== null) {
-    const cart: Product[] = JSON.parse(data);
-    const numofitems = cart.reduce((total, product) => product.quantity ? total + parseInt(product.quantity) : total + 0, 0);
-    initialCount = numofitems;
+  if (typeof window !== 'undefined') {
+    const data = localStorage.getItem('cart');
+    if (data !== null) {
+      const cart: Product[] = JSON.parse(data);
+      const numofitems = cart.reduce((total, product) => product.quantity ? total + parseInt(product.quantity) : total + 0, 0);
+      initialCount = numofitems;
+    }
   }
 
   const [cartCount, setCartCount] = useState<number>(initialCount);
