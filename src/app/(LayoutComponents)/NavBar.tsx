@@ -9,6 +9,8 @@ import styles from './NavBar.module.css';
 import NavBarProps from '@/types/NavBarProps';
 import ModalComponent from '@/components/ModalComponent';
 import cookies from 'js-cookie';
+import { useGlobalContext } from '@/components/CartCounterContext';
+
 
 
 function NavBar(props: NavBarProps) {
@@ -27,6 +29,7 @@ function NavBar(props: NavBarProps) {
     const router = useRouter();
     const handleShow = () => setShowLogin(true);
     const handleClose = () => setShowLogin(false);
+    const { cartCount } = useGlobalContext();
 
     const showPasswordRecoveryModal = () => {
         setShowLogin(false);
@@ -127,6 +130,7 @@ function NavBar(props: NavBarProps) {
 
     }
 
+
     const pathname = usePathname();
 
     return (
@@ -162,7 +166,7 @@ function NavBar(props: NavBarProps) {
                                 <Nav.Link onClick={handleShow}>Login</Nav.Link>
                             </>
                         )}
-                        <Nav.Link as={Link} href="/cart" active={pathname === "/cart"}><FaShoppingCart size={30} className={styles.logo} /></Nav.Link>
+                        <Nav.Link as={Link} href="/cart" active={pathname === "/cart"}><FaShoppingCart size={30} className={styles.logo} />{cartCount}</Nav.Link>
                     </Nav>
                 </Container>
             </Navbar>

@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google'
 import { Container, SSRProvider } from '../components/bootstrap';
 import NavBarParent from './(LayoutComponents)/NavBarParent';
 import Footer from './(LayoutComponents)/Footer';
+import { GlobalCartCounterContextProvider } from '@/components/CartCounterContext';
 
 
 
@@ -24,10 +25,12 @@ export default function RootLayout({
       <body className={inter.className}>
         <SSRProvider>
           <main>
-            <NavBarParent />
-            <Container className="py-4 layoutContainer">
-              {children}
-            </Container>
+            <GlobalCartCounterContextProvider>
+              <NavBarParent />
+              <Container className="py-4 layoutContainer">
+                {children}
+              </Container>
+            </GlobalCartCounterContextProvider>
           </main>
           <div className='footer'>
             <Footer></Footer>
