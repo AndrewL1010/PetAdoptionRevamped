@@ -23,10 +23,7 @@ function CartButton(props: CartButtonProp) {
                 if (item.id === product.id) {
                     added = true;
                     if (item.quantity) {
-                        console.log("adding same item....");
-                        console.log(`current quantity is: ${item.quantity}`);
                         const newQuantity = parseInt(item.quantity) + 1;
-                        console.log(`new quantity is ${newQuantity}`);
                         return { ...item, quantity: newQuantity }
                     }
                     else {

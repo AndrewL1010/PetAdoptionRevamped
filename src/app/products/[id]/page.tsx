@@ -2,7 +2,8 @@ import PageProps from "@/types/PageProps"
 import getConnection from "@/utility/dbHandler"
 import styles from './page.module.css'
 import ImageComponent from "@/components/ImageComponent/ImageComponent";
-import { Table, Button } from '../../../components/bootstrap';
+import { Table } from '../../../components/bootstrap';
+import CartButton from "@/components/CartButton/CartButton";
 
 async function Page({ params: { id } }: PageProps) {
     const database = getConnection();
@@ -45,7 +46,7 @@ async function Page({ params: { id } }: PageProps) {
                                 </tr>
                             </tbody>
                         </Table>
-                        <Button>Add To Cart</Button>
+                        <CartButton product={product}></CartButton>
 
                     </div>
                 </div>
