@@ -8,10 +8,10 @@ function Page() {
 
     const deleteItem = (id: number) => {
         const updatedCart = cart.filter((product) => product.id !== id);
-        if(updatedCart.length === 0){
+        if (updatedCart.length === 0) {
             localStorage.removeItem('cart');
         }
-        else{
+        else {
             localStorage.setItem('cart', JSON.stringify(updatedCart));
         }
         setCart(updatedCart);
@@ -31,7 +31,7 @@ function Page() {
         )
     }
     const subtotal = cart.reduce((total, product) => product.quantity ? total + (parseFloat(product.price) * parseInt(product.quantity)) : total + parseFloat(product.price), 0).toFixed(2);
-    const numofitems = cart.length;
+    const numofitems = cart.reduce((total, product) => product.quantity ? total + parseInt(product.quantity) : total + 0, 0);
 
     return (
         <div className={styles.parent}>
