@@ -59,7 +59,5 @@
 }
 
 .cartdelete {
-    cursor: pointer;
-    color: #3B71CA;
-    text-decoration: underline;
+    width: 100px;
 }

@@ -7,6 +7,7 @@ import { Application, User } from '@/types/TableModels';
 import { object, string, number } from 'yup';
 import ValidationUtility from '@/utility/ValidateorUtility';
 export async function POST(request: Request) {
+
     const unverified_csrf_token_cookie = cookies().get('csrf_token')?.value;
     const unverified_csrf_token_headers = request.headers.get('csrf_token');
     if (!unverified_csrf_token_cookie || !unverified_csrf_token_headers) {

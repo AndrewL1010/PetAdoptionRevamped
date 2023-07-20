@@ -14,6 +14,7 @@ const envSchema = zod.object({
     EMAIL_REGISTER_KEY: zod.string().nonempty(),
     RECOVERY_SECRET_KEY: zod.string().nonempty(),
     CSRF_SECRET_KEY: zod.string().nonempty(),
+    STRIPE_SECRET_KEY: zod.string().nonempty(),
 
 });
 
