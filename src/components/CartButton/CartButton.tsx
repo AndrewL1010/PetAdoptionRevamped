@@ -49,20 +49,7 @@ function CartButton(props: CartButtonProp) {
 
 
         }
-        const buttonElement = event.target as HTMLButtonElement;
-        buttonElement.classList.add(styles.opacity);
-        const originalText = buttonElement.innerHTML;
 
-        buttonElement.innerHTML = '&#10004;';
-        setTimeout(() => {
-            buttonElement.classList.add(styles.opacity);
-            setTimeout(() => {
-                buttonElement.innerHTML = originalText;
-                buttonElement.classList.remove(styles.opacity);
-
-            }, 500)
-
-        }, 500);
     }
 
 

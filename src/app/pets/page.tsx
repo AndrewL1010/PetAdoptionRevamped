@@ -8,8 +8,9 @@ import { Animal } from "@/types/TableModels";
 import useSWR from 'swr'
 import styles from './page.module.css';
 import Spinner from 'react-bootstrap/Spinner';
+import { useState } from 'react'
 function Page() {
-
+    const [loaded, setLoaded] = useState<boolean>(false);
     const searchParams = useSearchParams();
     const filter = searchParams.get('filter') || 'all';
     const page = searchParams.get('page') || '0';
@@ -102,8 +103,8 @@ function Page() {
                                     height={300}
                                     width={420}
                                     key={animal.id}
-                                    className={`${styles.images} ${styles.opacity}`}
-                                    onLoadingComplete={(image) => { image.classList.remove(styles.opacity) }}
+                                    className={loaded ? styles.images : `${styles.images} ${styles.opacity}`}
+                                    onLoadingComplete={() => { setLoaded(true) }}
                                 ></Image>
                             </div>
                         </Link>

@@ -3,9 +3,10 @@ import Carousel from 'react-bootstrap/Carousel';
 import Image from 'next/image';
 import CarouselProps from '../../types/CarouselProps';
 import styles from './CarouselComponent.module.css';
+import { useState } from 'react'
 function CarouselComponent(props: CarouselProps) {
     const images = props.images;
-
+    const [loaded, setLoaded] = useState<boolean>(false);
     return (
         <Carousel className={styles.container}>
             {images.map((image) => {
@@ -17,8 +18,8 @@ function CarouselComponent(props: CarouselProps) {
                             width={0}
                             height={0}
                             sizes='100vw'
-                            className={`${styles.images} ${styles.opacity}`}
-                            onLoadingComplete={(image) => { image.classList.remove(styles.opacity) }}
+                            className={loaded === false ? `${styles.images} ${styles.opacity}` : styles.images}
+                            onLoadingComplete={() => { setLoaded(true) }}
 
                         />
                         <Carousel.Caption>
