@@ -89,8 +89,9 @@ function Page() {
                                 <p>{product.weight}</p>
                                 <p>{product.dimensions}</p>
                                 <p>Quantity: {product.quantity}</p>
+                                <p><a className={styles.cartdelete} onClick={() => { deleteItem(product.id) }}>delete</a></p>
                                 <p className={styles.prices}>${product.price}</p>
-                                <Button className={styles.cartdelete} onClick={() => { deleteItem(product.id) }}>delete</Button>
+
 
                             </div>
 

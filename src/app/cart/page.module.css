@@ -59,5 +59,10 @@
 }
 
 .cartdelete {
-    width: 100px;
+    background-color: none;
+    cursor: pointer;
+    display: inline-block;
+}
+.cartdelete:hover{
+    text-decoration: underline;
 }
