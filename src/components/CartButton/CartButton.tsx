@@ -3,11 +3,13 @@ import { Button } from '../bootstrap'
 import { Product } from '@/types/TableModels'
 import styles from './CartButton.module.css';
 import { useGlobalContext } from '../CartCounterContext';
-import { parseArgs } from 'util';
+import { useState } from 'react';
+import { ImCheckmark } from 'react-icons/im';
 interface CartButtonProp {
     product: Product
 }
 function CartButton(props: CartButtonProp) {
+    const [clicked, setClicked] = useState<boolean>(false);
     let { product } = props;
     const { cartCount, setCartCount } = useGlobalContext();
 
@@ -44,17 +46,17 @@ function CartButton(props: CartButtonProp) {
                 localStorage.setItem('cart', JSON.stringify(updatedCart))
             }
 
-
-
-
-
         }
+        setClicked(true);
+        setTimeout(() => {
+            setClicked(false);
+        }, 1000);
 
     }
 
 
     return (
-        <Button className={styles.button} onClick={handleCart}>Add to cart</Button>
+        <Button className={clicked ? `${styles.addtocartbutton} ${styles.opacity}` : styles.addtocartbutton} onClick={handleCart}> {clicked ? <ImCheckmark/> : 'Add to cart'}</Button>
     )
 }
 
