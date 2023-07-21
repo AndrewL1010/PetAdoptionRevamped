@@ -5,6 +5,7 @@ import ApplicationProps from "@/types/ApplicationProps";
 import styles from './ApplicationComponent.module.css';
 import ModalComponent from '../ModalComponent';
 import cookies from 'js-cookie';
+import Spinner from 'react-bootstrap/Spinner';
 
 function ApplicationComponent(props: ApplicationProps) {
     const { name, breed, animal_id } = props;
@@ -17,7 +18,9 @@ function ApplicationComponent(props: ApplicationProps) {
     const [show, setShow] = useState<boolean>(false);
     const [body, setBody] = useState<string>("");
     const [title, setTitle] = useState<string>("");
+    const [loading, setLoading] = useState<boolean>(false);
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+        setLoading(true);
         event.preventDefault();
         const headers = new Headers();
         const csrf_token = cookies.get('csrf_token');
@@ -40,7 +43,7 @@ function ApplicationComponent(props: ApplicationProps) {
                 }
             )
             const result = await response.json();
-
+            setLoading(false);
             if (result.status === "success") {
                 setBody("You have successfully submitted your application, please give some time for us to review your application.");
                 setTitle("Success");
@@ -70,7 +73,7 @@ function ApplicationComponent(props: ApplicationProps) {
                 <h1>Application For {breed}: {name}</h1>
                 <div className="form-group">
                     <label htmlFor="firstname">First Name</label>
-                    <input onChange={(event) => { setFirstName(event.target.value) }} autoComplete="off" className="form-control" id="firstname" placeholder="First Name..." required maxLength={30} name='firstname'/>
+                    <input onChange={(event) => { setFirstName(event.target.value) }} autoComplete="off" className="form-control" id="firstname" placeholder="First Name..." required maxLength={30} name='firstname' />
                 </div>
                 <div className="form-group">
                     <label htmlFor="lastname">Last Name</label>
@@ -82,24 +85,24 @@ function ApplicationComponent(props: ApplicationProps) {
                         <label htmlFor="employed">Employed</label>
                     </div>
                     <div>
-                        <input type="radio" id="unemployed" name="occupation" value="Unemployed" onClick={() => { setOccupation("Unemployed") }}/>
+                        <input type="radio" id="unemployed" name="occupation" value="Unemployed" onClick={() => { setOccupation("Unemployed") }} />
                         <label htmlFor="unemployed">Unemployed</label>
                     </div>
                 </div>
                 <div className="form-group">
                     <label htmlFor="address">Address</label>
-                    <input onChange={(event) => { setAddress(event.target.value) }} autoComplete="off" className="form-control" id="address" placeholder="Address..." required maxLength={30} name='address'/>
+                    <input onChange={(event) => { setAddress(event.target.value) }} autoComplete="off" className="form-control" id="address" placeholder="Address..." required maxLength={30} name='address' />
                 </div>
                 <div className="form-group">
                     <label htmlFor="experience">Experience</label>
-                    <textarea onChange={(event) => { setExperience(event.target.value) }} autoComplete="off" className="form-control" id="experience" placeholder="Your Experience With Animals..." required rows={10} name='experience'/>
+                    <textarea onChange={(event) => { setExperience(event.target.value) }} autoComplete="off" className="form-control" id="experience" placeholder="Your Experience With Animals..." required rows={10} name='experience' />
                 </div>
                 <div className="form-group">
                     <label htmlFor="email">Email</label>
-                    <input onChange={(event) => { setEmail(event.target.value) }} autoComplete="off" type="email" className="form-control" id="email" placeholder="Email..." name='email'required maxLength={30} />
+                    <input onChange={(event) => { setEmail(event.target.value) }} autoComplete="off" type="email" className="form-control" id="email" placeholder="Email..." name='email' required maxLength={30} />
                 </div>
 
-                <Button type='submit'>Submit</Button>
+                <Button type='submit'>{loading ? <Spinner size="sm"></Spinner> : "Submit"}</Button>
             </form>
             <ModalComponent body={body} title={title} show={show} setShow={setShow}></ModalComponent>
 

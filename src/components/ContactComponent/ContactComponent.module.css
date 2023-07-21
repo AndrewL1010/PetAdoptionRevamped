@@ -1,4 +1,7 @@
+.button{
+    width: 100px;
+    margin-top: 20px;
+}
 .textarea{
-    height: 500px;
-    margin-bottom: 15px;
+    height: 400px;
 }

@@ -3,6 +3,7 @@ import styles from './page.module.css';
 import { FormEvent, useState } from "react"
 import { Button } from "react-bootstrap";
 import ModalComponent from "@/components/ModalComponent";
+import Spinner from 'react-bootstrap/Spinner';
 function Page() {
     const [username, setUsername] = useState<String>("");
     const [password, setPassword] = useState<String>("");
@@ -10,8 +11,10 @@ function Page() {
     const [modalMessage, setModalMessage] = useState<String>("");
     const [modalTitle, setModalTitle] = useState<String>("");
     const [show, setShow] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(false);
 
     const register = async (event: FormEvent<HTMLFormElement>) => {
+        setLoading(true);
         event.preventDefault();
         const data = {
             username: username,
@@ -25,6 +28,7 @@ function Page() {
             }
         );
         const result = await response.json();
+        setLoading(false);
         if (result.status === "fail") {
             setShow(true);
             setModalTitle("Error");
@@ -41,7 +45,7 @@ function Page() {
             <h1>Sign Up</h1>
             <div className="form-group">
                 <label htmlFor="username">Username</label>
-                <input onChange={(event) => { setUsername(event.target.value) }} autoComplete="off" type="text" className="form-control" id="username" placeholder="Choose a username" required maxLength={30} name='username'/>
+                <input onChange={(event) => { setUsername(event.target.value) }} autoComplete="off" type="text" className="form-control" id="username" placeholder="Choose a username" required maxLength={30} name='username' />
             </div>
             <div className="form-group">
                 <label htmlFor="password">Password</label>
@@ -51,7 +55,7 @@ function Page() {
                 <label htmlFor="email">Email</label>
                 <input onChange={(event) => { setEmail(event.target.value) }} autoComplete="off" type="email" className="form-control" id="email" placeholder="Provide an email" required minLength={6} maxLength={40} name='email' />
             </div>
-            <Button className={styles.button} type="submit">Register</Button>
+            <Button className={styles.button} type="submit">{loading ? <Spinner size="sm"></Spinner> : "Register"}</Button>
 
             <ModalComponent setShow={setShow} show={show} body={modalMessage} title={modalTitle}></ModalComponent>
 

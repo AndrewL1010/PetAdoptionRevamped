@@ -7,22 +7,25 @@ import { Button } from "react-bootstrap";
 import { useGlobalContext } from "@/components/CartCounterContext";
 import ModalComponent from "@/components/ModalComponent";
 import { useRouter } from "next/navigation";
-
+import Spinner from 'react-bootstrap/Spinner';
 function Page() {
     const [cart, setCart] = useState<Product[]>([]);
     const { setCartCount } = useGlobalContext();
     const [show, setShow] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(false);
     const router = useRouter();
 
     const handleCheckout = async () => {
+        setLoading(true);
         const authresponse = await fetch('/api/checkAuth',
             {
                 method: "POST"
             }
         );
         const authresult = await authresponse.json();
-
+        
         if (authresult.status !== "success") {
+            setLoading(false);
             setShow(true);
         }
         else {
@@ -32,7 +35,9 @@ function Page() {
                     body: JSON.stringify(cart)
                 }
             )
+            
             const url = await checkoutresponse.json();
+            setLoading(false);
             router.push(url);
         }
     }
@@ -97,7 +102,7 @@ function Page() {
                 <div className={styles.right}>
                     <h4 className={styles.text}>({numofitems} items)</h4>
                     <h4 className={styles.text}>SubTotal: ${subtotal}</h4>
-                    <Button onClick={handleCheckout}>Checkout</Button>
+                    <Button onClick={handleCheckout}>{loading ? <Spinner size="sm"></Spinner> : "Checkout"}</Button>
                 </div>
 
 

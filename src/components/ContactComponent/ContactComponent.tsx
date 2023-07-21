@@ -2,8 +2,9 @@
 import React from 'react'
 import { Container, Button } from '../bootstrap'
 import { useState, FormEvent } from 'react';
-import style from './ContactComponent.module.css';
+import styles from './ContactComponent.module.css';
 import ModalComponent from '../ModalComponent';
+import Spinner from 'react-bootstrap/Spinner';
 
 function ContactComponent() {
     const [email, setEmail] = useState<String>("");
@@ -12,7 +13,9 @@ function ContactComponent() {
     const [title, setTitle] = useState<String>("");
     const [text, setText] = useState<String>("");
     const [subject, setSubject] = useState<String>("");
+    const [loading, setLoading] = useState<boolean>(false);
     async function sendMail(event: FormEvent<HTMLFormElement>) {
+        setLoading(true);
         event.preventDefault();
         const data = {
             email: email,
@@ -26,6 +29,7 @@ function ContactComponent() {
             }
         )
         const result = await response.json();
+        setLoading(false);
         if (result.status === "success") {
             setBody("We have recieved your email, please give us some time to respond");
             setTitle("Success");
@@ -44,17 +48,17 @@ function ContactComponent() {
                 <h1>Contact Us</h1>
                 <div className="form-group">
                     <label htmlFor="subject">subject</label>
-                    <input onChange={(event) => { setSubject(event.target.value) }} autoComplete="off" className="form-control" id="subject" placeholder="Subject..." required maxLength={30} name='subject'/>
+                    <input onChange={(event) => { setSubject(event.target.value) }} autoComplete="off" className="form-control" id="subject" placeholder="Subject..." required maxLength={30} name='subject' />
                 </div>
                 <div className="form-group">
                     <label htmlFor="email">Email</label>
-                    <input onChange={(event) => { setEmail(event.target.value) }} autoComplete="off" type="email" className="form-control" id="username" placeholder="Email..." required maxLength={30} name='email'/>
+                    <input onChange={(event) => { setEmail(event.target.value) }} autoComplete="off" type="email" className="form-control" id="username" placeholder="Email..." required maxLength={30} name='email' />
                 </div>
                 <div className="form-group">
                     <label htmlFor="text">Your inquiry</label>
-                    <textarea onChange={(event) => { setText(event.target.value) }} autoComplete="off" className={`form-control ${style.textarea}`} id="text" name='textbox' placeholder="What would you like help with?" />
+                    <textarea onChange={(event) => { setText(event.target.value) }} autoComplete="off" className={`form-control ${styles.textarea}`} id="text" name='textbox' placeholder="What would you like help with?" />
                 </div>
-                <Button type="submit">Send</Button>
+                <Button type="submit" className={styles.button}>{loading ? <Spinner size="sm"></Spinner> : "Send"}</Button>
             </form>
             <ModalComponent show={show} setShow={setShow} body={body} title={title} ></ModalComponent>
 
