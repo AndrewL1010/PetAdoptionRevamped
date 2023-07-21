@@ -39,3 +39,9 @@
     justify-content: center;
     align-items: center ;
 }
+.loginbutton{
+    width: 80px;
+}
+.recoverybutton{
+    width: 110px;
+}

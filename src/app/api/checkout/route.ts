@@ -1,14 +1,15 @@
 import { NextResponse } from 'next/server';
 import { env } from '../../../utility/EnvironmentValidatior';
 import { Product } from '@/types/TableModels';
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+import Stripe from 'stripe';
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, { apiVersion: "2022-11-15" });
 
 export async function POST(request: Request) {
     try {
         const cart = await request.json();
         const session = await stripe.checkout.sessions.create({
             mode: "payment",
-            line_items: cart.map((item: Product) => {
+            line_items: cart.map((item: Product): Stripe.Checkout.SessionCreateParams.LineItem => {
                 return {
                     price_data: {
                         currency: "cad",
@@ -17,15 +18,21 @@ export async function POST(request: Request) {
                             images: [`${env.BASE_URL}${item.image_path}`],
                         },
                         unit_amount: Math.round(parseFloat(item.price) * 100),
+                        tax_behavior: "exclusive"
+                        
+
 
                     },
                     quantity: item.quantity !== undefined ? parseInt(item.quantity) : 0,
+
 
                 }
             }),
             success_url: `${env.BASE_URL}/cart?success=true`,
             cancel_url: `${env.BASE_URL}/cart?canceled=true`,
             client_reference_id: "Pet Sanctuary",
+            automatic_tax: { enabled: true }
+
         });
         return NextResponse.json(session.url);
     } catch (err) {

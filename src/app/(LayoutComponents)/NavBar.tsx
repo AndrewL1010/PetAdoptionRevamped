@@ -10,6 +10,7 @@ import NavBarProps from '@/types/NavBarProps';
 import ModalComponent from '@/components/ModalComponent';
 import cookies from 'js-cookie';
 import { useGlobalContext } from '@/components/CartCounterContext';
+import Spinner from 'react-bootstrap/Spinner';
 
 
 
@@ -26,6 +27,7 @@ function NavBar(props: NavBarProps) {
     const [body, setBody] = useState<String>("");
     const [title, setTitle] = useState<String>("");
     const [currentUser, setCurrentUser] = useState<String>(user);
+    const [loading, setLoading] = useState<boolean>(false);
     const router = useRouter();
     const handleShow = () => setShowLogin(true);
     const handleClose = () => setShowLogin(false);
@@ -36,6 +38,7 @@ function NavBar(props: NavBarProps) {
         setShowRecovery(true);
     }
     const handleRecovery = async () => {
+        setLoading(true);
         setShowRecovery(false);
         const data = {
             username: recoveryUsername,
@@ -49,6 +52,7 @@ function NavBar(props: NavBarProps) {
 
         )
         const result = await response.json();
+        setLoading(false);
 
         if (result.status === "fail") {
             setBody(result.message);
@@ -65,6 +69,7 @@ function NavBar(props: NavBarProps) {
     }
 
     const login = async () => {
+        setLoading(true);
         const data = {
             username: username,
             password: password,
@@ -79,6 +84,7 @@ function NavBar(props: NavBarProps) {
 
         )
         let result = await response.json();
+        setLoading(false);
         if (result.status === "fail") {
             handleClose();
             setBody(result.message);
@@ -187,8 +193,8 @@ function NavBar(props: NavBarProps) {
                         <Button variant="secondary" onClick={() => { setShowRecovery(false) }}>
                             Close
                         </Button>
-                        <Button variant="primary" onClick={handleRecovery}>
-                            Send Email
+                        <Button className={styles.recoverybutton} variant="primary" onClick={handleRecovery}>
+                            {loading ? <Spinner size="sm"></Spinner> : "Send Email"}
                         </Button>
                     </Modal.Footer>
                 </form>
@@ -216,8 +222,8 @@ function NavBar(props: NavBarProps) {
                         <Button variant="secondary" onClick={handleClose}>
                             Close
                         </Button>
-                        <Button variant="primary" onClick={login}>
-                            Login
+                        <Button className={styles.loginbutton} variant="primary" onClick={login}>
+                            {loading ? <Spinner size="sm"></Spinner> : "Login"}
                         </Button>
                     </Modal.Footer>
                 </form>
