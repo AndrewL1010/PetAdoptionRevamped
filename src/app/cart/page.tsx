@@ -4,18 +4,15 @@ import { Product } from "@/types/TableModels";
 import styles from './page.module.css'
 import React, { useState, useEffect } from 'react';
 import { Button } from "react-bootstrap";
-import { loadStripe } from '@stripe/stripe-js';
 import { useGlobalContext } from "@/components/CartCounterContext";
-import { useRouter } from "next/navigation";
 import ModalComponent from "@/components/ModalComponent";
-const stripePromise = loadStripe(
-    "pk_test_51NW2tqAR8vZcUQrdYF5sWv8IEyQo5vFtvXcoc9sejZoobnaNa4jnMPax5R1xhdTdlOJTesVuhjrH1ZKsni1sIEjs00gpUyK2Gn"
-);
+import { useRouter } from "next/navigation";
+
 function Page() {
     const [cart, setCart] = useState<Product[]>([]);
     const { setCartCount } = useGlobalContext();
-    const router = useRouter();
     const [show, setShow] = useState<boolean>(false);
+    const router = useRouter();
 
     const handleCheckout = async () => {
         const authresponse = await fetch('/api/checkAuth',
@@ -35,14 +32,9 @@ function Page() {
                     body: JSON.stringify(cart)
                 }
             )
-            const result = await checkoutresponse.json();
-            router.push(result.url);
+            const url = await checkoutresponse.json();
+            router.push(url);
         }
-
-
-
-
-
     }
 
 
