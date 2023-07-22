@@ -49,12 +49,15 @@ const faqList = [
     {
         id: 6,
         title: "6. Do you offer post-adoption support and resources?",
-        body: `Welcome to our Pet Adoption Company's FAQ page! Here,
-        we've compiled a list of common questions and their answers
-        to help you better understand our adoption process and the
-        services we offer. If you can't find the information you're looking for,
-        please don't hesitate to contact us directly. We're here to assist you in
-        finding the perfect companion!`
+        body: `
+        At our pet adoption center, we wholeheartedly offer post-adoption support and resources to ensure 
+        the well-being and happiness of both the adopted pets and their new families. Our dedicated 
+        team provides follow-up communication, valuable advice, and guidance on pet care, training, 
+        and behavior. We supply training resources, recommend reputable veterinarians, and organize 
+        community events and workshops for pet owners to connect and learn. Our online platform offers 
+        additional support, and in emergencies, we have a helpline for immediate assistance. We believe 
+        in the lifelong commitment of pet adoption and are here to assist and celebrate every step of the 
+        journey with your newly adopted furry companion.`
     },
     {
         id: 7,
