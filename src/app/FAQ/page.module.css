@@ -4,32 +4,23 @@
     align-items: center;
     max-width: 50%;
     scroll-behavior: smooth;
+    justify-content: center;
 }
-.child{
-    scroll-margin-top: 100px;
-}
+
 .container * {
     margin-bottom: 20px;
     padding: 10px;
+    
 }
-
-.linkcontainer {
-    position: fixed;
-    width: 30%;
-    display: flex;
-    flex-direction: column;
-    top: 10;
-    left: 10;
-    gap: 20px;
-
-}
-
 .parentcontainer {
     display: flex;
     flex-direction: row;
-    justify-content: right;
+    justify-content: center;
     align-items: center;
+    color: #3B71CA;
 }
-.child h3{
-    scroll-margin-top: 115px;
+.faqContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
 }

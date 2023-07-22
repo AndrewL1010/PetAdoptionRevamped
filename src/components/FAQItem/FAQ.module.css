@@ -1,0 +1,48 @@
+.showButton {
+    display: block;
+}
+
+.hideButton {
+    display: none;
+}
+
+.faqContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background-color: #3B71CA;
+    border-radius: 1rem;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+
+
+
+
+.titlecontainer {
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+    padding: 0;
+
+}
+
+.button {
+    cursor: pointer;
+    transition: 0.2s;
+    width: 60px;
+    height: 60px;
+}
+
+.button:hover {
+    opacity: 0.3;
+
+}
+
+.body{
+    font-size: 1.3rem;
+}
