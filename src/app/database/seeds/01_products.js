@@ -14,7 +14,7 @@ exports.seed = async function (knex) {
       image_path: "/products/Fluffy_Feather_Toy.jpg",
       weight: "0.1 lbs",
       dimensions: "8 x 2 x 2 inches",
-      stock_quantity: 50
+      stock_quantity: 4
     },
     {
       name: "Chewy Bone Treats",

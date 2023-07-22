@@ -67,3 +67,6 @@
 .cartdelete:hover{
     text-decoration: underline;
 }
+.quantity{
+    width: 120px;
+}

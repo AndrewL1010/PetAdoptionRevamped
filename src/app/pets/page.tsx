@@ -72,6 +72,11 @@ function Page() {
             <div>Animals of this type does not exist</div>
         )
     }
+    if (data.animals.length === 0) {
+        return (
+            <div>Product you are looking for does not exist</div>
+        )
+    }
     const num_of_pages = Math.ceil(parseInt(data.count.total) / 21);
 
     let array = [];
@@ -94,20 +99,30 @@ function Page() {
             <div className={styles.parentcontainer}>
                 {
                     data.animals.map((animal) => (
-                        <Link key={animal.id} href={`/animals/${animal.id}`}>
+
+                        <Link href={`/animals/${animal.id}`} key={animal.id}>
                             <div className={styles.container}>
-                                <h4>{animal.name}</h4>
+
+                                <p className={styles.imagetext}>
+                                    {animal.name} ({animal.gender})
+                                </p>
                                 <Image
                                     src={animal.image}
                                     alt={animal.alt}
                                     height={300}
-                                    width={420}
+                                    width={390}
                                     key={animal.id}
                                     className={loaded ? styles.images : `${styles.images} ${styles.opacity}`}
                                     onLoadingComplete={() => { setLoaded(true) }}
                                 ></Image>
+
+
                             </div>
+
+
                         </Link>
+
+
                     ))
                 }
             </div>

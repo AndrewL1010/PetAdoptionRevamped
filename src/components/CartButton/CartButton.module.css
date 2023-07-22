@@ -2,7 +2,10 @@
     margin-top: 10px;
     margin-bottom: 10px;
     width: 111px;
-    transition: 2s;
+    transition: 0.5s;
+}
+.addtocartbutton:hover{
+    opacity: 0.5;
 }
 
 .opacity {

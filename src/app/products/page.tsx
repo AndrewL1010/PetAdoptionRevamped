@@ -73,6 +73,11 @@ function Page() {
             <div>Product you are looking for does not exist</div>
         )
     }
+    if (data.products.length === 0) {
+        return (
+            <div>Product you are looking for does not exist</div>
+        )
+    }
     const num_of_pages = Math.ceil(parseInt(data.count.total) / 21);
 
     let array = [];

@@ -36,8 +36,8 @@ export async function POST(request: Request) {
         });
         return NextResponse.json(session.url);
     } catch (err) {
-        console.log(err);
-        return NextResponse.json({ error: err }, { status: 500 });
+        console.error(err);
+        return NextResponse.json({ error: "Something went wrong on server" }, { status: 500 });
     }
 }
 
