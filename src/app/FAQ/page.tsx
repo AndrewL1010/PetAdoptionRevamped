@@ -87,7 +87,7 @@ function Page() {
 
 
                 <div className={styles.container}>
-                    <div className={`border border-primary ${styles.child}`}>
+                    <div className={`border border-primary ${styles.intro}`}>
                         <h1>Frequently Asked Questions</h1>
                         <div>
                             Welcome to our Pet Adoption Company's FAQ page! Here,
@@ -108,7 +108,7 @@ function Page() {
 
 
 
-                    <div className={`border border-primary ${styles.child}`}>
+                    <div className={`border border-primary ${styles.message}`}>
                         We hope this FAQ section has provided you with helpful information about our pet adoption company.
                         If you have any additional questions or concerns, please feel free to reach out to our dedicated staff.
                         Thank you for considering adoption and for your interest in our organization!
