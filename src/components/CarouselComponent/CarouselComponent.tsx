@@ -18,7 +18,7 @@ function CarouselComponent(props: CarouselProps) {
                             width={0}
                             height={0}
                             sizes='100vw'
-                            className={loaded === false ? `${styles.images} ${styles.opacity}` : styles.images}
+                            className={loaded ? styles.images : `${styles.images} ${styles.opacity}`}
                             onLoadingComplete={() => { setLoaded(true) }}
 
                         />

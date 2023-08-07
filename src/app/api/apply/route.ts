@@ -79,11 +79,11 @@ export async function POST(request: Request) {
             return { status: "fail" };
 
         }
-        NextResponse.json({ status: "fail", message: "Something went wrong on server side" });
+        return NextResponse.json({ status: "fail", message: "Something went wrong on server side" });
     }
     catch (error) {
         console.log(error);
-        return NextResponse.json({ status: "fail", message: error })
+        return NextResponse.json({ status: "fail", message: error });
     }
 }
 

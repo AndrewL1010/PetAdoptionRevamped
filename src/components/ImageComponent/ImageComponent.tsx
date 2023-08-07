@@ -9,7 +9,7 @@ function ImageComponent(props: ImageProps) {
     const { path, width, height, alt, small } = props;
     const imageStyle = small === false ? styles.images : styles.small
     return (
-        <Image src={path} width={width} height={height} alt={alt} className={loaded ? imageStyle : `${imageStyle} ${styles.opacity}`} onLoadingComplete={() => { setLoaded(true) }}></Image>
+        <Image src={path} width={width} height={height} sizes="100vw" alt={alt} className={loaded ? imageStyle : `${imageStyle} ${styles.opacity}`} onLoadingComplete={() => { setLoaded(true) }}></Image>
     )
 }
 

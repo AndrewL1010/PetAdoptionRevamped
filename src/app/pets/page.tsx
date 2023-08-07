@@ -100,7 +100,7 @@ function Page() {
                 {
                     data.animals.map((animal) => (
 
-                        <Link href={`/animals/${animal.id}`} key={animal.id}>
+                        <Link href={`/animals/${animal.id}`} key={animal.id} className={styles.link}>
                             <div className={styles.container}>
 
                                 <p className={styles.imagetext}>
@@ -109,8 +109,9 @@ function Page() {
                                 <Image
                                     src={animal.image}
                                     alt={animal.alt}
-                                    height={300}
-                                    width={390}
+                                    height={0}
+                                    width={0}
+                                    sizes="100vw"
                                     key={animal.id}
                                     className={loaded ? styles.images : `${styles.images} ${styles.opacity}`}
                                     onLoadingComplete={() => { setLoaded(true) }}

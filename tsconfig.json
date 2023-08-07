@@ -23,6 +23,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/database/connection-handler.js", "src/utility/EnvironmentValidatior.js", "src/utility/EnvironmentValidatior.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/database/connection-handler.js", "src/utility/EnvironmentValidatior.js", "src/utility/EnvironmentValidatior.js", "src/components/CartButton"],
   "exclude": ["node_modules"]
 }

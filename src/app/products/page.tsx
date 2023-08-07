@@ -95,7 +95,7 @@ function Page() {
                     <RadioGroup
                         name="pricing-group"
                         onChange={(e) => { setPricing(e.target.value) }}
-    
+
 
                     >
                         <FormControlLabel defaultChecked value="ascending" control={<Radio />} label="low to high" />
@@ -108,7 +108,7 @@ function Page() {
                     select
                     label="Category"
                     size='medium'
-                    defaultValue = "" 
+                    defaultValue=""
                     onChange={(e) => { setCategory(e.target.value) }}
                 >
                     <MenuItem key={1} value="all">
@@ -148,7 +148,12 @@ function Page() {
                 {data.products.map((product) => (
                     <Link href={`/products/${product.id}`} key={product.id} className={styles.product}>
                         <h3>{product.name}</h3>
-                        <ImageComponent path={product.image_path} height={400} width={400} alt={product.description} small={false}></ImageComponent>
+                        <ImageComponent
+                            path={product.image_path}
+                            width={0}
+                            height={0}
+                            alt={product.description}
+                            small={false}></ImageComponent>
                         <p className={styles.prices}>${product.price}</p>
                         <CartButton product={product}></CartButton>
                     </Link>

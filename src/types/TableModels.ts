@@ -47,3 +47,4 @@ export interface Product {
     stock_quantity: string,
     quantity?: string,
 }
+
