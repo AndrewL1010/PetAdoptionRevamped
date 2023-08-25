@@ -17,10 +17,10 @@ function ProductCard(props: ProductCardProps) {
         <Link href={`/products/${product.id}`}>
             <Card style={{ width: '18rem' }}>
                 <Card.Img variant="top" src={product.image_path} height={300} className={styles.images}/>
-                <Card.Body>
+                <Card.Body className={styles.product_body}>
                     <Card.Title>{product.name}</Card.Title>
-                    <Card.Text>
-                        {product.price}
+                    <Card.Text className={styles.price}>
+                        ${product.price}
                     </Card.Text>
                     <CartButton product={product}></CartButton>
                 </Card.Body>
