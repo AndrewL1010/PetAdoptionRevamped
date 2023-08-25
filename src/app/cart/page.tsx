@@ -1,5 +1,5 @@
 "use client"
-import ImageComponent from "@/components/ImageComponent/ImageComponent";
+import Image from "next/image";
 import { Product } from "@/types/TableModels";
 import styles from './page.module.css'
 import React, { useState, useEffect, ChangeEvent } from 'react';
@@ -93,7 +93,7 @@ function Page() {
                 <div className={styles.left}>
                     {cart.map((product) => (
                         <div className={styles.product} key={product.id}>
-                            <ImageComponent path={product.image_path} height={200} width={200} alt={product.description} small={false}></ImageComponent>
+                            <Image src={product.image_path} height={200} width={200} alt={product.description} className={styles.image}></Image>
                             <div className={styles.productinfocontainer}>
                                 <h3>{product.name}</h3>
                                 <p>{product.description}</p>
