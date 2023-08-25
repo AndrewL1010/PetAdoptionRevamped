@@ -9,6 +9,7 @@ import useSWR from 'swr'
 import Link from 'next/link'
 import ImageComponent from '@/components/ImageComponent/ImageComponent'
 import CartButton from '@/components/CartButton/CartButton'
+import ProductCard from '@/components/ProductCard/ProductCard'
 
 
 function Page() {
@@ -146,17 +147,7 @@ function Page() {
 
             <div className={styles.productscontainer}>
                 {data.products.map((product) => (
-                    <Link href={`/products/${product.id}`} key={product.id} className={styles.product}>
-                        <h3>{product.name}</h3>
-                        <ImageComponent
-                            path={product.image_path}
-                            width={0}
-                            height={0}
-                            alt={product.description}
-                            small={false}></ImageComponent>
-                        <p className={styles.prices}>${product.price}</p>
-                        <CartButton product={product}></CartButton>
-                    </Link>
+                    <ProductCard product={product} key={product.id}></ProductCard>
                 ))}
 
             </div>
