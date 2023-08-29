@@ -5,23 +5,26 @@ import styles from './CartButton.module.css';
 import { useGlobalContext } from '../CartCounterContext';
 import { useState } from 'react';
 import { ImCheckmark } from 'react-icons/im';
+import ModalComponent from '../ModalComponent';
+import { set } from 'zod';
 interface CartButtonProp {
     product: Product
 }
 function CartButton(props: CartButtonProp) {
     const [clicked, setClicked] = useState<boolean>(false);
+    const [show, setShow] = useState<boolean>(false);
+    const [body, setBody] = useState<string>("");
     let { product } = props;
     const { cartCount, setCartCount } = useGlobalContext();
 
 
-    const handleCart = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        const newCount = cartCount + 1;
-        setCartCount(newCount);
-        event.stopPropagation();
-        event.preventDefault();
+
+    const handleCart = () => {
+
         const data = localStorage.getItem('cart');
         if (data === null || data.length === 0) {
             localStorage.setItem('cart', JSON.stringify([{ ...product, quantity: 1 }]));
+            setCartCount(cartCount + 1);
         }
         else {
             const cart = JSON.parse(data);
@@ -31,10 +34,17 @@ function CartButton(props: CartButtonProp) {
                     added = true;
                     if (item.quantity) {
                         const newQuantity = parseInt(item.quantity) + 1;
-                        return { ...item, quantity: newQuantity }
+                        if (newQuantity > parseInt(item.stock_quantity)) {
+                            setBody(`Sorry, the requested quantity (${newQuantity}) is not available. There are only ${product.stock_quantity} ${product.name}'s left in stock.`);
+                            setShow(true);
+                            return { ...item };
+                        }
+                        setCartCount(cartCount + 1);
+                        return { ...item, quantity: newQuantity };
                     }
                     else {
-                        return { ...item, quantity: 1 }
+                        setCartCount(cartCount + 1);
+                        return { ...item, quantity: 1 };
                     }
                 }
                 return { ...item }
@@ -43,7 +53,7 @@ function CartButton(props: CartButtonProp) {
                 localStorage.setItem('cart', JSON.stringify([...updatedCart, { ...product, quantity: 1 }]));
             }
             else {
-                localStorage.setItem('cart', JSON.stringify(updatedCart))
+                localStorage.setItem('cart', JSON.stringify(updatedCart));
             }
 
         }
@@ -56,7 +66,11 @@ function CartButton(props: CartButtonProp) {
 
 
     return (
-        <Button className={clicked ? `${styles.addtocartbutton} ${styles.opacity}` : styles.addtocartbutton} onClick={handleCart}> {clicked ? <ImCheckmark/> : 'Add to cart'}</Button>
+        <div onClick={(e) => {e.preventDefault(); e.stopPropagation();}}>
+            <ModalComponent show={show} setShow={setShow} body={body} title={"Stock Limit Reached"}></ModalComponent>
+            <Button className={clicked ? `${styles.addtocartbutton} ${styles.opacity}` : styles.addtocartbutton} onClick={handleCart}> {clicked ? <ImCheckmark /> : 'Add to cart'}</Button>
+        </div>
+
     )
 }
 
