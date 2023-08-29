@@ -8,7 +8,7 @@ import { useGlobalContext } from "@/components/CartCounterContext";
 import ModalComponent from "@/components/ModalComponent";
 import { useRouter } from "next/navigation";
 import Spinner from 'react-bootstrap/Spinner';
-import Form from 'react-bootstrap/Form';
+import ItemUpdateComponent from "@/components/ItemUpdateComponent/ItemUpdateComponent";
 function Page() {
     const [cart, setCart] = useState<Product[]>([]);
     const { setCartCount } = useGlobalContext();
@@ -47,7 +47,7 @@ function Page() {
 
     const deleteItem = (id: number) => {
         const updatedCart = cart.filter((product) => product.id !== id);
-        const numofitems = updatedCart.reduce((total, product) => product.quantity ? total + parseInt(product.quantity) : total + 0, 0);
+        const numofitems = updatedCart.reduce((total, product) => product.quantity ? total + product.quantity : total + 0, 0);
         if (updatedCart.length === 0) {
             localStorage.removeItem('cart');
         }
@@ -65,27 +65,16 @@ function Page() {
             setCart(cartlist);
         }
     }, []);
-    const handleQuantityChange = (id: number, event: ChangeEvent<HTMLSelectElement>) => {
-        const updatedCart = cart.map((product) => {
-            if (product.id === id) {
-                return { ...product, quantity: event.target.value }
-            }
-            return product;
-        })
-        const numofitems = updatedCart.reduce((total, product) => product.quantity ? total + parseInt(product.quantity) : total + 0, 0);
-        localStorage.setItem('cart', JSON.stringify(updatedCart));
-        setCart(updatedCart);
-        setCartCount(numofitems);
 
-    }
+
 
     if (cart.length === 0) {
         return (
             <div>Your Shopping Cart Is Empty</div>
         )
     }
-    const subtotal = cart.reduce((total, product) => product.quantity ? total + (parseFloat(product.price) * parseInt(product.quantity)) : total + parseFloat(product.price), 0).toFixed(2);
-    const numofitems = cart.reduce((total, product) => product.quantity ? total + parseInt(product.quantity) : total + 0, 0);
+    const subtotal = cart.reduce((total, product) => product.quantity ? total + (product.price * product.quantity) : total + product.price, 0).toFixed(2);
+    const numofitems = cart.reduce((total, product) => product.quantity ? total + product.quantity : total + 0, 0);
 
     return (
         <>
@@ -100,24 +89,8 @@ function Page() {
                                 <p>{product.weight}</p>
                                 <p>{product.dimensions}</p>
                                 <p>max quantity: {product.stock_quantity}</p>
-                                <Form.Select className={styles.quantity} onChange={(e) => { handleQuantityChange(product.id, e) }} defaultValue={product.quantity}>
-                                    {parseInt(product.stock_quantity) >= 9 ?
-                                        (
-                                            <>
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                                <option value="5">5</option>
-                                                <option value="6">6</option>
-                                                <option value="7">7</option>
-                                                <option value="8">8</option>
-                                                <option value="9">9</option></>
-                                        ) : [...Array(parseInt(product.stock_quantity))].map((e, i) => <option value={i + 1} key={i + 1}>{i + 1}</option>)
 
-                                    }
-
-                                </Form.Select>
+                                <ItemUpdateComponent product={product} cart={cart} setCart={setCart}></ItemUpdateComponent>
 
                                 <p><a className={styles.cartdelete} onClick={() => { deleteItem(product.id) }}>delete</a></p>
                                 <p className={styles.prices}>${product.price}</p>

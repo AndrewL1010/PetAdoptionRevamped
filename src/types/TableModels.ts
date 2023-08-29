@@ -39,12 +39,12 @@ export interface Product {
     id: number,
     name: string,
     description: string,
-    price: string,
+    price: number,
     category: string,
     image_path: string,
     weight: string,
     dimensions: string,
     stock_quantity: string,
-    quantity?: string,
+    quantity?: number,
 }
 

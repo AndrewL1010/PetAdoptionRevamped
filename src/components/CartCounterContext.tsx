@@ -19,7 +19,7 @@ export const GlobalCartCounterContextProvider = ({ children }: { children: React
     
     if (data !== null) {
       const cart: Product[] = JSON.parse(data);
-      const numofitems = cart.reduce((total, product) => product.quantity ? total + parseInt(product.quantity) : total + 0, 0);
+      const numofitems = cart.reduce((total, product) => product.quantity ? total + product.quantity : total + 0, 0);
       setCartCount(numofitems);
     }
 

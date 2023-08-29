@@ -6,9 +6,6 @@ import { Button, Spinner } from '@/components/bootstrap'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Product } from '@/types/TableModels'
 import useSWR from 'swr'
-import Link from 'next/link'
-import ImageComponent from '@/components/ImageComponent/ImageComponent'
-import CartButton from '@/components/CartButton/CartButton'
 import ProductCard from '@/components/ProductCard/ProductCard'
 
 

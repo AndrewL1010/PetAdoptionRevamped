@@ -6,7 +6,6 @@ import { useGlobalContext } from '../CartCounterContext';
 import { useState } from 'react';
 import { ImCheckmark } from 'react-icons/im';
 import ModalComponent from '../ModalComponent';
-import { set } from 'zod';
 interface CartButtonProp {
     product: Product
 }
@@ -33,7 +32,7 @@ function CartButton(props: CartButtonProp) {
                 if (item.id === product.id) {
                     added = true;
                     if (item.quantity) {
-                        const newQuantity = parseInt(item.quantity) + 1;
+                        const newQuantity = item.quantity + 1;
                         if (newQuantity > parseInt(item.stock_quantity)) {
                             setBody(`Sorry, the requested quantity (${newQuantity}) is not available. There are only ${product.stock_quantity} ${product.name}'s left in stock.`);
                             setShow(true);
@@ -51,6 +50,7 @@ function CartButton(props: CartButtonProp) {
             });
             if (!added) {
                 localStorage.setItem('cart', JSON.stringify([...updatedCart, { ...product, quantity: 1 }]));
+                setCartCount(cartCount + 1);
             }
             else {
                 localStorage.setItem('cart', JSON.stringify(updatedCart));
