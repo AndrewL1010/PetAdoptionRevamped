@@ -17,13 +17,13 @@ export async function POST(request: Request) {
                             name: item.name,
                             images: [`${env.BASE_URL}${item.image_path}`],
                         },
-                        unit_amount: Math.round(parseFloat(item.price) * 100),
+                        unit_amount: Math.round(item.price * 100),
                         tax_behavior: "exclusive"
                         
 
 
                     },
-                    quantity: item.quantity !== undefined ? parseInt(item.quantity) : 0,
+                    quantity: item.quantity !== undefined ? item.quantity : 0,
 
 
                 }

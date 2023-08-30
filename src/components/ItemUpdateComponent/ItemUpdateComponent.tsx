@@ -1,10 +1,9 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useRef, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { Product } from '@/types/TableModels';
 import ModalComponent from '../ModalComponent';
 import { useGlobalContext } from '../CartCounterContext';
 import styles from './ItemUpdateComponent.module.css';
-import { update } from 'react-spring';
 interface ItemUpdateProps {
     product: Product,
     cart: Product[],
@@ -19,6 +18,7 @@ function ItemUpdateComponent(props: ItemUpdateProps) {
     const { cartCount, setCartCount } = useGlobalContext();
     const [more, setMore] = useState<boolean>(quantity > 9 ? true : false);
     const [updated, setUpdated] = useState<boolean>(true);
+    const ref = React.useRef<HTMLInputElement>(null);
 
     const deleteItem = (id: number) => {
         const updatedCart = cart.filter((product) => product.id !== id);
@@ -35,6 +35,10 @@ function ItemUpdateComponent(props: ItemUpdateProps) {
     const handleQuantityChange = (id: number, event: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         if (event.target.value === "more") {
             setMore(true);
+            setUpdated(false);
+            if (ref.current) {
+                ref.current.focus();
+            }
         }
         else {
             const updatedCart = cart.map((product) => {
@@ -49,7 +53,7 @@ function ItemUpdateComponent(props: ItemUpdateProps) {
             setCart(updatedCart);
             setCartCount(numofitems);
         }
-    
+
 
     }
 
@@ -104,7 +108,7 @@ function ItemUpdateComponent(props: ItemUpdateProps) {
                 }
 
             }
-            if(value < 10){
+            if (value < 10) {
                 setMore(false);
             }
 
@@ -114,7 +118,7 @@ function ItemUpdateComponent(props: ItemUpdateProps) {
     }
     return (more ?
         <div className={styles.inputContainer}>
-            <input className={styles.input} type='text' defaultValue={product.quantity} key={product.id} onChange={(e) => { setValue(parseInt(e.target.value)); setUpdated(false) }}></input>
+            <input ref={ref} onFocus={(e) => { e.target.select(); }} className={styles.input} type='text' defaultValue={product.quantity} key={product.id} onChange={(e) => { setValue(parseInt(e.target.value)); setUpdated(false) }}></input>
             {
                 value >= 0 && !updated ? (<Button size='sm' onClick={() => { handleUpdate() }}>update</Button>) : <div></div>
 
