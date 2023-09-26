@@ -141,41 +141,54 @@ function NavBar(props: NavBarProps) {
 
     return (
         <div className={styles.parentContainer}>
-            <Navbar bg="primary" variant="dark" sticky="top">
+            <Navbar bg="primary" variant="dark" sticky="top" expand="sm" collapseOnSelect>
                 <Container className={styles.container}>
                     <Navbar.Brand as={Link} href="/">
                         <FaPaw size={40} className={styles.logo} />
                         Pet Sanctuary
                     </Navbar.Brand>
                     <Navbar.Toggle aria-controls="main-navbar" />
-                    <Nav>
-                        <NavDropdown id="main-navbar" title="Adopt">
-                            <NavDropdown.Item href='/how' active={pathname === "/how"}>How to adopt</NavDropdown.Item>
-                            <NavDropdown.Item href='/pets' active={pathname === "/pets"}>Available pets</NavDropdown.Item>
-                        </NavDropdown>
-                        <Nav.Link as={Link} href="/products" active={pathname === "/products"}>Products</Nav.Link>
-                        <Nav.Link as={Link} href="/about" active={pathname === "/about"}>About Us</Nav.Link>
-                        <Nav.Link as={Link} href="/FAQ" active={pathname === "/FAQ"}>FAQ</Nav.Link>
-                        <Nav.Link as={Link} href="/contact" active={pathname === "/contact"}>Contact Us</Nav.Link>
+                    <Navbar.Collapse id="main-navbar">
+                        <Nav className={styles.menu}>
 
-                    </Nav>
-
-                    <Nav className={styles.right}>
-                        {isLoggedIn ? (
-
-                            <NavDropdown title={currentUser}>
-                                <NavDropdown.Item onClick={logout}>Logout</NavDropdown.Item>
+                            <Nav.Link as={Link} href='/how' active={pathname === "/how"}>How to adopt</Nav.Link>
+                            <Nav.Link as={Link} href='/pets' active={pathname === "/pets"}>Available pets</Nav.Link>
+                            <Nav.Link as={Link} href="/products" active={pathname === "/products"}>Products</Nav.Link>
+                            <NavDropdown title="Info">
+                                <NavDropdown.Item as={Link} href="/about" active={pathname === "/about"}>About Us</NavDropdown.Item>
+                                <NavDropdown.Item as={Link} href="/FAQ" active={pathname === "/FAQ"}>FAQ</NavDropdown.Item>
+                                <NavDropdown.Item as={Link} href="/contact" active={pathname === "/contact"}>Contact Us</NavDropdown.Item>
                             </NavDropdown>
-                        ) : (
-                            <>
-                                <Nav.Link as={Link} href="/register" active={pathname === "/register"}>Register</Nav.Link>
-                                <Nav.Link onClick={handleShow}>Login</Nav.Link>
-                            </>
-                        )}
+
+                        </Nav>
+                    </Navbar.Collapse>
+
+                </Container>
+                <Container className={styles.auth}>
+                    <Navbar.Collapse id="main-navbar" className={styles.right}>
+                        <Nav className={styles.right}>
+                            {isLoggedIn ? (
+
+                                <NavDropdown title={currentUser}>
+                                    <NavDropdown.Item onClick={logout}>Logout</NavDropdown.Item>
+                                </NavDropdown>
+                            ) : (
+                                <>
+                                    <Nav.Link as={Link} href="/register" active={pathname === "/register"}>Register</Nav.Link>
+                                    <Nav.Link onClick={handleShow}>Login</Nav.Link>
+                                </>
+                            )}
+
+                        </Nav>
+
+                    </Navbar.Collapse>
+                    <Nav>
                         <Nav.Link as={Link} href="/cart" active={pathname === "/cart"}><FaShoppingCart size={30} className={styles.logo} />{cartCount}</Nav.Link>
                     </Nav>
                 </Container>
             </Navbar>
+
+
             <ModalComponent setShow={setShow} setShowLogin={setShowLogin} show={show} body={body} title={title}></ModalComponent>
             <ModalComponent setShow={setShowRecoveryMessage} show={showRecoveryMessage} body={body} title={title} setShowLogin={setShowRecovery}></ModalComponent>
             <Modal show={showRecovery} onHide={() => { setShowRecovery(false) }}>

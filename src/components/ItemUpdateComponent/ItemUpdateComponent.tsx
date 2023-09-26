@@ -18,7 +18,7 @@ function ItemUpdateComponent(props: ItemUpdateProps) {
     const { cartCount, setCartCount } = useGlobalContext();
     const [more, setMore] = useState<boolean>(quantity > 9 ? true : false);
     const [updated, setUpdated] = useState<boolean>(true);
-    const quantityInput = React.useRef<HTMLInputElement>(null);
+
 
     const deleteItem = (id: number) => {
         const updatedCart = cart.filter((product) => product.id !== id);
@@ -113,15 +113,11 @@ function ItemUpdateComponent(props: ItemUpdateProps) {
         setUpdated(true);
 
     }
-    useEffect(() => {
-        if (more && !updated && quantityInput.current) {
-            quantityInput.current.focus();
-        }
-    }, [more]);
+
 
     return (more ?
         <div className={styles.inputContainer}>
-            <input ref={quantityInput} onFocus={(e) => { e.target.select(); }} className={styles.input} type='text' defaultValue={product.quantity} key={product.id} onChange={(e) => { setValue(parseInt(e.target.value)); setUpdated(false) }}></input>
+            <input autoFocus={!updated} onFocus={(e) => { e.target.select(); }} className={styles.input} type='text' defaultValue={product.quantity} key={product.id} onChange={(e) => { setValue(parseInt(e.target.value)); setUpdated(false) }}></input>
             {
                 value >= 0 && !updated ? (<Button size='sm' onClick={() => { handleUpdate() }}>update</Button>) : <div></div>
 

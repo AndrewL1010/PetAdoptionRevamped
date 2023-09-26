@@ -5,7 +5,7 @@
 .container {
     width: 100%;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: 10px;
 }
 
@@ -23,25 +23,39 @@
     ;
 }
 
-.rightNav {
-    float: right;
+
+
+.menu {
+    display: flex;
+    flex-direction: column;
+
 }
 
 
-@media only screen and (min-width: 600px) {
+
+
+
+@media only screen and (min-width: 1200px) {
     .container {
         display: flex;
         flex-direction: row;
     }
+    .right{
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        width: 150px;
+
+    }
+
 }
-.right{
-    display: flex;
-    justify-content: center;
-    align-items: center ;
-}
-.loginbutton{
+
+
+
+.loginbutton {
     width: 80px;
 }
-.recoverybutton{
+
+.recoverybutton {
     width: 110px;
 }

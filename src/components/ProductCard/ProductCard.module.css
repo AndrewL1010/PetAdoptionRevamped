@@ -1,14 +1,17 @@
-.images{
+.images {
     object-fit: contain;
-    margin: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
 }
-.product_body{
+
+.product_body {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
-.price{
+
+.price {
     text-decoration: underline;
     font-weight: bolder;
 }
