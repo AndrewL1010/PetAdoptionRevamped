@@ -217,7 +217,7 @@ function NavBar(props: NavBarProps) {
                             Pet Sanctuary
                         </Typography>
 
-                        <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+                        <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none'} }}>
                             <IconButton
                                 size="large"
                                 aria-label="account of current user"
@@ -243,11 +243,11 @@ function NavBar(props: NavBarProps) {
                                 open={Boolean(anchorElNav)}
                                 onClose={handleCloseNavMenu}
                                 sx={{
-                                    display: { xs: 'block', md: 'none' },
+                                    display: { xs: 'block', md: 'none'},
                                 }}
                             >
                                 {pages.map((page) => (
-                                    <MenuItem key={page.title} onClick={() => {
+                                    <MenuItem className={styles.menu} key={page.title} onClick={() => {
                                         handleCloseNavMenu();
                                         handleRoute(page.url)
                                     }}>
@@ -256,7 +256,7 @@ function NavBar(props: NavBarProps) {
                                     </MenuItem>
                                 ))}
                                 {infoPages.map((page) => (
-                                    <MenuItem key={page.title} onClick={() => {
+                                    <MenuItem className={styles.menu} key={page.title} onClick={() => {
                                         handleCloseNavMenu();
                                         handleRoute(page.url)
                                     }}>
