@@ -2,7 +2,6 @@
 import { FaPaw, FaShoppingCart } from 'react-icons/fa';
 import { Navbar, Nav, Container, NavDropdown, Modal, Button } from "react-bootstrap";
 import { useState } from 'react';
-import React from 'react'
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import styles from './NavBar.module.css';
@@ -11,7 +10,31 @@ import ModalComponent from '@/components/ModalComponent';
 import cookies from 'js-cookie';
 import { useGlobalContext } from '@/components/CartCounterContext';
 import Spinner from 'react-bootstrap/Spinner';
+import * as React from 'react';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import Menu from '@mui/material/Menu';
+import MenuIcon from '@mui/icons-material/Menu';
+import Avatar from '@mui/material/Avatar';
+import Tooltip from '@mui/material/Tooltip';
+import MenuItem from '@mui/material/MenuItem';
+import PetsIcon from '@mui/icons-material/Pets';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
+
+const pages = [
+    { title: "How To Adopt", url: "/Adoption-Process" },
+    { title: "Pets", url: "/pets" },
+    { title: "Products", url: "/products" },
+];
+const infoPages = [
+    { title: "About Us", url: "/about" },
+    { title: "Contact Us", url: "/contact" },
+    { title: "FAQ", url: "/FAQ" },
+]
 
 
 function NavBar(props: NavBarProps) {
@@ -137,11 +160,42 @@ function NavBar(props: NavBarProps) {
     }
 
 
+    const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
+    const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+    const [anchorElInfo, setAnchorElInfo] = React.useState<null | HTMLElement>(null);
+
+    const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorElNav(event.currentTarget);
+    };
+    const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorElUser(event.currentTarget);
+    };
+
+    const handleCloseNavMenu = () => {
+        setAnchorElNav(null);
+    };
+
+    const handleCloseUserMenu = () => {
+        setAnchorElUser(null);
+    };
+    const handleCloseInfoMenu = () => {
+        setAnchorElInfo(null);
+    };
+    const handleOpenInfoMenu = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorElInfo(event.currentTarget);
+    };
+
+
+
+
+    const handleRoute = (url: string) => {
+        router.push(url);
+    }
     const pathname = usePathname();
 
     return (
         <div className={styles.parentContainer}>
-            <Navbar bg="primary" variant="dark" sticky="top" expand="sm" collapseOnSelect>
+            {/* <Navbar bg="primary" variant="dark" sticky="top" expand="sm" collapseOnSelect>
                 <Container className={styles.container}>
                     <Navbar.Brand as={Link} href="/">
                         <FaPaw size={40} className={styles.logo} />
@@ -186,7 +240,219 @@ function NavBar(props: NavBarProps) {
                         <Nav.Link as={Link} href="/cart" active={pathname === "/cart"}><FaShoppingCart size={30} className={styles.logo} />{cartCount}</Nav.Link>
                     </Nav>
                 </Container>
-            </Navbar>
+            </Navbar> */}
+            <AppBar position="static">
+                <Container>
+                    <Toolbar disableGutters>
+                        <PetsIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+                        <Typography
+                            variant="h6"
+                            noWrap
+                            component="a"
+                            href="#app-bar-with-responsive-menu"
+                            sx={{
+                                mr: 2,
+                                display: { xs: 'none', md: 'flex' },
+                                fontFamily: 'monospace',
+                                fontWeight: 700,
+                                letterSpacing: '.3rem',
+                                color: 'inherit',
+                                textDecoration: 'none',
+                            }}
+                            onClick={() => { router.push('/') }}
+                        >
+                            Pet Sanctuary
+                        </Typography>
+
+                        <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+                            <IconButton
+                                size="large"
+                                aria-label="account of current user"
+                                aria-controls="menu-appbar"
+                                aria-haspopup="true"
+                                onClick={handleOpenNavMenu}
+                                color="inherit"
+                            >
+                                <MenuIcon />
+                            </IconButton>
+                            <Menu
+                                id="menu-appbar"
+                                anchorEl={anchorElNav}
+                                anchorOrigin={{
+                                    vertical: 'bottom',
+                                    horizontal: 'left',
+                                }}
+                                keepMounted
+                                transformOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'left',
+                                }}
+                                open={Boolean(anchorElNav)}
+                                onClose={handleCloseNavMenu}
+                                sx={{
+                                    display: { xs: 'block', md: 'none' },
+                                }}
+                            >
+                                {pages.map((page) => (
+                                    <MenuItem key={page.title} onClick={() => {
+                                        handleCloseNavMenu();
+                                        handleRoute(page.url)
+                                    }}>
+                                        <Typography textAlign="center"> {page.title}</Typography>
+
+                                    </MenuItem>
+                                ))}
+                                {infoPages.map((page) => (
+                                    <MenuItem key={page.title} onClick={() => {
+                                        handleCloseNavMenu();
+                                        handleRoute(page.url)
+                                    }}>
+                                        <Typography textAlign="center"> {page.title}</Typography>
+
+                                    </MenuItem>
+                                ))}
+
+
+                            </Menu>
+                        </Box>
+                        <PetsIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+                        <Typography
+                            variant="h5"
+                            noWrap
+                            component="a"
+                            href="#app-bar-with-responsive-menu"
+                            sx={{
+                                mr: 2,
+                                display: { xs: 'flex', md: 'none' },
+                                flexGrow: 1,
+                                fontFamily: 'monospace',
+                                fontWeight: 700,
+                                letterSpacing: '.3rem',
+                                color: 'inherit',
+                                textDecoration: 'none',
+                            }}
+                            onClick={() => { router.push('/') }}
+                        >
+                            PS
+                        </Typography>
+                        <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+                            {pages.map((page) => (
+                                <Button
+                                    className={styles.button}
+                                    key={page.title}
+                                    onClick={() => {
+                                        handleCloseNavMenu();
+                                        handleRoute(page.url);
+                                    }}
+
+
+                                >
+                                    {page.title}
+                                </Button>
+                            ))}
+                            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+                                <Button title="More Info" className={styles.button}>
+                                    <IconButton onClick={handleOpenInfoMenu} sx={{ p: 0 }} className={styles.button}>
+                                        Info
+                                    </IconButton>
+                                </Button>
+
+                                <Menu
+                                    sx={{ mt: '45px' }}
+                                    id="menu-info"
+                                    anchorEl={anchorElInfo}
+                                    anchorOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'right',
+                                    }}
+                                    keepMounted
+                                    transformOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'right',
+                                    }}
+                                    open={Boolean(anchorElInfo)}
+                                    onClose={handleCloseInfoMenu}
+                                >
+                                    {infoPages.map((page) => (
+                                        <MenuItem
+                                            key={page.title}
+                                            onClick={() => {
+                                                handleCloseInfoMenu();
+                                                handleRoute(page.url);
+                                            }}
+
+
+                                        >
+                                            {page.title}
+                                        </MenuItem>
+                                    ))}
+
+                                </Menu>
+                            </Box>
+                        </Box>
+
+                        <Box sx={{ flexGrow: 0 }}>
+                            <Tooltip title="Open settings">
+                                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                                    <Avatar alt={isLoggedIn ? String(username) : ""} src="/static/images/avatar/2.jpg" />
+                                </IconButton>
+                            </Tooltip>
+                            <Link className={styles.logo} href={"/cart"}><ShoppingCartIcon className={styles.logo} fontSize='large' color='secondary' /> {cartCount}</Link>
+                            <Menu
+                                sx={{ mt: '45px' }}
+                                id="menu-appbar"
+                                anchorEl={anchorElUser}
+                                anchorOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                keepMounted
+                                transformOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                open={Boolean(anchorElUser)}
+                                onClose={handleCloseUserMenu}
+                            >
+                                {isLoggedIn ? (
+
+
+                                    <MenuItem onClick={() => {
+                                        handleCloseUserMenu();
+                                        logout();
+                                    }}>
+                                        <Typography textAlign="center">Logout</Typography>
+                                    </MenuItem>
+
+
+                                ) : (
+
+                                    <>
+                                        <MenuItem onClick={() => {
+                                            handleCloseUserMenu();
+                                            handleShow();
+                                        }}>
+                                            <Typography textAlign="center">Login</Typography>
+                                        </MenuItem>
+                                        <MenuItem onClick={() => {
+                                            handleCloseUserMenu();
+                                            router.push('/register')
+                                        }}>
+                                            <Typography textAlign="center">Register</Typography>
+                                        </MenuItem>
+                                    </>
+
+
+
+                                )
+
+                                }
+                            </Menu>
+                        </Box>
+                    </Toolbar>
+                </Container>
+            </AppBar>
+
 
 
             <ModalComponent setShow={setShow} setShowLogin={setShowLogin} show={show} body={body} title={title}></ModalComponent>
