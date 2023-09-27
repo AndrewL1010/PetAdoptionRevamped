@@ -348,7 +348,7 @@ function NavBar(props: NavBarProps) {
                                     <Avatar alt={isLoggedIn ? String(username) : ""} src="/static/images/avatar/2.jpg" />
                                 </IconButton>
                             </Tooltip>
-                            <Link className={styles.logo} href={"/cart"}><ShoppingCartIcon className={styles.logo} fontSize='large' color='secondary' /> {cartCount}</Link>
+                            <Link className={styles.logo} href={"/cart"}><ShoppingCartIcon className={styles.logo} fontSize='large' /> {cartCount}</Link>
                             <Menu
                                 sx={{ mt: '45px' }}
                                 id="menu-appbar"

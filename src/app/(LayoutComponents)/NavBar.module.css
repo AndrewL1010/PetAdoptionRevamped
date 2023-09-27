@@ -1,7 +1,7 @@
 .logo {
-    color: white;
     margin-left: 6px;
     transition: 0.2s;
+    color: white;
 }
 
 .logo:hover {
