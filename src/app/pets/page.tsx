@@ -9,6 +9,10 @@ import useSWR from 'swr'
 import styles from './page.module.css';
 import Spinner from 'react-bootstrap/Spinner';
 import { useState } from 'react'
+import { Metadata } from "next";
+export const metadata: Metadata = {
+    title: 'Pets',
+}
 function Page() {
     const [loaded, setLoaded] = useState<boolean>(false);
     const searchParams = useSearchParams();

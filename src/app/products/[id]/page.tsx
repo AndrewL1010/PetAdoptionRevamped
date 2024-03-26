@@ -4,6 +4,24 @@ import styles from './page.module.css'
 import ImageComponent from "@/components/ImageComponent/ImageComponent";
 import { Table } from '../../../components/bootstrap';
 import CartButton from "@/components/CartButton/CartButton";
+import { Metadata } from "next";
+import { Product } from "@/types/TableModels";
+
+export async function generateMetadata({ params: { id } }: PageProps): Promise<Metadata> {
+    const database = getConnection();
+    if (database) {
+        const product = await database<Product>("products").where({ id: parseInt(id) }).first();
+        await database.destroy();
+        if (product) {
+            return {
+                title: `Product - ${product.name}`
+            }
+        }
+    }
+    return {
+        title: `Product - ${id}`
+    }
+}
 
 async function Page({ params: { id } }: PageProps) {
     const database = getConnection();

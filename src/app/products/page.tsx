@@ -7,7 +7,10 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { Product } from '@/types/TableModels'
 import useSWR from 'swr'
 import ProductCard from '@/components/ProductCard/ProductCard'
-
+import { Metadata } from 'next'
+export const metadata: Metadata = {
+    title: 'Products',
+}
 
 function Page() {
     const [category, setCategory] = useState<string>("");
