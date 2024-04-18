@@ -1,6 +1,8 @@
 "use client"
-import { Modal, Button } from "react-bootstrap"
+import { Modal } from "react-bootstrap"
 import ModalProps from '../types/ModalProps';
+import Button from "@mui/material/Button";
+import styles from './ModalComponent.module.css'
 function modalComponent(props: ModalProps) {
     const { show, setShow, setShowLogin, body, title, } = props;
 
@@ -18,14 +20,14 @@ function modalComponent(props: ModalProps) {
                 }
             }}>
                 <Modal.Header closeButton>
-                    <Modal.Title>{title}</Modal.Title>
+                    <Modal.Title  className={styles.modalContent} >{title}</Modal.Title>
                 </Modal.Header>
 
-                <Modal.Body>
+                <Modal.Body className={styles.modalContent}>
                     {body}
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="primary" onClick={() => {
+                    <Button className={styles.modalCloseButton} variant="contained" onClick={() => {
                         if (setShowLogin) {
                             setShow(false);
                             setShowLogin(true);

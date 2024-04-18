@@ -3,12 +3,12 @@ import Image from "next/image";
 import { Product } from "@/types/TableModels";
 import styles from './page.module.css'
 import React, { useState, useEffect, ChangeEvent } from 'react';
-import { Button } from "react-bootstrap";
 import { useGlobalContext } from "@/components/CartCounterContext";
 import ModalComponent from "@/components/ModalComponent";
 import { useRouter } from "next/navigation";
-import Spinner from 'react-bootstrap/Spinner';
+<CircularProgress color="secondary" size="1rem"/>
 import ItemUpdateComponent from "@/components/ItemUpdateComponent/ItemUpdateComponent";
+import { Button, CircularProgress } from "@mui/material";
 function Page() {
     const [cart, setCart] = useState<Product[]>([]);
     const { setCartCount } = useGlobalContext();
@@ -70,7 +70,7 @@ function Page() {
 
     if (cart.length === 0) {
         return (
-            <div>Your Shopping Cart Is Empty</div>
+            <div style={{color: "white"}}>Your Shopping Cart Is Empty</div>
         )
     }
     const subtotal = cart.reduce((total, product) => product.quantity ? total + (product.price * product.quantity) : total + product.price, 0).toFixed(2);
@@ -108,7 +108,7 @@ function Page() {
                 <div className={styles.right}>
                     <h4 className={styles.text}>({numofitems} items)</h4>
                     <h4 className={styles.text}>SubTotal: ${subtotal}</h4>
-                    <Button onClick={handleCheckout}>{loading ? <Spinner size="sm"></Spinner> : "Checkout"}</Button>
+                    <Button className={styles.checkoutButton} variant="contained" onClick={handleCheckout}>{loading ? <CircularProgress style={{'color': 'white'}} size="1rem"/> : "Checkout"}</Button>
                 </div>
 
 

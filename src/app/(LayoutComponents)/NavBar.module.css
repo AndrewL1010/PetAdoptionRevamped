@@ -4,6 +4,25 @@
     color: white;
 }
 
+.menuitems:hover {
+    background-color: initial;
+    opacity: 0.6;
+
+}
+.muiButton{
+    color: white;
+    background-color: purple;
+    transition: 0.5s;
+}
+.muiButton:hover{
+    background-color: purple;
+    opacity: 0.7;
+}
+.menuitems{
+    transition: 0.3s;
+    color: white;
+}
+
 .logo:hover {
     opacity: 0.7;
 }
@@ -16,10 +35,10 @@
 }
 
 .parentContainer {
-    position: fixed;
     width: 100%;
     top: 0;
     z-index: 2;
+    animation: fade-down 0.5s
 }
 
 .forgotpassword {
@@ -28,16 +47,20 @@
     color: #3B71CA;
 
 }
-.button{
-    margin-top: 2px;;
-    margin-bottom: 2px;
-    color: white;
-    display: block;
-    font-size: 1.1rem;
+
+
+
+@keyframes fade-down {
+    0% {
+        opacity: 0;
+        transform: translateY(-30px) scale(0.9);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0px) scale(1)
+    }
 }
-
-
-
 
 
 

@@ -1,0 +1,13 @@
+.modalCloseButton{
+    color: white;
+    background-color: purple;
+    transition: 0.2s;
+}
+.modalCloseButton:hover{
+    color: white;
+    background-color: purple;
+    opacity: 0.6;
+}
+.modalContent{
+    color: purple;
+}

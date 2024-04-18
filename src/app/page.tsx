@@ -3,6 +3,9 @@ import styles from './page.module.css';
 import { Container } from '../components/bootstrap';
 import ImageComponent from '@/components/ImageComponent/ImageComponent';
 import { Metadata } from 'next';
+import React from "react";
+import PetAnimationComponent from '@/components/PetAnimationComponent/PetAnimationComponent';
+
 export const metadata: Metadata = {
   title: 'Home - Pet Sanctuary',
 }
@@ -42,18 +45,17 @@ export default function Home() {
     <Container className={styles.container}>
       <div className={styles.introcontainer}>
         <div className={styles.messagecontainer}>
-          <h4>Welcome!</h4>
-          <p>Discover your perfect pet on our adoption website.
-            Browse profiles of dogs, cats, rabbits, and more.
-            Each profile provides essential details, photos, and videos.
-            Connect with shelters and organizations directly to start the adoption process.
-            Get helpful resources for pet care.
-            Find your lifelong companion and make a positive impact on animal welfare.
-            Join us today!
-          </p>
+          <div className={styles.headerContainer}>
+            <h1 className={styles.header} style={{ color: "White" }}>Save A Life Today.</h1>
+            <h4 className={styles.text}>Find your perfect furry companion today at Pet Sanctuary, where love meets a forever home.</h4>
+          </div>
+
+
+          <PetAnimationComponent />
+
         </div>
-        <div>
-          <ImageComponent path={"/sanctuary.jpg"} width={500} height={300} alt='sanctuary' small={false}></ImageComponent>
+        <div className={styles.carousel}>
+          <ImageComponent path={"/sanctuary.png"} width={500} height={500} alt='sanctuary' small={false}></ImageComponent>
         </div>
       </div>
       <CarouselComponent images={images} />

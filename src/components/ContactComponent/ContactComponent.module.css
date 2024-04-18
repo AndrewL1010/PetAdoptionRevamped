@@ -1,7 +1,29 @@
 .button{
     width: 100px;
-    margin-top: 20px;
+    margin-top: 40px;
+    color: white;
+    background-color: purple;
+    transition: 0.2s;
+    margin-left: 20px;
+    text-align: center;
+}
+.button:hover{
+    color: white;
+    background-color: purple;
+    opacity: 0.6;
 }
 .textarea{
     height: 400px;
+}
+.container * {
+    color: white;
+    margin: 5px;
+    width: 500px;
+}
+.container{
+    max-width: 500px;
+
+}
+.form{
+    margin-bottom: 30px;
 }

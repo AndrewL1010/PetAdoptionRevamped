@@ -16,7 +16,8 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    color: #3B71CA;
+    color: white;
+    border: none;
 }
 .faqContainer{
     display: flex;
@@ -28,4 +29,5 @@
 }
 .message{
     margin-top: 60px;
+    border: none;
 }

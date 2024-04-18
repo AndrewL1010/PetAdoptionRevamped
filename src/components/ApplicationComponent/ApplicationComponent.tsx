@@ -6,6 +6,7 @@ import styles from './ApplicationComponent.module.css';
 import ModalComponent from '../ModalComponent';
 import cookies from 'js-cookie';
 import Spinner from 'react-bootstrap/Spinner';
+import { CircularProgress } from '@mui/material';
 
 function ApplicationComponent(props: ApplicationProps) {
     const { name, breed, animal_id } = props;
@@ -102,7 +103,7 @@ function ApplicationComponent(props: ApplicationProps) {
                     <input onChange={(event) => { setEmail(event.target.value) }} autoComplete="off" type="email" className="form-control" id="email" placeholder="Email..." name='email' required maxLength={30} />
                 </div>
 
-                <Button type='submit'>{loading ? <Spinner size="sm"></Spinner> : "Submit"}</Button>
+                <Button type='submit'>{loading ? <CircularProgress style={{'color': 'white'}} size="1rem"/> : "Submit"}</Button>
             </form>
             <ModalComponent body={body} title={title} show={show} setShow={setShow}></ModalComponent>
 

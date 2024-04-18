@@ -1,8 +1,10 @@
 .images {
-    transition-duration: 2s;
     width: 100%;
     object-fit: cover;
-    height: 300px;
+    height: auto;
+    animation: fade-left 0.5s;
+    min-height: 400px;
+    box-shadow: 0 0 20px 5px rgba(192, 192, 192, 0.75);
 }
 
 .opacity {
@@ -10,28 +12,24 @@
 }
 
 .small {
+    width: 100%;
     object-fit: cover;
-    margin: 0.25rem;
-    border-radius: 4pc;
-    transition-duration: 2s;
-    margin-right: 20px;
-    margin-bottom: 40px;
+    height: auto;
+    animation: fade-left 0.5s;
+    min-height: 400px;
+    box-shadow: 0 0 20px 5px rgba(192, 192, 192, 0.75);
+    max-height: 500px;
 }
 
-@media only screen and (min-width: 768px) {
-    .images{
-        height: 200px;
+
+@keyframes fade-left {
+    0% {
+        opacity: 0;
+        transform: translateX(30px) scale(0.9);
     }
-}
 
-@media only screen and (min-width: 1000px) {
-    .images{
-        height: 400px;
-    }
-}
-
-@media only screen and (min-width: 1400px) {
-    .images{
-        height: 400px;
+    100% {
+        opacity: 1;
+        transform: translateX(0px) scale(1)
     }
 }

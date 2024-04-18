@@ -1,10 +1,11 @@
 "use client"
 import React from 'react'
-import { Container, Button } from '../bootstrap'
+import { Container } from '../bootstrap'
 import { useState, FormEvent } from 'react';
 import styles from './ContactComponent.module.css';
 import ModalComponent from '../ModalComponent';
 import Spinner from 'react-bootstrap/Spinner';
+import { Button, CircularProgress } from '@mui/material';
 
 function ContactComponent() {
     const [email, setEmail] = useState<String>("");
@@ -43,26 +44,27 @@ function ContactComponent() {
     }
 
     return (
-        <Container>
-            <form onSubmit={sendMail}>
+        <div className={styles.container}>
+            <form onSubmit={sendMail} className={styles.form}>
                 <h1>Contact Us</h1>
                 <div className="form-group">
                     <label htmlFor="subject">subject</label>
-                    <input onChange={(event) => { setSubject(event.target.value) }} autoComplete="off" className="form-control" id="subject" placeholder="Subject..." required maxLength={30} name='subject' />
+                    <input style={{ color: "purple" }} onChange={(event) => { setSubject(event.target.value) }} autoComplete="off" className="form-control" id="subject" placeholder="Subject..." required maxLength={30} name='subject' />
                 </div>
                 <div className="form-group">
                     <label htmlFor="email">Email</label>
-                    <input onChange={(event) => { setEmail(event.target.value) }} autoComplete="off" type="email" className="form-control" id="username" placeholder="Email..." required maxLength={30} name='email' />
+                    <input style={{ color: "purple" }} onChange={(event) => { setEmail(event.target.value) }} autoComplete="off" type="email" className="form-control" id="username" placeholder="Email..." required maxLength={30} name='email' />
                 </div>
                 <div className="form-group">
                     <label htmlFor="text">Your inquiry</label>
-                    <textarea onChange={(event) => { setText(event.target.value) }} autoComplete="off" className={`form-control ${styles.textarea}`} id="text" name='textbox' placeholder="What would you like help with?" />
+                    <textarea style={{ color: "purple" }} onChange={(event) => { setText(event.target.value) }} autoComplete="off" className={`form-control ${styles.textarea}`} id="text" name='textbox' placeholder="What would you like help with?" />
                 </div>
-                <Button type="submit" className={styles.button}>{loading ? <Spinner size="sm"></Spinner> : "Send"}</Button>
+                
             </form>
+            <Button variant='contained' type="submit" className={styles.button}>{loading ? <CircularProgress style={{ 'color': 'white' }} size="1rem" /> : "Send"}</Button>
             <ModalComponent show={show} setShow={setShow} body={body} title={title} ></ModalComponent>
+        </div>
 
-        </Container>
     )
 }
 

@@ -1,18 +1,28 @@
 .parentcontainer {
     width: 100%;
-    flex-shrink: 0;
+    padding-top: 5%;
+    margin-top: 5%;
+    background: linear-gradient(to left, transparent 15%, #83029B 50%, transparent 85%);
+    padding-bottom: 3%;
+
+
 }
 
 .footerchild {
     flex: 1;
     padding-top: 20px;
     color: white;
-    font-weight: bold;
+
 
 }
 .bootstrapcontainer{
     display: flex;
     flex-direction: column;
+}
+.bootstrapcontainer2{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 .innercontainer{
     display: flex;
@@ -20,20 +30,37 @@
     align-items: center;
     
 }
+
 .footerlinks{
     color: white;
-    transition: 0.5s;
 }
 .footerlinks:hover{
-    opacity: 0.6;
+    text-decoration: underline;
+}
+.address{
+    color: white;
 }
 @media only screen and (min-width: 768px) {
     .bootstrapcontainer{
         display: flex;
         flex-direction: row;
     }
+    .bootstrapcontainer2{
+        white-space: nowrap;
+        margin-top: 5%;
+        display: inline-block;
+        align-items: flex-start;
+        margin-left: 23%;
+    }
+    .bootstrapcontainer2 *{
+        display: inline-block;
+        margin: 6px;
+    }
+    
 }
 .header{
-    text-decoration: underline;
+    opacity: 1;
+    color: darkgray;
+    font-weight: bolder;
 }
 

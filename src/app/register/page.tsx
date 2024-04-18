@@ -1,9 +1,10 @@
 "use client"
 import styles from './page.module.css';
 import { FormEvent, useState } from "react"
-import { Button } from "react-bootstrap";
+import { Button } from '@mui/material';
 import ModalComponent from "@/components/ModalComponent";
 import Spinner from 'react-bootstrap/Spinner';
+import { CircularProgress } from '@mui/material';
 function Page() {
     const [username, setUsername] = useState<String>("");
     const [password, setPassword] = useState<String>("");
@@ -41,21 +42,21 @@ function Page() {
         }
     }
     return (
-        <form onSubmit={register}>
+        <form className={styles.container} onSubmit={register}>
             <h1>Sign Up</h1>
             <div className="form-group">
                 <label htmlFor="username">Username</label>
-                <input onChange={(event) => { setUsername(event.target.value) }} autoComplete="off" type="text" className="form-control" id="username" placeholder="Choose a username" required maxLength={30} name='username' />
+                <input style={{color: "purple"}} onChange={(event) => { setUsername(event.target.value) }} autoComplete="off" type="text" className="form-control" id="username" placeholder="Choose a username" required maxLength={30} name='username' />
             </div>
             <div className="form-group">
                 <label htmlFor="password">Password</label>
-                <input onChange={(event) => { setPassword(event.target.value) }} autoComplete="off" type="password" className="form-control" id="password" placeholder="Choose a password" required minLength={6} maxLength={20} name='password' />
+                <input style={{color: "purple"}} onChange={(event) => { setPassword(event.target.value) }} autoComplete="off" type="password" className="form-control" id="password" placeholder="Choose a password" required minLength={6} maxLength={20} name='password' />
             </div>
             <div className="form-group">
                 <label htmlFor="email">Email</label>
-                <input onChange={(event) => { setEmail(event.target.value) }} autoComplete="off" type="email" className="form-control" id="email" placeholder="Provide an email" required minLength={6} maxLength={40} name='email' />
+                <input style={{color: "purple"}} onChange={(event) => { setEmail(event.target.value) }} autoComplete="off" type="email" className="form-control" id="email" placeholder="Provide an email" required minLength={6} maxLength={40} name='email' />
             </div>
-            <Button className={styles.button} type="submit">{loading ? <Spinner size="sm"></Spinner> : "Register"}</Button>
+            <Button className={styles.button} type="submit">{loading ? <CircularProgress style={{'color': 'white'}} size="1rem"/> : "Register"}</Button>
 
             <ModalComponent setShow={setShow} show={show} body={modalMessage} title={modalTitle}></ModalComponent>
 

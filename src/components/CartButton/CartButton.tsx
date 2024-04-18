@@ -68,7 +68,7 @@ function CartButton(props: CartButtonProp) {
     return (
         <div onClick={(e) => {e.preventDefault(); e.stopPropagation();}}>
             <ModalComponent show={show} setShow={setShow} body={body} title={"Stock Limit Reached"}></ModalComponent>
-            <Button className={clicked ? `${styles.addtocartbutton} ${styles.opacity}` : styles.addtocartbutton} onClick={handleCart}> {clicked ? <ImCheckmark /> : 'Add to cart'}</Button>
+            <Button variant='contained' className={clicked ? `${styles.addtocartbutton} ${styles.opacity}` : styles.addtocartbutton} onClick={handleCart}> {clicked ? <ImCheckmark /> : 'Add to cart'}</Button>
         </div>
 
     )

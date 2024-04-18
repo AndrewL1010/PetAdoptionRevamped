@@ -1,5 +1,4 @@
 .images {
-    transition-duration: 2s;
     width: 100%;
     object-fit: cover;
     height: 400px;
@@ -22,6 +21,20 @@
 
 .container {
     width: 100%;
+    animation: fade-up 0.5s;
+    box-shadow: 0 0 20px 5px rgba(192, 192, 192, 0.75);
+}
+
+@keyframes fade-up {
+    0% {
+        opacity: 0;
+        transform: translateY(30px) scale(0.9);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0px) scale(1)
+    }
 }
 
 

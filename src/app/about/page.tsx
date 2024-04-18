@@ -11,7 +11,7 @@ function page() {
         <Container>
             <div className={styles.container}>
                 <div className={styles.imagecontainer}>
-                    <ImageComponent path={'/petowner.webp'} alt="pet-owner" width={700} height={500} small={false}></ImageComponent>
+                    <ImageComponent path={'/petowner.webp'} alt="pet-owner" width={700} height={600} small={false}></ImageComponent>
                 </div>
                 <h2>Our Contribution</h2>
                 <p>At our pet adoption company, we are dedicated to finding loving homes for animals in need.

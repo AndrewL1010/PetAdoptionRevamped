@@ -1,0 +1,6 @@
+.container *{
+    color: white;
+}
+.container{
+    max-width: 600px;
+}

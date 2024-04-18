@@ -1,8 +1,8 @@
 "use client"
-import { FormControl, FormLabel, RadioGroup, Radio, FormControlLabel, MenuItem, TextField } from '@mui/material'
+import { FormControl, FormLabel, RadioGroup, Radio, FormControlLabel, MenuItem, TextField, CircularProgress, Button } from '@mui/material'
 import React, { useState } from 'react'
 import styles from './page.module.css'
-import { Button, Spinner } from '@/components/bootstrap'
+import { Spinner } from '@/components/bootstrap'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Product } from '@/types/TableModels'
 import useSWR from 'swr'
@@ -61,7 +61,7 @@ function ProductComponent() {
     if (isLoading) {
         return (
             <div className={styles.spinner} >
-                <Spinner animation="border" variant="primary" />
+                <CircularProgress style={{'color': 'white'}} size="1rem"/>
             </div>
         )
     }
@@ -81,6 +81,7 @@ function ProductComponent() {
     for (let i = 1; i < num_of_pages + 1; i++) {
         array.push(i);
     }
+    
 
 
 
@@ -88,15 +89,16 @@ function ProductComponent() {
         <div className={styles.parentcontainer}>
             <div className={styles.filtercontainer}>
                 <FormControl>
-                    <FormLabel id="pricing">Pricing</FormLabel>
+                    <label style={{color: "white"}} id="pricing">Pricing</label>
                     <RadioGroup
                         name="pricing-group"
                         onChange={(e) => { setPricing(e.target.value) }}
+                        sx={{color: "white"}}
 
 
                     >
-                        <FormControlLabel defaultChecked value="ascending" control={<Radio />} label="low to high" />
-                        <FormControlLabel value="descending" control={<Radio />} label="high to low" />
+                        <FormControlLabel sx={{color:"white", borderColor:"white"}} defaultChecked value="ascending" control={<Radio />} label="low to high" />
+                        <FormControlLabel sx={{color:"white", borderColor:"white"}} value="descending" control={<Radio />} label="high to low" />
                     </RadioGroup>
                 </FormControl>
 
@@ -107,38 +109,48 @@ function ProductComponent() {
                     size='medium'
                     defaultValue=""
                     onChange={(e) => { setCategory(e.target.value) }}
+                    sx={{color:"white", borderColor:"white"}}
+                    inputProps={{
+                        MenuProps: {
+                            MenuListProps: {
+                                sx: {
+                                    backgroundColor: 'purple'
+                                }
+                            }
+                        }
+                    }}
                 >
-                    <MenuItem key={1} value="all">
+                    <MenuItem className={styles.item} key={1} value="all">
                         All
                     </MenuItem>
-                    <MenuItem key={2} value="Dog">
+                    <MenuItem className={styles.item} key={2} value="Dog">
                         Dog
                     </MenuItem>
-                    <MenuItem key={3} value="Cat">
+                    <MenuItem className={styles.item} key={3} value="Cat">
                         Cat
                     </MenuItem>
-                    <MenuItem key={4} value="Toys">
+                    <MenuItem className={styles.item} key={4} value="Toys">
                         Toys
                     </MenuItem>
-                    <MenuItem key={5} value="Reptiles">
+                    <MenuItem className={styles.item} key={5} value="Reptiles">
                         Reptiles
                     </MenuItem>
-                    <MenuItem key={6} value="Bird">
+                    <MenuItem className={styles.item} key={6} value="Bird">
                         Bird
                     </MenuItem>
-                    <MenuItem key={7} value="Small Pets">
+                    <MenuItem className={styles.item} key={7} value="Small Pets">
                         Small Animal
                     </MenuItem>
-                    <MenuItem key={8} value="Fish">
+                    <MenuItem className={styles.item} key={8} value="Fish">
                         Fish
                     </MenuItem>
-                    <MenuItem key={9} value="Food">
+                    <MenuItem className={styles.item} key={9} value="Food">
                         Food
                     </MenuItem>
                 </TextField>
             </div>
             <div className={styles.buttoncontainer}>
-                <Button className={styles.button} onClick={handleFilter}>Save Filter</Button>
+                <Button variant='contained' className={styles.button} onClick={handleFilter}>Save Filter</Button>
             </div>
 
             <div className={styles.productscontainer}>
@@ -149,7 +161,7 @@ function ProductComponent() {
             </div>
             <div className={styles.page_number_container}>
                 {array.map((page_number) => (
-                    <Button key={page_number} onClick={() => { handlePage(page_number.toString()) }} style={{ opacity: page === page_number.toString() ? 0.5 : page === "0" && page_number === 1 ? 0.5 : 1 }}>{page_number}</Button>
+                    <Button className={styles.pagination} key={page_number} onClick={() => { handlePage(page_number.toString()) }} style={{ opacity: page === page_number.toString() ? 0.5 : page === "0" && page_number === 1 ? 0.5 : 1 }}>{page_number}</Button>
                 ))
 
                 }

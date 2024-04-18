@@ -3,12 +3,17 @@
     margin-bottom: 10px;
     width: 120px;
     transition: 0.5s;
+    color: white;
+    background-color: #AA21CB;
 }
 .addtocartbutton:hover{
-    opacity: 0.5;
+    opacity: 0.7;
+    color: white;
+    background-color: #AA21CB;
 }
 
 .opacity {
-    opacity: 0;
+    opacity: 0.4;
     pointer-events: none;
+    cursor: default;
 }

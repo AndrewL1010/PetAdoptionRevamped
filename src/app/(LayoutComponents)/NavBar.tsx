@@ -1,5 +1,6 @@
 "use client";
-import {Container,Modal, Button } from "react-bootstrap";
+import { Container, Modal } from "react-bootstrap";
+import Button from '@mui/material/Button';
 import { useState } from 'react';
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -8,7 +9,6 @@ import NavBarProps from '@/types/NavBarProps';
 import ModalComponent from '@/components/ModalComponent';
 import cookies from 'js-cookie';
 import { useGlobalContext } from '@/components/CartCounterContext';
-import Spinner from 'react-bootstrap/Spinner';
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -22,6 +22,9 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import PetsIcon from '@mui/icons-material/Pets';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import { Checkbox, CircularProgress, FormControlLabel, MenuList } from "@mui/material";
+
 
 
 const pages = [
@@ -90,11 +93,15 @@ function NavBar(props: NavBarProps) {
         }
     }
 
-    const login = async () => {
+    const login = async (isDemo: boolean) => {
         setLoading(true);
         const data = {
             username: username,
             password: password,
+        }
+        if (isDemo) {
+            data.username = "DemoAccount";
+            data.password = "123456"
         }
         const response = await fetch("/api/login",
             {
@@ -194,7 +201,7 @@ function NavBar(props: NavBarProps) {
 
     return (
         <div className={styles.parentContainer}>
-            <AppBar position="static">
+            <AppBar position="static" style={{ background: 'transparent', boxShadow: 'none' }}>
                 <Container>
                     <Toolbar disableGutters>
                         <PetsIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
@@ -217,7 +224,7 @@ function NavBar(props: NavBarProps) {
                             Pet Sanctuary
                         </Typography>
 
-                        <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none'} }}>
+                        <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                             <IconButton
                                 size="large"
                                 aria-label="account of current user"
@@ -243,24 +250,24 @@ function NavBar(props: NavBarProps) {
                                 open={Boolean(anchorElNav)}
                                 onClose={handleCloseNavMenu}
                                 sx={{
-                                    display: { xs: 'block', md: 'none'},
+                                    display: { xs: 'block', md: 'none' },
                                 }}
                             >
                                 {pages.map((page) => (
-                                    <MenuItem className={styles.menu} key={page.title} onClick={() => {
+                                    <MenuItem key={page.title} onClick={() => {
                                         handleCloseNavMenu();
                                         handleRoute(page.url)
                                     }}>
-                                        <Typography textAlign="center"> {page.title}</Typography>
+                                        {page.title}
 
                                     </MenuItem>
                                 ))}
                                 {infoPages.map((page) => (
-                                    <MenuItem className={styles.menu} key={page.title} onClick={() => {
+                                    <MenuItem key={page.title} onClick={() => {
                                         handleCloseNavMenu();
                                         handleRoute(page.url)
                                     }}>
-                                        <Typography textAlign="center"> {page.title}</Typography>
+                                        {page.title}
 
                                     </MenuItem>
                                 ))}
@@ -288,25 +295,27 @@ function NavBar(props: NavBarProps) {
                         >
                             PS
                         </Typography>
-                        <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' , backgroundColor: "inherit"} }}>
+                        <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex', backgroundColor: "inherit" } }}>
                             {pages.map((page) => (
-                                <Button
-                                    className={styles.button}
+                                <MenuItem
                                     key={page.title}
                                     onClick={() => {
                                         handleCloseNavMenu();
                                         handleRoute(page.url);
                                     }}
+                                    sx={{ color: "white" }}
+                                    className={styles.menuitems}
+
 
 
                                 >
                                     {page.title}
-                                </Button>
+                                </MenuItem>
                             ))}
                             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                                <Button title="More Info" className={styles.button} onClick={handleOpenInfoMenu}>
-                                    Info
-                                </Button>
+                                <MenuItem title="More Info" className={styles.menuitems} onClick={handleOpenInfoMenu}>
+                                    Info <ArrowDropDownIcon />
+                                </MenuItem>
 
                                 <Menu
                                     sx={{ mt: '45px' }}
@@ -323,6 +332,7 @@ function NavBar(props: NavBarProps) {
                                     }}
                                     open={Boolean(anchorElInfo)}
                                     onClose={handleCloseInfoMenu}
+                                    MenuListProps={{ sx: { backgroundColor: "#83029B", color: "white" } }}
                                 >
                                     {infoPages.map((page) => (
                                         <MenuItem
@@ -345,10 +355,32 @@ function NavBar(props: NavBarProps) {
                         <Box sx={{ flexGrow: 0 }}>
                             <Tooltip title="Open settings">
                                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                    <Avatar alt={isLoggedIn ? String(username) : ""} src="/static/images/avatar/2.jpg" />
+                                    <Avatar alt={isLoggedIn ? String(username) : ""} sx={{ bgcolor: "white", color: "purple" }} />
                                 </IconButton>
                             </Tooltip>
-                            <Link className={styles.logo} href={"/cart"}><ShoppingCartIcon className={styles.logo} fontSize='large' /> {cartCount}</Link>
+
+                            <Link className={styles.logo} href={"/cart"}><ShoppingCartIcon className={styles.logo} sx={{ color: "white" }} fontSize='large' /> {cartCount}</Link>
+                            <FormControlLabel
+                                sx={{ margin: "20px" }}
+                                control={
+                                    <Checkbox
+                                        checked={isLoggedIn}
+                                        onChange={() => {
+                                            if(isLoggedIn){
+                                                logout();
+                                            }
+                                            else{
+                                                login(true);
+                                            }
+                                        }}
+                                        style={{
+                                            color: "white",
+                                        }}
+                                        value="demo"
+                                    />
+                                }
+                                label={<Typography variant="h6" style={{ color: 'white' }}>Demo Account</Typography>}
+                            />
                             <Menu
                                 sx={{ mt: '45px' }}
                                 id="menu-appbar"
@@ -364,6 +396,7 @@ function NavBar(props: NavBarProps) {
                                 }}
                                 open={Boolean(anchorElUser)}
                                 onClose={handleCloseUserMenu}
+                                MenuListProps={{ sx: { backgroundColor: "#83029B", color: "white" } }}
                             >
                                 {isLoggedIn ? (
 
@@ -378,7 +411,7 @@ function NavBar(props: NavBarProps) {
 
                                 ) : (
 
-                                    <>
+                                    <MenuList>
                                         <MenuItem onClick={() => {
                                             handleCloseUserMenu();
                                             handleShow();
@@ -391,7 +424,7 @@ function NavBar(props: NavBarProps) {
                                         }}>
                                             <Typography textAlign="center">Register</Typography>
                                         </MenuItem>
-                                    </>
+                                    </MenuList>
 
 
 
@@ -410,21 +443,21 @@ function NavBar(props: NavBarProps) {
             <ModalComponent setShow={setShowRecoveryMessage} show={showRecoveryMessage} body={body} title={title} setShowLogin={setShowRecovery}></ModalComponent>
             <Modal show={showRecovery} onHide={() => { setShowRecovery(false) }}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Recovery</Modal.Title>
+                    <Modal.Title style={{ color: "purple" }}>Recovery</Modal.Title>
                 </Modal.Header>
                 <form>
                     <Modal.Body>
                         <div className="form-group">
-                            <label htmlFor="username">Username</label>
-                            <input autoComplete="off" onChange={(event: React.ChangeEvent<HTMLInputElement>) => { setRecoveryUsername(event.target.value) }} type="text" className="form-control" id="username" placeholder="Enter username" name='username' />
+                            <label style={{ color: "purple" }} htmlFor="username">Username</label>
+                            <input style={{ color: "purple" }} autoComplete="off" onChange={(event: React.ChangeEvent<HTMLInputElement>) => { setRecoveryUsername(event.target.value) }} type="text" className="form-control" id="username" placeholder="Enter username" name='username' />
                         </div>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button variant="secondary" onClick={() => { setShowRecovery(false) }}>
+                        <Button className={styles.muiButton} variant="contained" onClick={() => { setShowRecovery(false) }}>
                             Close
                         </Button>
-                        <Button className={styles.recoverybutton} variant="primary" onClick={handleRecovery}>
-                            {loading ? <Spinner size="sm"></Spinner> : "Send Email"}
+                        <Button className={styles.muiButton} variant="contained" onClick={handleRecovery}>
+                            {loading ? <CircularProgress style={{ 'color': 'white' }} size="1rem" /> : "Send Email"}
                         </Button>
                     </Modal.Footer>
                 </form>
@@ -432,28 +465,28 @@ function NavBar(props: NavBarProps) {
 
             <Modal show={showLogin} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Login</Modal.Title>
+                    <Modal.Title style={{ color: "purple" }}>Login</Modal.Title>
                 </Modal.Header>
                 <form action={"/api/login"} method='post'>
                     <Modal.Body>
                         <div className="form-group">
-                            <label htmlFor="username">Username</label>
-                            <input autoComplete="off" onChange={(event: React.ChangeEvent<HTMLInputElement>) => { setUsername(event.target.value) }} type="text" className="form-control" id="username" aria-describedby="emailHelp" placeholder="Enter username" name='username' />
+                            <label style={{ color: "purple" }} htmlFor="username">Username</label>
+                            <input style={{ borderColor: "purple", color: "purple" }} autoComplete="off" onChange={(event: React.ChangeEvent<HTMLInputElement>) => { setUsername(event.target.value) }} type="text" className="form-control" id="username" aria-describedby="emailHelp" placeholder="Enter username" name='username' />
                         </div>
                         <div className="form-group">
-                            <label htmlFor="password">Password</label>
-                            <input autoComplete="off" onChange={(event: React.ChangeEvent<HTMLInputElement>) => { setPassword(event.target.value) }} type="password" className="form-control" id="password" placeholder="Password" name='password' />
+                            <label style={{ color: "purple" }} htmlFor="password">Password</label>
+                            <input style={{ borderColor: "purple", color: "purple" }} autoComplete="off" onChange={(event: React.ChangeEvent<HTMLInputElement>) => { setPassword(event.target.value) }} type="password" className="form-control" id="password" placeholder="Password" name='password' />
                         </div>
                         <div className={styles.forgotpassword}>
-                            <p onClick={showPasswordRecoveryModal}> Forgot Password</p>
+                            <p style={{ color: "purple" }} onClick={showPasswordRecoveryModal}> Forgot Password</p>
                         </div>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button variant="secondary" onClick={handleClose}>
+                        <Button className={styles.muiButton} variant="contained" onClick={handleClose}>
                             Close
                         </Button>
-                        <Button className={styles.loginbutton} variant="primary" onClick={login}>
-                            {loading ? <Spinner size="sm"></Spinner> : "Login"}
+                        <Button className={styles.muiButton} variant="contained" onClick={() => { login(false) }}>
+                            {loading ? <CircularProgress style={{ 'color': 'white' }} size="1rem" /> : "Login"}
                         </Button>
                     </Modal.Footer>
                 </form>

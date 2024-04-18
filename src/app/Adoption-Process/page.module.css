@@ -3,3 +3,6 @@
     flex-direction: column;
     gap: 30px;
 }
+.container *{
+    color: white;
+}

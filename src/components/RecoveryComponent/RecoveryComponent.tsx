@@ -1,8 +1,10 @@
-
 "use client"
 import { useRouter, useSearchParams } from "next/navigation";
 import { FormEvent, useState } from "react";
-import { Button, Modal } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
+import styles from './RecoveryComponent.module.css'
+import Button from "@mui/material/Button";
+import { CircularProgress } from "@mui/material";
 
 function RecoveryComponent() {
     const [password, setPassword] = useState<string>("");
@@ -10,6 +12,7 @@ function RecoveryComponent() {
     const [body, setBody] = useState<string>("");
     const [title, setTitle] = useState<string>("");
     const [show, setShow] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(false);
     const [routerpush, setrouterpush] = useState<boolean>(false);
     const searchParams = useSearchParams()
     const router = useRouter();
@@ -21,6 +24,7 @@ function RecoveryComponent() {
 
 
     const changePassword = async (event: FormEvent<HTMLFormElement>) => {
+        setLoading(true);
         event.preventDefault();
 
         if (password === confirmPassword) {
@@ -54,22 +58,23 @@ function RecoveryComponent() {
             setTitle("Error");
             setShow(true);
         }
+        setLoading(false);
 
     }
     return (
-        <div>
+        <div className={styles.container}>
             <form onSubmit={changePassword}>
-                <h1>Password Change</h1>
+                <h1 style={{ color: "white" }}>Password Change</h1>
                 <div className="form-group">
-                    <label htmlFor="password">New Password</label>
-                    <input onChange={(event) => { setPassword(event.target.value) }} autoComplete="off" type="password" className="form-control" id="password" placeholder="Choose a password" required maxLength={30} />
+                    <label style={{ color: "white" }} htmlFor="password">New Password</label>
+                    <input style={{ color: "purple" }} onChange={(event) => { setPassword(event.target.value) }} autoComplete="off" type="password" className="form-control" id="password" placeholder="Choose a password" required maxLength={30} />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="confirm_password">Confirm New Password</label>
-                    <input onChange={(event) => { setConfirmpassword(event.target.value) }} autoComplete="off" type="password" className="form-control" id="confirm_password" placeholder="Confirm your new password" required minLength={6} maxLength={20} />
+                    <label style={{ color: "white" }} htmlFor="confirm_password">Confirm New Password</label>
+                    <input style={{ color: "purple" }} onChange={(event) => { setConfirmpassword(event.target.value) }} autoComplete="off" type="password" className="form-control" id="confirm_password" placeholder="Confirm your new password" required minLength={6} maxLength={20} />
                 </div>
 
-                <Button type="submit">Change Password</Button>
+                <Button className={styles.button} variant="contained" type="submit">{loading ? <CircularProgress style={{ 'color': 'white' }} size="1rem" /> : "Change Password"}</Button>
 
             </form>
             <Modal show={show} onHide={() => {
@@ -81,14 +86,14 @@ function RecoveryComponent() {
                 }
             }}>
                 <Modal.Header closeButton>
-                    <Modal.Title>{title}</Modal.Title>
+                    <Modal.Title style={{ color: "purple" }}>{title}</Modal.Title>
                 </Modal.Header>
 
-                <Modal.Body>
+                <Modal.Body style={{ color: "purple" }}>
                     {body}
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="primary" onClick={() => {
+                    <Button className={styles.button} variant="contained" onClick={() => {
                         if (routerpush) {
                             handleClose();
                         }

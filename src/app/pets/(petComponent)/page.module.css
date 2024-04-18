@@ -10,6 +10,7 @@
 
 .opacity {
     opacity: 0;
+    transition: 0.3s;
 }
 
 .imagetext {
@@ -48,6 +49,17 @@
     gap: 10px;
 }
 
+.filterButton {
+    color: white;
+    background-color: purple;
+    transition: 0.5s;
+}
+
+.filterButton:hover {
+    background-color: purple;
+    opacity: 0.2;
+}
+
 .filterContainer {
     display: flex;
     flex-direction: row;
@@ -56,12 +68,37 @@
 }
 
 .container {
+    opacity: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     position: relative;
     width: 100%;
+    animation: fade-in linear forwards;
+    animation-timeline: view();
+    animation-range-start: 50px;
+    animation-range-end: 300px;
+}
+
+@keyframes fade-in {
+    from {
+        scale: 0.5;
+        opacity: 0;
+    }
+
+    to {
+        scale: 1;
+        opacity: 1;
+    }
+}
+.pagination{
+    color: white;
+    transition: 0.2s;
+
+}
+.pagination:hover{
+    background-color: purple;
 }
 
 .page_number_container {
@@ -78,20 +115,23 @@
     justify-content: center;
     align-items: center;
 }
-.link{
+
+.link {
     width: 100%;
 }
 
 
 @media only screen and (min-width: 1000px) {
-    .images{
+    .images {
         height: 300px;
     }
-    .parentcontainer{
+
+    .parentcontainer {
         flex-direction: row;
         justify-content: space-between;
     }
-    .link{
+
+    .link {
         width: 30%;
     }
 }

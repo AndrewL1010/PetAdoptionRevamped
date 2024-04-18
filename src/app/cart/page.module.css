@@ -20,6 +20,19 @@
     flex-direction: column;
     gap: 100px;
 }
+.parent *{
+    color: white;
+}
+.checkoutButton{
+    color: white;
+    background-color: purple;
+    transition: 0.2s;
+}
+.checkoutButton:hover{
+    color: white;
+    background-color: purple;
+    opacity: 0.6;
+}
 
 .right {
     color: #3B71CA;

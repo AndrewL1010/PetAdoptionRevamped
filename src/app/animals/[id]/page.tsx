@@ -6,6 +6,7 @@ import { Container } from "../../../components/bootstrap";
 import { Animal } from "@/types/TableModels";
 import ApplicationNavigate from "@/components/ApplicationNavigate/ApplicationNavigate";
 import { Metadata } from "next";
+import { Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 
 export async function generateMetadata({ params: { id } }: PageProps): Promise<Metadata> {
     const database = getConnection();
@@ -46,21 +47,46 @@ async function Page({ params: { id } }: PageProps) {
         else {
             return (
                 <Container className={styles.container}>
-                    <h2>{animal.name}</h2>
                     <div className={styles.info}>
 
-                        <ImageComponent path={animal.image} alt={animal.alt} height={300} width={420} key={animal.id} small={true}></ImageComponent>
-                        <div>
-                            <p><strong>age: </strong> {`${animal.age}`}</p>
-                            <p><strong>breed: </strong> {`${animal.breed}`}</p>
-                            <p><strong>gender: </strong> {`${animal.gender}`}</p>
-                            <p><strong>weight: </strong> {`${animal.weight}`}</p>
+                        <div className={styles.image}>
+                            <ImageComponent path={animal.image} alt={animal.alt} height={300} width={300} key={animal.id} small={true}></ImageComponent>
                         </div>
+                        <Table className={styles.table} sx={{ minWidth: 300, maxWidth: 500, backgroundColor: "purple", borderColor: "white", marginLeft: "auto", marginRight: "auto", borderRadius: 2 }} size="small" aria-label="a dense table">
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell data-cy="player-id" sx={{ textAlign: "center", borderTop: 1, borderColor: "white", fontWeight: "bold", color: "White" }} colSpan={2}>{animal.name}</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                <TableRow key="age" sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                                    <TableCell component="th" scope="row" sx={{ borderColor: "white", fontWeight: "bold", color: "White" }}>Age</TableCell>
+                                    <TableCell align="right" sx={{ borderColor: "white", fontWeight: "bold", color: "White" }}>{animal.age}</TableCell>
+                                </TableRow>
+                                <TableRow key="breed" sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                                    <TableCell component="th" scope="row" sx={{ borderColor: "white", fontWeight: "bold", color: "White" }}>Breed</TableCell>
+                                    <TableCell align="right" sx={{ borderColor: "white", fontWeight: "bold", color: "White" }}>{animal.breed}</TableCell>
+                                </TableRow>
+                                <TableRow key="gender" sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                                    <TableCell component="th" scope="row" sx={{ borderColor: "white", fontWeight: "bold", color: "White" }}>Gender</TableCell>
+                                    <TableCell align="right" sx={{ borderColor: "white", fontWeight: "bold", color: "White" }}>{animal.gender}</TableCell>
+                                </TableRow>
+                                <TableRow key="weight" sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                                    <TableCell component="th" scope="row" sx={{ borderColor: "white", fontWeight: "bold", color: "White" }}>Weight</TableCell>
+                                    <TableCell align="right" sx={{ borderColor: "white", fontWeight: "bold", color: "White" }}>{animal.weight}</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell data-cy="player-id" sx={{ textAlign: "center", borderTop: 1, borderColor: "white", fontWeight: "bold", color: "White" }} colSpan={2}>
+                                        <ApplicationNavigate id={animal.id} name={animal.name}></ApplicationNavigate>
+                                    </TableCell>
+                                </TableRow>
+                            </TableBody>
+                        </Table>
                     </div>
-                    <div>
+                    <div className={styles.description}>
                         <p>{animal.description}</p>
                     </div>
-                    <ApplicationNavigate id={animal.id} name={animal.name}></ApplicationNavigate>
+
 
 
                 </Container>

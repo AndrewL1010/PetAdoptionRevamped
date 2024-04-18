@@ -1,13 +1,12 @@
 "use client"
 import Link from "next/link";
 import Image from "next/image";
-import { Button } from '../../../components/bootstrap';
+import { Button, CircularProgress } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useSearchParams } from 'next/navigation'
 import { Animal } from "@/types/TableModels";
 import useSWR from 'swr'
 import styles from './page.module.css';
-import Spinner from 'react-bootstrap/Spinner';
 import { useState } from 'react'
 
 function PetComponent() {
@@ -64,7 +63,7 @@ function PetComponent() {
     if (isLoading) {
         return (
             <div className={styles.spinner} >
-                <Spinner animation="border" variant="primary" />
+                <CircularProgress style={{'color': 'white'}} size="1rem"/>
             </div>
         )
     }
@@ -91,11 +90,11 @@ function PetComponent() {
     return (
         <div>
             <ul className={styles.filterContainer}>
-                <Button onClick={() => { handleQuery("filter", "all") }} style={{ opacity: filter === 'all' ? 0.5 : 1 }}>All</Button>
-                <Button onClick={() => { handleQuery("filter", "dog") }} style={{ opacity: filter === 'dog' ? 0.5 : 1 }}>Dogs</Button>
-                <Button onClick={() => { handleQuery("filter", "cat") }} style={{ opacity: filter === 'cat' ? 0.5 : 1 }}>Cats</Button>
-                <Button onClick={() => { handleQuery("filter", "rabbit") }} style={{ opacity: filter === 'rabbit' ? 0.5 : 1 }}>Rabbits</Button>
-                <Button onClick={() => { handleQuery("filter", "bird") }} style={{ opacity: filter === 'bird' ? 0.5 : 1 }}>Birds</Button>
+                <Button className={styles.filterButton} variant="contained" onClick={() => { handleQuery("filter", "all") }} style={{ opacity: filter === 'all' ? 0.5 : 1 }}>All</Button>
+                <Button className={styles.filterButton}  variant="contained" onClick={() => { handleQuery("filter", "dog") }} style={{ opacity: filter === 'dog' ? 0.5 : 1 }} >Dogs</Button>
+                <Button className={styles.filterButton}  variant="contained" onClick={() => { handleQuery("filter", "cat") }} style={{ opacity: filter === 'cat' ? 0.5 : 1 }}>Cats</Button>
+                <Button className={styles.filterButton}  variant="contained" onClick={() => { handleQuery("filter", "rabbit") }} style={{ opacity: filter === 'rabbit' ? 0.5 : 1 }}>Rabbits</Button>
+                <Button className={styles.filterButton}  variant="contained" onClick={() => { handleQuery("filter", "bird") }} style={{ opacity: filter === 'bird' ? 0.5 : 1 }}>Birds</Button>
             </ul>
             <div className={styles.parentcontainer}>
                 {
@@ -130,7 +129,7 @@ function PetComponent() {
             </div>
             <div className={styles.page_number_container}>
                 {array.map((page_number) => (
-                    <Button key={page_number} onClick={() => { handleQuery("page", page_number.toString()) }} style={{ opacity: page === page_number.toString() ? 0.5 : page === "0" && page_number === 1 ? 0.5 : 1 }}>{page_number}</Button>
+                    <Button className={styles.pagination} key={page_number} onClick={() => { handleQuery("page", page_number.toString()) }} style={{ opacity: page === page_number.toString() ? 0.5 : page === "0" && page_number === 1 ? 0.5 : 1 }}>{page_number}</Button>
                 ))
 
                 }

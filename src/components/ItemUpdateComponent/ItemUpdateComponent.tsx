@@ -1,9 +1,10 @@
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
-import { Button, Form } from 'react-bootstrap';
+import {Form } from 'react-bootstrap';
 import { Product } from '@/types/TableModels';
 import ModalComponent from '../ModalComponent';
 import { useGlobalContext } from '../CartCounterContext';
 import styles from './ItemUpdateComponent.module.css';
+import Button from '@mui/material/Button';
 interface ItemUpdateProps {
     product: Product,
     cart: Product[],
@@ -117,33 +118,33 @@ function ItemUpdateComponent(props: ItemUpdateProps) {
 
     return (more ?
         <div className={styles.inputContainer}>
-            <input autoFocus={!updated} onFocus={(e) => { e.target.select(); }} className={styles.input} type='text' defaultValue={product.quantity} key={product.id} onChange={(e) => { setValue(parseInt(e.target.value)); setUpdated(false) }}></input>
+            <input style={{color:"purple",fontWeight:"bolder"}} autoFocus={!updated} onFocus={(e) => { e.target.select(); }} className={styles.input} type='text' defaultValue={product.quantity} key={product.id} onChange={(e) => { setValue(parseInt(e.target.value)); setUpdated(false) }}></input>
             {
-                value >= 0 && !updated ? (<Button size='sm' onClick={() => { handleUpdate() }}>update</Button>) : <div></div>
+                value >= 0 && !updated ? (<Button variant='contained' className={styles.updatebutton} onClick={() => { handleUpdate() }}>update</Button>) : <div></div>
 
             }
             <ModalComponent show={show} setShow={setShow} body={body} title={"Stock Limit Reached"}></ModalComponent>
         </div>
 
         :
-        <Form.Select className={styles.quantity} onChange={(e) => { handleQuantityChange(product.id, e) }} defaultValue={value}>
+        <Form.Select style={{ color: "purple", fontWeight: "bolder" }} className={styles.quantity} onChange={(e) => { handleQuantityChange(product.id, e) }} defaultValue={value}>
             {parseInt(product.stock_quantity) >= 9 ?
                 (
                     <>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="more">10+</option>
+                        <option className={styles.quantityvalue} style={{ color: "purple", fontWeight: "bolder"  }} value="1">1</option>
+                        <option className={styles.quantityvalue} style={{ color: "purple", fontWeight: "bolder"  }} value="2">2</option>
+                        <option className={styles.quantityvalue} style={{ color: "purple", fontWeight: "bolder"  }} value="3">3</option>
+                        <option className={styles.quantityvalue} style={{ color: "purple", fontWeight: "bolder"  }} value="4">4</option>
+                        <option className={styles.quantityvalue} style={{ color: "purple", fontWeight: "bolder"  }} value="5">5</option>
+                        <option className={styles.quantityvalue} style={{ color: "purple", fontWeight: "bolder"  }} value="6">6</option>
+                        <option className={styles.quantityvalue} style={{ color: "purple", fontWeight: "bolder"  }} value="7">7</option>
+                        <option className={styles.quantityvalue} style={{ color: "purple", fontWeight: "bolder"  }} value="8">8</option>
+                        <option className={styles.quantityvalue} style={{ color: "purple", fontWeight: "bolder"  }} value="9">9</option>
+                        <option className={styles.quantityvalue} style={{ color: "purple", fontWeight: "bolder"  }} value="more">10+</option>
 
                     </>
 
-                ) : [...Array(parseInt(product.stock_quantity))].map((e, i) => <option value={i + 1} key={i + 1}>{i + 1}</option>)
+                ) : [...Array(parseInt(product.stock_quantity))].map((e, i) => <option className={styles.quantityvalue} style={{ color: "purple", fontWeight: "bolder"  }} value={i + 1} key={i + 1}>{i + 1}</option>)
 
             }
 
