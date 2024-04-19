@@ -3,6 +3,19 @@
     flex-direction: column;
     gap: 20px;
 }
+.container * {
+    color: white;
+}
+.button{
+    color: white;
+    background-color: #AA21CB;
+    transition: 0.5s;
+}
+.button:hover{
+    color: white;
+    background-color: #AA21CB;
+    opacity: 0.6;
+}
 .radiocontainer{
     display: flex;
     flex-direction: row;
