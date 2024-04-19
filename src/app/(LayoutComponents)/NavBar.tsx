@@ -252,9 +252,10 @@ function NavBar(props: NavBarProps) {
                                 sx={{
                                     display: { xs: 'block', md: 'none' },
                                 }}
+                                MenuListProps={{ sx: { backgroundColor: "#83029B", color: "white" } }}
                             >
                                 {pages.map((page) => (
-                                    <MenuItem key={page.title} onClick={() => {
+                                    <MenuItem className={styles.font} key={page.title} onClick={() => {
                                         handleCloseNavMenu();
                                         handleRoute(page.url)
                                     }}>
@@ -263,7 +264,7 @@ function NavBar(props: NavBarProps) {
                                     </MenuItem>
                                 ))}
                                 {infoPages.map((page) => (
-                                    <MenuItem key={page.title} onClick={() => {
+                                    <MenuItem className={styles.font} key={page.title} onClick={() => {
                                         handleCloseNavMenu();
                                         handleRoute(page.url)
                                     }}>
@@ -336,6 +337,7 @@ function NavBar(props: NavBarProps) {
                                 >
                                     {infoPages.map((page) => (
                                         <MenuItem
+                                            className={styles.font}
                                             key={page.title}
                                             onClick={() => {
                                                 handleCloseInfoMenu();
@@ -361,15 +363,16 @@ function NavBar(props: NavBarProps) {
 
                             <Link className={styles.logo} href={"/cart"}><ShoppingCartIcon className={styles.logo} sx={{ color: "white" }} fontSize='large' /> {cartCount}</Link>
                             <FormControlLabel
+                                className={styles.formControl}
                                 sx={{ margin: "20px" }}
                                 control={
                                     <Checkbox
                                         checked={isLoggedIn}
                                         onChange={() => {
-                                            if(isLoggedIn){
+                                            if (isLoggedIn) {
                                                 logout();
                                             }
-                                            else{
+                                            else {
                                                 login(true);
                                             }
                                         }}
@@ -379,7 +382,7 @@ function NavBar(props: NavBarProps) {
                                         value="demo"
                                     />
                                 }
-                                label={<Typography variant="h6" style={{ color: 'white' }}>Demo Account</Typography>}
+                                label={<Typography variant="h6" style={{ color: 'white' }} className={styles.demo}>Demo Login</Typography>}
                             />
                             <Menu
                                 sx={{ mt: '45px' }}
@@ -401,7 +404,8 @@ function NavBar(props: NavBarProps) {
                                 {isLoggedIn ? (
 
 
-                                    <MenuItem onClick={() => {
+                                    <MenuItem className={styles.font} onClick={() => {
+
                                         handleCloseUserMenu();
                                         logout();
                                     }}>
@@ -412,7 +416,7 @@ function NavBar(props: NavBarProps) {
                                 ) : (
 
                                     <MenuList>
-                                        <MenuItem onClick={() => {
+                                        <MenuItem className={styles.font} onClick={() => {
                                             handleCloseUserMenu();
                                             handleShow();
                                         }}>

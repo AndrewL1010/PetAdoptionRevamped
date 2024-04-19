@@ -9,18 +9,27 @@
     opacity: 0.6;
 
 }
-.muiButton{
+
+.muiButton {
     color: white;
     background-color: purple;
     transition: 0.5s;
 }
-.muiButton:hover{
+.demo{
+    font-family: verdana;
+    font-size: 1.3vh;
+}
+
+.muiButton:hover {
     background-color: purple;
     opacity: 0.7;
 }
-.menuitems{
+
+.menuitems {
     transition: 0.3s;
     color: white;
+    font-family: verdana;
+    font-weight: bold;
 }
 
 .logo:hover {
@@ -32,6 +41,7 @@
     display: flex;
     flex-direction: row;
     gap: 10px;
+    font-family: verdana;
 }
 
 .parentContainer {
@@ -44,11 +54,20 @@
 .forgotpassword {
     margin-top: 10px;
     cursor: pointer;
-    color: #3B71CA;
+    color: #3B71CA; 
 
 }
+.formControl{
+    transition: 0.2s;
+    padding-right: 10px;
+}
+.formControl:hover {
+    box-shadow: 0 0 20px 5px rgba(192, 192, 192, 0.75);
+}
 
-
+.font{
+    font-family: verdana;
+}
 
 @keyframes fade-down {
     0% {

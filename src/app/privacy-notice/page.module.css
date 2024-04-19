@@ -1,5 +1,6 @@
 .container *{
     color: white;
+    font-family: verdana;
 }
 .container{
     max-width: 600px;

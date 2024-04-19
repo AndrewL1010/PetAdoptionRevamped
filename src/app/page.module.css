@@ -1,3 +1,4 @@
+@import url('https://fonts.cdnfonts.com/css/helvetica-neue-55');
 
 .introcontainer {
     display: flex;
@@ -36,22 +37,42 @@
     height: 100%;
 
 }
-.carousel{
+
+.carousel {
     animation: fade-left 0.5s;
-    
-    
+
+
+}
+.header{
+    font-family: verdana;
+    font-weight: bolder;
+    font-size: 4vh;
 }
 
 .opacity {
     opacity: 0;
 }
-.text{
+
+.text {
     text-align: center;
+    font-family: verdana;
+    font-size: 2vh;
 }
-.header{
+
+.header {
     text-align: center;
+    margin: 0;
+    padding: 0;
+    transition: 0.5s;
+
 }
-.headerContainer{
+
+.link {
+    margin: 0;
+    padding: 0;
+}
+
+.headerContainer {
     box-shadow: 0 0 20px 5px rgba(192, 192, 192, 0.75);
     max-width: 800px;
     padding: 20px;
@@ -69,7 +90,8 @@
         transform: translateX(0px) scale(1)
     }
 }
-.text{
+
+.text {
     color: white;
 }
 

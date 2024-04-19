@@ -1,3 +1,4 @@
+
 :root {
   --font-mono: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono',
     'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
@@ -28,6 +29,7 @@ body {
   flex-direction: column;
   background-image: linear-gradient(to right top, #45103e, #560e52, #660968, #760581, #83029b);
 }
+
 
 main {
   flex: 1;

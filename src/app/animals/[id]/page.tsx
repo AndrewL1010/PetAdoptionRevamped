@@ -48,10 +48,10 @@ async function Page({ params: { id } }: PageProps) {
             return (
                 <Container className={styles.container}>
                     <div className={styles.info}>
+                        <ImageComponent path={animal.image} alt={animal.alt} height={300} width={300} key={animal.id} small={true}></ImageComponent>
 
-                        <div className={styles.image}>
-                            <ImageComponent path={animal.image} alt={animal.alt} height={300} width={300} key={animal.id} small={true}></ImageComponent>
-                        </div>
+                    </div>
+                    <div className={styles.description}>
                         <Table className={styles.table} sx={{ minWidth: 300, maxWidth: 500, backgroundColor: "purple", borderColor: "white", marginLeft: "auto", marginRight: "auto", borderRadius: 2 }} size="small" aria-label="a dense table">
                             <TableHead>
                                 <TableRow>
@@ -82,8 +82,6 @@ async function Page({ params: { id } }: PageProps) {
                                 </TableRow>
                             </TableBody>
                         </Table>
-                    </div>
-                    <div className={styles.description}>
                         <p>{animal.description}</p>
                     </div>
 
